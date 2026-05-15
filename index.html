@@ -3,77 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>APG Schichtbericht PRO</title>
+    <title>APG Schichtportal PRO V2</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="card">
-        <div class="header">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_vj9hUon0Uv-fUvL636x5O9YvL59p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p/s1600/logo.png" style="width:100%; border-radius:15px;">
+
+<div class="card">
+    <div class="header">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_vj9hUon0Uv-fUvL636x5O9YvL59p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p/s1600/logo.png" alt="APG Logo">
+    </div>
+
+    <label>Vardiya Seç / Schicht wählen</label>
+    <select id="schichtWahl">
+        <option value="B">Schicht - B</option>
+        <option value="A">Schicht - A</option>
+        <option value="C">Schicht - C</option>
+    </select>
+
+    <div class="grid">
+        <div>
+            <label>Datum</label>
+            <input type="date" id="datum">
         </div>
-
-        <label>Schicht wählen</label>
-        <select id="schichtWahl">
-            <option value="B">Schicht - B</option>
-            <option value="A">Schicht - A</option>
-            <option value="C">Schicht - C</option>
-        </select>
-
-        <div class="grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <div>
-                <label>Datum</label>
-                <input type="date" id="datum">
-            </div>
-            <div>
-                <label>Anlage</label>
-                <select id="anlage">
-                    <option value="">--Bitte wählen--</option>
-                    <option value="PUR 1">PUR 1</option>
-                    <option value="PUR 2">PUR 2</option>
-                    <option value="PUR 3">PUR 3</option>
-                    <option value="PUR 4">PUR 4</option>
-                    <option value="PUR 5">PUR 5</option>
-                    <option value="PUR 6">PUR 6</option>
-                    <option value="PUR 7">PUR 7</option>
-                    <option value="PUR 8">PUR 8</option>
-                    <option value="PUR 9">PUR 9</option>
-                    <option value="IM 1">IM 1</option>
-                    <option value="IM 2">IM 2</option>
-                    <option value="IM 3">IM 3</option>
-                    <option value="IM 4">IM 4</option>
-                    <option value="IM 5">IM 5</option>
-                    <option value="CIM 1">CIM 1</option>
-                    <option value="COM">Compound</option>
-                    <option value="Sonstige">Sonstige</option>
-                </select>
-            </div>
-        </div>
-
-        <div id="ftBox" style="display:none; margin-top:10px;">
-            <label>FT wählen</label>
-            <select id="ftSelect">
-                <option value="FT 1">FT 1</option>
-                <option value="FT 2">FT 2</option>
-                <option value="FT 3">FT 3</option>
-                <option value="FT 4">FT 4</option>
-                <option value="FT 5">FT 5</option>
-                <option value="FT 6">FT 6</option>
+        <div>
+            <label>Anlage</label>
+            <select id="anlage" onchange="handleAnlageChange(this.value)">
+                <option value="">Anlage wählen...</option>
+                <optgroup label="PUR (Schaumanlage)">
+                    <option value="PUR1">PUR 1</option><option value="PUR2">PUR 2</option>
+                    <option value="PUR3">PUR 3</option><option value="PUR4">PUR 4</option>
+                    <option value="PUR5">PUR 5</option><option value="PUR6">PUR 6</option>
+                    <option value="PUR7">PUR 7</option><option value="PUR8">PUR 8</option>
+                    <option value="PUR9">PUR 9</option>
+                </optgroup>
+                <optgroup label="Spritzguss (IM / CIM)">
+                    <option value="IM1">IM 1</option><option value="IM2">IM 2</option>
+                    <option value="IM3">IM 3</option><option value="IM4">IM 4</option>
+                    <option value="IM5">IM 5</option><option value="CIM1">CIM 1</option>
+                </optgroup>
+                <option value="COM">Compound Anlage</option>
             </select>
         </div>
-
-        <div id="gesamtDauerBox" style="display:none; margin-top:10px;">
-            <label>Gesamtdauer (Min)</label>
-            <input type="number" id="gesamtDauerInput" value="480">
-        </div>
-
-        <div id="workerContainer"></div>
-        <button class="add-btn-main" id="addWorkerBtn" type="button">+ Mitarbeiter hinzufügen</button>
-
-        <div id="artikelContainer"></div>
-        <button class="add-btn-main" id="addArtikelBtn" type="button">+ Artikel hinzufügen</button>
-
-        <button class="main-btn" onclick="speichern()">🚀 SPEICHERN & SENDEN</button>
     </div>
-    <script src="app.js"></script>
+
+    <div id="ftBox" style="display:none; margin-top:20px; background:rgba(255,255,255,0.03); padding:15px; border-radius:15px; border:1px solid rgba(56,189,248,0.2);">
+        <label style="text-align:center; display:block; margin-bottom:15px;">Formträger (FT)</label>
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:15px; text-align:center;">
+            <div><input type="checkbox" class="ft-check" value="FT1" style="width:25px; height:25px;"><br><small>FT1</small></div>
+            <div><input type="checkbox" class="ft-check" value="FT2" style="width:25px; height:25px;"><br><small>FT2</small></div>
+            <div><input type="checkbox" class="ft-check" value="FT3" style="width:25px; height:25px;"><br><small>FT3</small></div>
+            <div><input type="checkbox" class="ft-check" value="FT4" style="width:25px; height:25px;"><br><small>FT4</small></div>
+            <div><input type="checkbox" class="ft-check" value="FT5" style="width:25px; height:25px;"><br><small>FT5</small></div>
+            <div><input type="checkbox" class="ft-check" value="FT6" style="width:25px; height:25px;"><br><small>FT6</small></div>
+        </div>
+    </div>
+
+    <div id="gesamtDauerBox" style="display:none; margin-top:10px; text-align:center; font-weight:bold; color:#38bdf8;">
+        Compound Zeit: <span id="totalMinLabel">0</span> / 480 Min
+    </div>
+
+    <div class="section-title">Personal (Mitarbeiter)</div>
+    <div id="workerContainer"></div>
+    <button type="button" class="add-btn-main" onclick="addWorker()">+ Mitarbeiter hinzufügen</button>
+
+    <div class="section-title">Produktion (Artikel)</div>
+    <div id="artikelContainer"></div>
+    <button type="button" class="add-btn-main" onclick="addArtikel()">+ Artikel hinzufügen</button>
+
+    <div style="margin-top:25px;">
+        <label>WhatsApp Empfänger</label>
+        <select id="waEmpfaenger">
+            <option value="4917684126305">Murat (4917684126305)</option>
+        </select>
+    </div>
+
+    <button class="main-btn" onclick="speichern()">🚀 SPEICHERN & SENDEN</button>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
