@@ -3,34 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>APG Schichtportal PRO V2</title>
+    <title>APG Production Bericht</title>
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --success: #22c55e; --danger: #ef4444; --text: #f1f5f9; }
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; }
-        .card { width: 100%; max-width: 650px; background: var(--card); padding: 20px; border-radius: 24px; margin: auto; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .header { text-align: center; margin-bottom: 20px; }
-        .header img { width: 100%; border-radius: 15px; }
+        .card { width: 100%; max-width: 650px; background: var(--card); padding: 25px; border-radius: 24px; margin: auto; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        
+        /* YENİ BAŞLIK TASARIMI */
+        .title-area { text-align: center; margin-bottom: 25px; padding: 15px; border-bottom: 2px solid var(--primary); }
+        .title-area h1 { margin: 0; font-size: 20px; letter-spacing: 1px; color: #fff; }
+        .title-area p { margin: 5px 0 0; color: var(--primary); font-weight: bold; font-size: 14px; text-transform: uppercase; }
+
         label { display: block; margin: 15px 0 5px; color: var(--primary); font-weight: bold; font-size: 14px; }
         select, input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 16px; box-sizing: border-box; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .section-title { margin-top: 25px; padding-bottom: 5px; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 12px; text-transform: uppercase; }
         .worker-box, .artikel-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; margin-top: 15px; border-left: 4px solid var(--primary); position: relative; }
         .add-btn { width: 100%; padding: 12px; margin-top: 10px; background: transparent; border: 2px dashed var(--primary); color: var(--primary); font-weight: bold; border-radius: 10px; cursor: pointer; }
-        .sub-btn { background: #334155; color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; cursor: pointer; }
+        .sub-btn { background: #334155; color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; cursor: pointer; font-size: 13px; }
         .delete-btn { position: absolute; right: 10px; top: 10px; background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        
+        /* FT SEÇİM ALANI */
         .ft-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0f172a; padding: 15px; border-radius: 10px; margin-top: 5px; }
         .ft-item { text-align: center; font-size: 12px; }
-        .ft-item input { width: 20px; height: 20px; }
+        .ft-item input { width: 22px; height: 22px; cursor: pointer; }
+
         .main-btn { width: 100%; padding: 18px; background: var(--success); color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 18px; margin-top: 30px; cursor: pointer; }
-        .error-msg { color: var(--danger); font-size: 12px; font-weight: bold; margin-top: 5px; display: none; }
+        .error-msg { color: var(--danger); font-size: 12px; font-weight: bold; margin-top: 8px; display: none; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="header">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_vj9hUon0Uv-fUvL636x5O9YvL59p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p/s1600/logo.png">
-        <h2 style="color:var(--primary); margin-top:10px;">PRO REPORT V2</h2>
+    <div class="title-area">
+        <h1>Adler Pelzer Group</h1>
+        <p>Production Bericht</p>
     </div>
 
     <label>Schicht wählen</label>
@@ -45,18 +51,18 @@
         <div>
             <label>Anlage</label>
             <select id="anlage" onchange="toggleFT(this.value)">
-                <option value="">Anlage wählen...</option>
-                <optgroup label="PUR (Schaumanlage)">
-                    <option value="PUR1">PUR 1</option><option value="PUR2">PUR 2</option>
-                    <option value="PUR3">PUR 3</option><option value="PUR4">PUR 4</option>
-                    <option value="PUR5">PUR 5</option><option value="PUR6">PUR 6</option>
-                    <option value="PUR7">PUR 7</option><option value="PUR8">PUR 8</option>
-                    <option value="PUR9">PUR 9</option>
+                <option value="">Bitte wählen...</option>
+                <optgroup label="PUR">
+                    <option value="PUR 1">PUR 1</option><option value="PUR 2">PUR 2</option>
+                    <option value="PUR 3">PUR 3</option><option value="PUR 4">PUR 4</option>
+                    <option value="PUR 5">PUR 5</option><option value="PUR 6">PUR 6</option>
+                    <option value="PUR 7">PUR 7</option><option value="PUR 8">PUR 8</option>
+                    <option value="PUR 9">PUR 9</option>
                 </optgroup>
-                <optgroup label="Spritzguss (IM/CIM)">
-                    <option value="IM1">IM 1</option><option value="IM2">IM 2</option>
-                    <option value="IM3">IM 3</option><option value="IM4">IM 4</option>
-                    <option value="IM5">IM 5</option><option value="CIM1">CIM 1</option>
+                <optgroup label="IM / CIM">
+                    <option value="IM 1">IM 1</option><option value="IM 2">IM 2</option>
+                    <option value="IM 3">IM 3</option><option value="IM 4">IM 4</option>
+                    <option value="IM 5">IM 5</option><option value="CIM 1">CIM 1</option>
                 </optgroup>
                 <option value="COM">Compound (480 Min)</option>
             </select>
@@ -75,11 +81,11 @@
         </div>
     </div>
 
-    <div class="section-title">Personal</div>
+    <label style="margin-top:20px; color:#94a3b8;">Personal (Mitarbeiter)</label>
     <div id="workerContainer"></div>
     <button class="add-btn" onclick="addWorker()">+ Mitarbeiter hinzufügen</button>
 
-    <div class="section-title">Produktion</div>
+    <label style="margin-top:20px; color:#94a3b8;">Produktion (Artikel)</label>
     <div id="artikelContainer"></div>
     <button class="add-btn" onclick="addArtikel()">+ Artikel hinzufügen</button>
 
@@ -87,6 +93,7 @@
 </div>
 
 <script>
+// --- KODLAR BURADAN BAŞLIYOR ---
 const scriptURL = "https://script.google.com/macros/s/AKfycbx55ShhJiujy6xj8lJZoDOoRh5wSpYpbPCbCNVoKnqR53gSUwsmKzSVv4ZXaihBQwwzVg/exec";
 
 const workers = {
@@ -95,10 +102,10 @@ const workers = {
     "C": ["Beher T. - 510", "Keskin Mustafa - 518", "Kantaroglu Ö. - 580", "Savas R. - 608", "Rafo S. - 1277", "Gertz Kevin - 1357", "Gertz S. - 1358 E", "Schönborn Ch. - 1361", "Fortes Ch. - 1381", "Sakaguchi M. - 1391", "Mercan M. - 1437 E", "Krämer Ch. - 1449", "Juretzka T. - 1473", "Kumbara E. - 1474", "Skupio D. - 1475", "Skrago T. - 1484", "Bah A. - 1684", "Kaya A. - 1712", "Jdea A. - 1701", "Toure A. - 1713", "Schneider D. - 1714", "Tchaleu Bertrand - 1723", "Sonstige"]
 };
 
-const codes = {
-    PUR: { aus: ["C102 CIM n.voll", "C103 CIM beschädigt", "P101 Anfahrschrott", "P102 PUR n.voll", "P103 Schaum beschädigt", "P104 Schaumbild n.i.O.", "P105 Schaumhärtung n.i.O.", "P106 Einlegefehler", "Sonstige"], stoer: ["4-2-01 Werkzeug", "4-2-02 Maschine", "4-2-03 Überdruck", "4-2-04 Mischkopf", "4-2-08 Reinigung", "5-2-04 Wartezeit", "Sonstige"] },
+const errorCodes = {
+    PUR: { aus: ["C102 CIM n.voll", "C103 CIM beschädigt", "P101 Anfahrschrott", "P102 PUR n.voll", "P103 Schaum beschädigt", "P104 Schaumbild n.i.O.", "P105 Schaumhärtung n.i.O.", "P106 Einlegefehler", "Sonstige"], stoer: ["4-2-01 Werkzeug", "4-2-02 Maschine", "4-2-03 POLY/ISO Überdruck", "4-2-04 Mischkopf", "4-2-08 Reinigung", "Sonstige"] },
     IM_CIM: { aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat.Umstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "3-02 Mat.Umstellung", "4-1-02 Maschine", "5-1-03 Wartezeit", "Sonstige"] },
-    COM: { aus: ["6-3-01 Anfahrschrott", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "4-3-02 Instandh.", "5-3-01 Mat.Mangel", "Sonstige"] }
+    COM: { aus: ["6-3-01 Anfahrschrott", "6-3-02 Materialfehler", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "4-3-02 Instandh.", "5-3-01 Mat.Mangel", "Sonstige"] }
 };
 
 window.onload = () => { document.getElementById("datum").value = new Date().toISOString().split("T")[0]; };
@@ -112,7 +119,7 @@ function addWorker() {
     div.innerHTML = `<button class="delete-btn" onclick="this.parentElement.remove()">X</button>
         <select class="workerSelect" onchange="this.nextElementSibling.style.display=(this.value==='Sonstige'?'block':'none')">
             ${workers[s].map(w => `<option value="${w}">${w}</option>`).join("")}
-        </select><input type="text" style="display:none; margin-top:10px;" placeholder="Name...">`;
+        </select><input type="text" style="display:none; margin-top:10px;" placeholder="Name eingeben...">`;
     document.getElementById("workerContainer").appendChild(div);
 }
 
@@ -122,16 +129,19 @@ function addArtikel() {
     const unit = anlage === "COM" ? "kg" : "Stk";
     const div = document.createElement("div");
     div.className = "artikel-box";
-    div.innerHTML = `<button class="delete-btn" onclick="this.parentElement.remove()">X</button>
-        <label>Artikel</label><input class="artName" type="text">
-        ${anlage==='COM' ? '<label>Dauer (Min)</label><input type="number" class="artDauer">' : ''}
+    div.innerHTML = `<button class="delete-btn" onclick="this.parentElement.remove(); validate(this.closest('.artikel-box'))">X</button>
+        <label>Artikel Bezeichnung</label><input class="artName" type="text" placeholder="Z.B. Teppich B1">
+        ${anlage==='COM' ? '<label>Dauer (Min)</label><input type="number" class="artDauer" oninput="validate(this.closest(\'.artikel-box\'))">' : ''}
         <div class="grid">
             <div><label>Gut (${unit})</label><input type="number" class="gut"></div>
             <div><label>Ausschuss Gesamt (${unit})</label><input type="number" class="ausTotal" oninput="validate(this.closest('.artikel-box'))"></div>
         </div>
-        <div class="error-msg">⚠️ Ausschuss-Summe stimmt nicht überein!</div>
-        <div class="codes"></div>
-        <div class="grid"><button class="sub-btn" onclick="addRow(this,'aus')">+ Hata</button><button class="sub-btn" onclick="addRow(this,'stoer')">+ Duruş</button></div>`;
+        <div class="error-msg">⚠️ Ausschuss-Summe stimmt nicht mit Gesamt überein!</div>
+        <div class="codes-area"></div>
+        <div class="grid">
+            <button class="sub-btn" onclick="addRow(this,'aus')">+ Ausschuss-Grund</button>
+            <button class="sub-btn" onclick="addRow(this,'stoer')">+ Störung</button>
+        </div>`;
     document.getElementById("artikelContainer").appendChild(div);
 }
 
@@ -140,10 +150,10 @@ function addRow(btn, type) {
     const cat = anlage === "COM" ? "COM" : (anlage.startsWith("PUR") ? "PUR" : "IM_CIM");
     const target = btn.parentElement.previousElementSibling;
     const row = document.createElement("div");
-    row.style = "display:flex; gap:5px; margin-top:5px;";
-    row.innerHTML = `<select style="flex:2" class="${type}-c">${codes[cat][type].map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
-        <input type="number" style="flex:1" class="${type}-v" oninput="validate(this.closest('.artikel-box'))">
-        <button onclick="this.parentElement.remove(); validate(this.closest('.artikel-box'))">✕</button>`;
+    row.style = "display:flex; gap:5px; margin-top:8px;";
+    row.innerHTML = `<select style="flex:2" class="${type}-c">${errorCodes[cat][type].map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
+        <input type="number" style="flex:1" class="${type}-v" oninput="validate(this.closest('.artikel-box'))" placeholder="Menge">
+        <button onclick="this.parentElement.remove(); validate(this.closest('.artikel-box'))" style="background:none; border:none; color:red; font-weight:bold;">✕</button>`;
     target.appendChild(row);
 }
 
@@ -156,36 +166,38 @@ function validate(box) {
 
 async function speichern() {
     const anlage = document.getElementById("anlage").value;
-    const schicht = document.getElementById("schichtWahl").value;
     const datum = document.getElementById("datum").value;
-    
+    const schicht = document.getElementById("schichtWahl").value;
+
+    let totalComMin = 0;
+    let hasError = false;
+    document.querySelectorAll(".artikel-box").forEach(box => {
+        if(box.querySelector(".error-msg").style.display === "block") hasError = true;
+        if(box.querySelector(".artDauer")) totalComMin += parseFloat(box.querySelector(".artDauer").value) || 0;
+    });
+
+    if(hasError) return alert("❌ Fehler: Ausschuss-Mengen prüfen!");
+    if(anlage === "COM" && totalComMin !== 480) return alert(`❌ Fehler: Gesamtdauer (${totalComMin} Min) muss 480 Min sein!`);
+
     let staff = [];
     document.querySelectorAll(".worker-box").forEach(box => {
         const s = box.querySelector("select").value;
         staff.push(s === "Sonstige" ? box.querySelector("input").value : s);
     });
 
-    let details = "";
-    let totalMin = 0;
-    let hasError = false;
-    document.querySelectorAll(".artikel-box").forEach(box => {
-        if(box.querySelector(".error-msg").style.display === "block") hasError = true;
-        const name = box.querySelector(".artName").value;
-        const gut = box.querySelector(".gut").value;
-        const aus = box.querySelector(".ausTotal").value;
-        const min = box.querySelector(".artDauer") ? parseFloat(box.querySelector(".artDauer").value) || 0 : 0;
-        totalMin += min;
-        details += `📦 *${name}* ${min > 0 ? '('+min+' Min)' : ''}\n└ Gut: ${gut} | Aus: ${aus}\n`;
-    });
-
-    if(hasError) return alert("❌ Fehler: Ausschuss-Summen prüfen!");
-    if(anlage === "COM" && totalMin !== 480) return alert("❌ Fehler: Compound muss 480 Min sein!");
-
     let ftList = [];
     document.querySelectorAll(".ft-check:checked").forEach(c => ftList.push(c.value));
     const ftText = ftList.length > 0 ? `🛠 FT: ${ftList.join(", ")}\n` : "";
 
-    const report = `📊 *APG REPORT*\n📅 Datum: ${datum}\n🏭 Anlage: ${anlage}\n${ftText}⏱️ Schicht: ${schicht}\n👷 Mitarbeiter: ${staff.join(", ")}\n\n${details}`;
+    let details = "";
+    document.querySelectorAll(".artikel-box").forEach(box => {
+        const name = box.querySelector(".artName").value;
+        const gut = box.querySelector(".gut").value;
+        const aus = box.querySelector(".ausTotal").value;
+        details += `📦 *${name}*\n└ Gut: ${gut} | Aus: ${aus}\n`;
+    });
+
+    const report = `📊 *APG PRODUCTION REPORT*\n📅 Datum: ${datum}\n⏱️ Schicht: ${schicht}\n🏭 Anlage: ${anlage}\n${ftText}👷 Mitarbeiter: ${staff.join(", ")}\n\n${details}`;
     
     window.location.href = `whatsapp://send?phone=4917684126305&text=${encodeURIComponent(report)}`;
 }
