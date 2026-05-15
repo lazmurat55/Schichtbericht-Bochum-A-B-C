@@ -3,13 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>APG Schichtportal PRO</title>
-    <link rel="stylesheet" href="style.css">
+    <title>APG Schichtportal PRO V2</title>
+    <style>
+        :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --success: #22c55e; --text: #f1f5f9; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; padding: 10px; margin: 0; }
+        .card { background: var(--card); max-width: 600px; margin: auto; padding: 20px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); }
+        .header { text-align: center; margin-bottom: 15px; }
+        .header img { width: 100%; border-radius: 15px; }
+        .status-bar { display: flex; justify-content: space-between; font-size: 12px; margin: 15px 0; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 10px; }
+        label { display: block; margin-top: 15px; margin-bottom: 5px; font-weight: 600; color: var(--primary); font-size: 14px; }
+        select, input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 16px; box-sizing: border-box; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .section-title { margin: 25px 0 10px 0; font-weight: 800; text-transform: uppercase; color: #94a3b8; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .worker-box, .artikel-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; margin-bottom: 15px; border-left: 4px solid var(--primary); position: relative; }
+        .btn-add { width: 100%; padding: 12px; border-radius: 10px; border: 2px dashed var(--primary); background: transparent; color: var(--primary); font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .delete-btn { position: absolute; right: 10px; top: 10px; background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 8px; cursor: pointer; }
+        .sub-btn { background: #334155; color: white; border: 1px solid #475569; padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; cursor: pointer; }
+        .main-btn { width: 100%; padding: 20px; border-radius: 18px; border: none; font-weight: 800; font-size: 18px; background: var(--success); color: white; cursor: pointer; margin-top: 25px; }
+        .code-row { display: flex; gap: 8px; margin-top: 10px; }
+    </style>
 </head>
 <body>
 <div class="card">
     <div class="header">
         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_vj9hUon0Uv-fUvL636x5O9YvL59p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p/s1600/logo.png">
+        <div class="status-bar">
+            <span>System: <b style="color:var(--success)">ONLINE</b></span>
+            <span>Version: <b style="color:var(--primary)">PRO V2.1</b></span>
+        </div>
     </div>
 
     <label>Vardiya Seç / Schicht wählen</label>
@@ -28,18 +49,18 @@
                 <option value="PUR 2">PUR 2</option>
                 <option value="IM 1">IM 1</option>
                 <option value="IM 2">IM 2</option>
-                <option value="COM">COM</option>
+                <option value="COM">COM (Compound)</option>
             </select>
         </div>
     </div>
 
-    <div class="section-title">Personal</div>
+    <div class="section-title">Personal (Mitarbeiter)</div>
     <div id="workerContainer"></div>
-    <button class="add-btn-main" onclick="addWorker()">+ Mitarbeiter</button>
+    <button class="btn-add" onclick="addWorker()">+ Mitarbeiter hinzufügen</button>
 
-    <div class="section-title">Produktion</div>
+    <div class="section-title">Produktion & Ausfall</div>
     <div id="artikelContainer"></div>
-    <button class="add-btn-main" onclick="addArtikel()">+ Artikel</button>
+    <button class="btn-add" onclick="addArtikel()">+ Artikel hinzufügen</button>
 
     <button class="main-btn" onclick="speichern()">🚀 SPEICHERN & SENDEN</button>
 </div>
