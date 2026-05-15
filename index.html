@@ -4,16 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>APG Schichtportal PRO V2</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --success: #22c55e; --danger: #ef4444; --text: #f1f5f9; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; }
+        .card { width: 100%; max-width: 650px; background: var(--card); padding: 20px; border-radius: 24px; margin: auto; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header img { width: 100%; border-radius: 15px; }
+        label { display: block; margin: 15px 0 5px; color: var(--primary); font-weight: bold; font-size: 14px; }
+        select, input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 16px; box-sizing: border-box; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .section-title { margin-top: 25px; padding-bottom: 5px; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 12px; text-transform: uppercase; }
+        .worker-box, .artikel-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; margin-top: 15px; border-left: 4px solid var(--primary); position: relative; }
+        .add-btn { width: 100%; padding: 12px; margin-top: 10px; background: transparent; border: 2px dashed var(--primary); color: var(--primary); font-weight: bold; border-radius: 10px; cursor: pointer; }
+        .sub-btn { background: #334155; color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; cursor: pointer; }
+        .delete-btn { position: absolute; right: 10px; top: 10px; background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .ft-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0f172a; padding: 15px; border-radius: 10px; margin-top: 5px; }
+        .ft-item { text-align: center; font-size: 12px; }
+        .ft-item input { width: 20px; height: 20px; }
+        .main-btn { width: 100%; padding: 18px; background: var(--success); color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 18px; margin-top: 30px; cursor: pointer; }
+        .error-msg { color: var(--danger); font-size: 12px; font-weight: bold; margin-top: 5px; display: none; }
+    </style>
 </head>
 <body>
 
 <div class="card">
     <div class="header">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_vj9hUon0Uv-fUvL636x5O9YvL59p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p/s1600/logo.png" alt="APG Logo">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_vj9hUon0Uv-fUvL636x5O9YvL59p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p/s1600/logo.png">
+        <h2 style="color:var(--primary); margin-top:10px;">PRO REPORT V2</h2>
     </div>
 
-    <label>Vardiya Seç / Schicht wählen</label>
+    <label>Schicht wählen</label>
     <select id="schichtWahl">
         <option value="B">Schicht - B</option>
         <option value="A">Schicht - A</option>
@@ -21,13 +41,10 @@
     </select>
 
     <div class="grid">
-        <div>
-            <label>Datum</label>
-            <input type="date" id="datum">
-        </div>
+        <div><label>Datum</label><input type="date" id="datum"></div>
         <div>
             <label>Anlage</label>
-            <select id="anlage" onchange="handleAnlageChange(this.value)">
+            <select id="anlage" onchange="toggleFT(this.value)">
                 <option value="">Anlage wählen...</option>
                 <optgroup label="PUR (Schaumanlage)">
                     <option value="PUR1">PUR 1</option><option value="PUR2">PUR 2</option>
@@ -36,50 +53,142 @@
                     <option value="PUR7">PUR 7</option><option value="PUR8">PUR 8</option>
                     <option value="PUR9">PUR 9</option>
                 </optgroup>
-                <optgroup label="Spritzguss (IM / CIM)">
+                <optgroup label="Spritzguss (IM/CIM)">
                     <option value="IM1">IM 1</option><option value="IM2">IM 2</option>
                     <option value="IM3">IM 3</option><option value="IM4">IM 4</option>
                     <option value="IM5">IM 5</option><option value="CIM1">CIM 1</option>
                 </optgroup>
-                <option value="COM">Compound Anlage</option>
+                <option value="COM">Compound (480 Min)</option>
             </select>
         </div>
     </div>
 
-    <div id="ftBox" style="display:none; margin-top:20px; background:rgba(255,255,255,0.03); padding:15px; border-radius:15px; border:1px solid rgba(56,189,248,0.2);">
-        <label style="text-align:center; display:block; margin-bottom:15px;">Formträger (FT)</label>
-        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:15px; text-align:center;">
-            <div><input type="checkbox" class="ft-check" value="FT1" style="width:25px; height:25px;"><br><small>FT1</small></div>
-            <div><input type="checkbox" class="ft-check" value="FT2" style="width:25px; height:25px;"><br><small>FT2</small></div>
-            <div><input type="checkbox" class="ft-check" value="FT3" style="width:25px; height:25px;"><br><small>FT3</small></div>
-            <div><input type="checkbox" class="ft-check" value="FT4" style="width:25px; height:25px;"><br><small>FT4</small></div>
-            <div><input type="checkbox" class="ft-check" value="FT5" style="width:25px; height:25px;"><br><small>FT5</small></div>
-            <div><input type="checkbox" class="ft-check" value="FT6" style="width:25px; height:25px;"><br><small>FT6</small></div>
+    <div id="ftBox" style="display:none;">
+        <label>Formträger (FT)</label>
+        <div class="ft-container">
+            <div class="ft-item"><input type="checkbox" class="ft-check" value="FT1"><br>FT1</div>
+            <div class="ft-item"><input type="checkbox" class="ft-check" value="FT2"><br>FT2</div>
+            <div class="ft-item"><input type="checkbox" class="ft-check" value="FT3"><br>FT3</div>
+            <div class="ft-item"><input type="checkbox" class="ft-check" value="FT4"><br>FT4</div>
+            <div class="ft-item"><input type="checkbox" class="ft-check" value="FT5"><br>FT5</div>
+            <div class="ft-item"><input type="checkbox" class="ft-check" value="FT6"><br>FT6</div>
         </div>
     </div>
 
-    <div id="gesamtDauerBox" style="display:none; margin-top:10px; text-align:center; font-weight:bold; color:#38bdf8;">
-        Compound Zeit: <span id="totalMinLabel">0</span> / 480 Min
-    </div>
-
-    <div class="section-title">Personal (Mitarbeiter)</div>
+    <div class="section-title">Personal</div>
     <div id="workerContainer"></div>
-    <button type="button" class="add-btn-main" onclick="addWorker()">+ Mitarbeiter hinzufügen</button>
+    <button class="add-btn" onclick="addWorker()">+ Mitarbeiter hinzufügen</button>
 
-    <div class="section-title">Produktion (Artikel)</div>
+    <div class="section-title">Produktion</div>
     <div id="artikelContainer"></div>
-    <button type="button" class="add-btn-main" onclick="addArtikel()">+ Artikel hinzufügen</button>
-
-    <div style="margin-top:25px;">
-        <label>WhatsApp Empfänger</label>
-        <select id="waEmpfaenger">
-            <option value="4917684126305">Murat (4917684126305)</option>
-        </select>
-    </div>
+    <button class="add-btn" onclick="addArtikel()">+ Artikel hinzufügen</button>
 
     <button class="main-btn" onclick="speichern()">🚀 SPEICHERN & SENDEN</button>
 </div>
 
-<script src="app.js"></script>
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbx55ShhJiujy6xj8lJZoDOoRh5wSpYpbPCbCNVoKnqR53gSUwsmKzSVv4ZXaihBQwwzVg/exec";
+
+const workers = {
+    "A": ["Kunert M. - 502", "Karali O. - 533 E", "Mikuczynski K. - 1212", "Türkmen E. - 1213 E", "Amrouch M. - 1268", "Stania D. - 1368", "Kantaroglu A. - 1382", "Krancioch A. - 1405", "Held D. - 1421", "Berisha I. - 1534", "Neji M. - 1536", "Mulugeta G. - 1633", "Udezue P. - 1686", "Jansen M. - 1692", "Aksoy O. - 1704", "Yildirim S. - 1710", "Brand N. - 1722", "Louze A. - 1724", "Blanquez Romero V. - 1725", "Diallo M.D. - 1726", "Sener E. - 1731 E", "Sonstige"],
+    "B": ["Keskin Mur.-517", "Aldirmaz P.-577", "Anderwald R.-509 E", "Bayrakli F.-1377 E", "Kilic D.-1384 E", "Maafi T.-1273 E", "Besche T.-1472", "Eickhoff P.-1406", "Toth Renata-1699", "Gibba n.-1367", "Helf A.-1483", "Isbir J.-1715", "Jeyakumar S.-1698", "Kalisch T.-1451", "Kowarsch R.-484", "Nowak M.-1390", "Pähler D.-1332", "Patarcsity V.-1700", "Pulendran K.-1498", "Sahin E.-1721", "Savas S.-1360", "Schiavitelli C.-1669", "Uluyüz B.-1450", "Uzun S.-1433", "Sonstige"],
+    "C": ["Beher T. - 510", "Keskin Mustafa - 518", "Kantaroglu Ö. - 580", "Savas R. - 608", "Rafo S. - 1277", "Gertz Kevin - 1357", "Gertz S. - 1358 E", "Schönborn Ch. - 1361", "Fortes Ch. - 1381", "Sakaguchi M. - 1391", "Mercan M. - 1437 E", "Krämer Ch. - 1449", "Juretzka T. - 1473", "Kumbara E. - 1474", "Skupio D. - 1475", "Skrago T. - 1484", "Bah A. - 1684", "Kaya A. - 1712", "Jdea A. - 1701", "Toure A. - 1713", "Schneider D. - 1714", "Tchaleu Bertrand - 1723", "Sonstige"]
+};
+
+const codes = {
+    PUR: { aus: ["C102 CIM n.voll", "C103 CIM beschädigt", "P101 Anfahrschrott", "P102 PUR n.voll", "P103 Schaum beschädigt", "P104 Schaumbild n.i.O.", "P105 Schaumhärtung n.i.O.", "P106 Einlegefehler", "Sonstige"], stoer: ["4-2-01 Werkzeug", "4-2-02 Maschine", "4-2-03 Überdruck", "4-2-04 Mischkopf", "4-2-08 Reinigung", "5-2-04 Wartezeit", "Sonstige"] },
+    IM_CIM: { aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat.Umstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "3-02 Mat.Umstellung", "4-1-02 Maschine", "5-1-03 Wartezeit", "Sonstige"] },
+    COM: { aus: ["6-3-01 Anfahrschrott", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "4-3-02 Instandh.", "5-3-01 Mat.Mangel", "Sonstige"] }
+};
+
+window.onload = () => { document.getElementById("datum").value = new Date().toISOString().split("T")[0]; };
+
+function toggleFT(val) { document.getElementById("ftBox").style.display = val.startsWith("PUR") ? "block" : "none"; }
+
+function addWorker() {
+    const s = document.getElementById("schichtWahl").value;
+    const div = document.createElement("div");
+    div.className = "worker-box";
+    div.innerHTML = `<button class="delete-btn" onclick="this.parentElement.remove()">X</button>
+        <select class="workerSelect" onchange="this.nextElementSibling.style.display=(this.value==='Sonstige'?'block':'none')">
+            ${workers[s].map(w => `<option value="${w}">${w}</option>`).join("")}
+        </select><input type="text" style="display:none; margin-top:10px;" placeholder="Name...">`;
+    document.getElementById("workerContainer").appendChild(div);
+}
+
+function addArtikel() {
+    const anlage = document.getElementById("anlage").value;
+    if(!anlage) return alert("Bitte Anlage wählen!");
+    const unit = anlage === "COM" ? "kg" : "Stk";
+    const div = document.createElement("div");
+    div.className = "artikel-box";
+    div.innerHTML = `<button class="delete-btn" onclick="this.parentElement.remove()">X</button>
+        <label>Artikel</label><input class="artName" type="text">
+        ${anlage==='COM' ? '<label>Dauer (Min)</label><input type="number" class="artDauer">' : ''}
+        <div class="grid">
+            <div><label>Gut (${unit})</label><input type="number" class="gut"></div>
+            <div><label>Ausschuss Gesamt (${unit})</label><input type="number" class="ausTotal" oninput="validate(this.closest('.artikel-box'))"></div>
+        </div>
+        <div class="error-msg">⚠️ Ausschuss-Summe stimmt nicht überein!</div>
+        <div class="codes"></div>
+        <div class="grid"><button class="sub-btn" onclick="addRow(this,'aus')">+ Hata</button><button class="sub-btn" onclick="addRow(this,'stoer')">+ Duruş</button></div>`;
+    document.getElementById("artikelContainer").appendChild(div);
+}
+
+function addRow(btn, type) {
+    const anlage = document.getElementById("anlage").value;
+    const cat = anlage === "COM" ? "COM" : (anlage.startsWith("PUR") ? "PUR" : "IM_CIM");
+    const target = btn.parentElement.previousElementSibling;
+    const row = document.createElement("div");
+    row.style = "display:flex; gap:5px; margin-top:5px;";
+    row.innerHTML = `<select style="flex:2" class="${type}-c">${codes[cat][type].map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
+        <input type="number" style="flex:1" class="${type}-v" oninput="validate(this.closest('.artikel-box'))">
+        <button onclick="this.parentElement.remove(); validate(this.closest('.artikel-box'))">✕</button>`;
+    target.appendChild(row);
+}
+
+function validate(box) {
+    const total = parseFloat(box.querySelector(".ausTotal").value) || 0;
+    let sum = 0;
+    box.querySelectorAll(".aus-v").forEach(i => sum += (parseFloat(i.value) || 0));
+    box.querySelector(".error-msg").style.display = (total > 0 && total !== sum) ? "block" : "none";
+}
+
+async function speichern() {
+    const anlage = document.getElementById("anlage").value;
+    const schicht = document.getElementById("schichtWahl").value;
+    const datum = document.getElementById("datum").value;
+    
+    let staff = [];
+    document.querySelectorAll(".worker-box").forEach(box => {
+        const s = box.querySelector("select").value;
+        staff.push(s === "Sonstige" ? box.querySelector("input").value : s);
+    });
+
+    let details = "";
+    let totalMin = 0;
+    let hasError = false;
+    document.querySelectorAll(".artikel-box").forEach(box => {
+        if(box.querySelector(".error-msg").style.display === "block") hasError = true;
+        const name = box.querySelector(".artName").value;
+        const gut = box.querySelector(".gut").value;
+        const aus = box.querySelector(".ausTotal").value;
+        const min = box.querySelector(".artDauer") ? parseFloat(box.querySelector(".artDauer").value) || 0 : 0;
+        totalMin += min;
+        details += `📦 *${name}* ${min > 0 ? '('+min+' Min)' : ''}\n└ Gut: ${gut} | Aus: ${aus}\n`;
+    });
+
+    if(hasError) return alert("❌ Fehler: Ausschuss-Summen prüfen!");
+    if(anlage === "COM" && totalMin !== 480) return alert("❌ Fehler: Compound muss 480 Min sein!");
+
+    let ftList = [];
+    document.querySelectorAll(".ft-check:checked").forEach(c => ftList.push(c.value));
+    const ftText = ftList.length > 0 ? `🛠 FT: ${ftList.join(", ")}\n` : "";
+
+    const report = `📊 *APG REPORT*\n📅 Datum: ${datum}\n🏭 Anlage: ${anlage}\n${ftText}⏱️ Schicht: ${schicht}\n👷 Mitarbeiter: ${staff.join(", ")}\n\n${details}`;
+    
+    window.location.href = `whatsapp://send?phone=4917684126305&text=${encodeURIComponent(report)}`;
+}
+</script>
 </body>
 </html>
