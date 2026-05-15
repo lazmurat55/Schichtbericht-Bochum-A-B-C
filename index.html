@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Adler Pelzer Group Production Bericht Bochum</title>
+    <title>APG Production Bericht Bochum</title>
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --text: #f1f5f9; --danger: #ef4444; }
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; }
@@ -21,7 +21,6 @@
         .main-btn { width: 100%; padding: 18px; background: var(--primary); color: #0f172a; border: none; border-radius: 15px; font-weight: bold; font-size: 18px; margin-top: 30px; cursor: pointer; text-transform: uppercase; }
         .ft-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0f172a; padding: 15px; border-radius: 10px; margin-top: 10px; border: 1px solid var(--primary); }
         .ft-item { text-align: center; font-size: 13px; color: var(--primary); }
-        .ft-item input { width: 22px; height: 22px; cursor: pointer; }
         .error-msg { color: #fbbf24; font-size: 12px; font-weight: bold; margin-top: 8px; display: none; text-align: center; border: 1px solid #fbbf24; padding: 5px; border-radius: 5px; }
         .code-row { display: flex; gap: 5px; margin-top: 8px; align-items: center; }
         .row-del { background: none; border: none; color: red; font-weight: bold; cursor: pointer; font-size: 18px; }
@@ -53,17 +52,16 @@
             <label>Anlage</label>
             <select id="anlage" onchange="toggleAnlage(this.value)">
                 <option value="">Wählen...</option>
-                <optgroup label="PUR (Schaum)">
+                <optgroup label="PUR">
                     <option value="PUR1">PUR 1</option><option value="PUR2">PUR 2</option><option value="PUR3">PUR 3</option>
                     <option value="PUR4">PUR 4</option><option value="PUR5">PUR 5</option><option value="PUR6">PUR 6</option>
                     <option value="PUR7">PUR 7</option><option value="PUR8">PUR 8</option><option value="PUR9">PUR 9</option>
                 </optgroup>
-                <optgroup label="IM / CIM (Spritzguss)">
+                <optgroup label="Spritzguss">
                     <option value="IM1">IM 1</option><option value="IM2">IM 2</option><option value="IM3">IM 3</option>
                     <option value="IM4">IM 4</option><option value="IM5">IM 5</option><option value="CIM1">CIM 1</option>
                 </optgroup>
                 <option value="COM">Compound</option>
-                <option value="Sonstige">Sonstige</option>
             </select>
         </div>
     </div>
@@ -87,7 +85,7 @@
     <div id="artikelContainer"></div>
     <button type="button" class="add-btn" onclick="addArtikel()">+ Artikel hinzufügen</button>
 
-    <button type="button" class="main-btn" onclick="finalSaveAndSend()">🚀 SPEICHERN & SENDEN</button>
+    <button type="button" class="main-btn" onclick="sendAll()">🚀 SPEICHERN & SENDEN</button>
 </div>
 
 <script>
@@ -102,20 +100,18 @@ const workerLists = {
 
 const codes = {
     PUR: {
-        aus: ["C102 CIM n.voll", "C103 CIM beschädigt", "P101 Anfahrschrott", "P102 PUR n.voll", "P104 Schaumbild n.i.O.", "P106 Einlegefehler", "Sonstige"],
-        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umstellung", "4-2-01 Ungepl. Inst. WZ", "4-2-02 Ungepl. Inst. Masch", "4-2-03 POLY/ISO Überdruck", "4-2-04 Mischkopf n.i.o.", "4-2-05 Fehler Lichtschranke", "4-2-06 Trennmittelpistole", "4-2-07 Formträger Problem", "4-2-08 Reinigung", "4-2-09 Not Aus", "5-2-01 Logistik Mangel", "5-2-04 Wartezeit Einrichter", "Sonstige"]
+        aus: ["6-2-01 Temperatur zu niedrig", "6-2-02 Schaum haftet nicht", "6-2-03 Einlegefehler", "6-2-04 Schussabbruch", "6-2-05 CIM nicht voll", "6-2-06 Lippe gerissen", "6-2-07 CIM gerissen", "7-2-01 Nacharbeit Bauteil", "Sonstige"],
+        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-2-01 Ungepl. Inst. Werkzeug", "4-2-02 Ungepl. Inst. Maschine", "4-2-03 POLY/ISO Überdruck", "4-2-04 Mischkopf n.i.o.", "4-2-05 Fehler Lichtschranke", "4-2-06 Trennmittelpistole defekt", "4-2-07 Formträger Initiator n.i.o", "4-2-08 Reinigung Werkzeug", "4-2-09 Not Aus", "5-2-01 Logistik Mangel", "5-2-02 Keine Teile von IM/CIM", "5-2-04 Wartezeit Einrichter", "5-2-10 Poly/Iso leer", "Sonstige"]
     },
-    IM_CIM: {
-        aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat-Umstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "6-1-06 Einfallstellen", "6-1-07 Brandstellen", "6-1-08 Silberstreifen", "Sonstige"],
-        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umstellung", "4-1-01 Ungepl. Inst. WZ", "4-1-02 Ungepl. Inst. Masch", "4-1-03 Mat-Förderung", "4-1-04 Dosiereinheit", "4-1-05 Schließeinheit", "4-1-06 Teileentnahme", "4-1-07 WZ-Heizung", "4-1-08 Beflammprozess", "5-1-03 Wartezeit Einrichter", "Sonstige"]
+    Spritzguss: {
+        aus: ["6-1-01 Anfahrschrott", "6-1-02 Materialumstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "6-1-06 Einfallstellen", "Sonstige"],
+        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-1-01 Ungepl. Inst. Werkzeug", "4-1-02 Ungepl. Inst. Maschine", "4-1-03 Materialförderung gestört", "4-1-04 Probleme Dosiereinheit", "4-1-05 Probleme Schließeinheit", "4-1-06 Probleme Teileentnahme", "4-1-07 Probleme Werkzeugheizung", "4-1-08 Probleme Beflammprozess", "5-1-01 Materialmangel (Compound)", "5-1-03 Wartezeit Einrichter", "Sonstige"]
     },
     COM: {
         aus: ["6-3-01 Anfahrschrott", "6-3-02 Materialfehler", "Sonstige"],
-        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umstellung", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Masch", "4-3-04 Silowechsel", "5-3-01 Mat-Mangel", "5-3-05 Feueralarm", "Sonstige"]
+        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-3-01 Lochplatte Messer schleifen", "4-3-02 Ungepl. Inst. Maschine", "4-3-04 Silowechsel", "5-3-01 Materialmangel", "5-3-03 Wartezeit Einrichter", "5-3-05 Feueralarm", "Sonstige"]
     }
 };
-
-window.onload = () => { document.getElementById("datum").value = new Date().toISOString().split("T")[0]; };
 
 function toggleAnlage(val) {
     document.getElementById("ftBox").style.display = val.startsWith("PUR") ? "block" : "none";
@@ -141,7 +137,7 @@ function addArtikel() {
     const div = document.createElement("div");
     div.className = "artikel-box";
     div.innerHTML = `<button type="button" class="delete-btn" onclick="this.parentElement.remove(); updateCounter();">✕</button>
-        <label>Artikel Bezeichnung</label><input class="artName" type="text" placeholder="">
+        <label>Artikel Bezeichnung</label><input class="artName" type="text">
         ${anl==='COM' ? '<label>Dauer (Min)</label><input type="number" class="artDauer" oninput="updateCounter()">' : ''}
         <div class="grid">
             <div><label>Gut</label><input type="number" class="gut"></div>
@@ -150,7 +146,7 @@ function addArtikel() {
         <div class="error-msg">⚠️ Ausschuss-Summe stimmt nicht überein!</div>
         <div class="row-list"></div>
         <div class="grid">
-            <button type="button" class="sub-btn" onclick="addRow(this,'aus')">+ Ausschuss-Grund</button>
+            <button type="button" class="sub-btn" onclick="addRow(this,'aus')">+ Ausschuss</button>
             <button type="button" class="sub-btn" onclick="addRow(this,'stoer')">+ Störung</button>
         </div>`;
     document.getElementById("artikelContainer").appendChild(div);
@@ -158,7 +154,7 @@ function addArtikel() {
 
 function addRow(btn, type) {
     const anl = document.getElementById("anlage").value;
-    const cat = anl === "COM" ? "COM" : (anl.startsWith("PUR") ? "PUR" : "IM_CIM");
+    let cat = anl === "COM" ? "COM" : (anl.startsWith("PUR") ? "PUR" : "Spritzguss");
     const target = btn.parentElement.previousElementSibling;
     const row = document.createElement("div");
     row.className = "code-row";
@@ -178,17 +174,18 @@ function validate(box) {
 function updateCounter() {
     let total = 0;
     document.querySelectorAll(".artDauer").forEach(i => total += (parseFloat(i.value) || 0));
-    document.getElementById("comCounter").innerText = total;
+    if(document.getElementById("comCounter")) document.getElementById("comCounter").innerText = total;
 }
 
-async function finalSaveAndSend() {
+async function sendAll() {
     const anl = document.getElementById("anlage").value;
-    const counterVal = parseFloat(document.getElementById("comCounter").innerText);
+    const counterVal = parseFloat(document.getElementById("comCounter")?.innerText || 0);
     if(!anl) return alert("Anlage wählen!");
     if(anl === "COM" && counterVal !== 480) return alert("Fehler: Compound Dauer muss 480 Min sein!");
+    
     let err = false;
     document.querySelectorAll(".error-msg").forEach(m => { if(m.style.display === "block") err = true; });
-    if(err) return alert("Ausschuss prüfen!");
+    if(err) return alert("Ausschuss-Mengen prüfen!");
 
     let staff = [];
     document.querySelectorAll(".worker-box").forEach(box => {
@@ -202,11 +199,7 @@ async function finalSaveAndSend() {
     let report = `📊 *APG BOCHUM REPORT*\n📅 Datum: ${document.getElementById("datum").value}\n⏱️ Schicht: ${document.getElementById("schichtWahl").value}\n🏭 Anlage: ${anl}\n${ftList.length>0 ? '🛠 FT: '+ftList.join(', ')+'\n' : ''}👷 Personal: ${staff.join(", ")}\n\n`;
 
     document.querySelectorAll(".artikel-box").forEach(box => {
-        const name = box.querySelector(".artName").value || "Unbekannt";
-        const gut = box.querySelector(".gut").value || 0;
-        const ausTotal = box.querySelector(".ausTotal").value || 0;
-        const d = box.querySelector(".artDauer") ? ` (${box.querySelector(".artDauer").value} Min)` : "";
-        report += `📦 *${name}*${d}\n  └ Gut: ${gut} | Aus: ${ausTotal}\n`;
+        report += `📦 *${box.querySelector(".artName").value || "Unbekannt"}*\n  └ Gut: ${box.querySelector(".gut").value || 0} | Aus: ${box.querySelector(".ausTotal").value || 0}\n`;
         box.querySelectorAll(".aus-v").forEach((v, i) => { if(v.value) report += `  ⚠️ ${box.querySelectorAll(".aus-c")[i].value}: ${v.value}\n`; });
         box.querySelectorAll(".stoer-v").forEach((v, i) => { if(v.value) report += `  ⚙️ ${box.querySelectorAll(".stoer-c")[i].value}: ${v.value} Min\n`; });
     });
