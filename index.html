@@ -34,16 +34,10 @@
             <select id="anlage" onchange="handleAnlageChange(this.value)">
                 <option value="">Wählen...</option>
                 <optgroup label="PUR">
-                    <option value="PUR1">PUR 1</option><option value="PUR2">PUR 2</option>
-                    <option value="PUR3">PUR 3</option><option value="PUR4">PUR 4</option>
-                    <option value="PUR5">PUR 5</option><option value="PUR6">PUR 6</option>
-                    <option value="PUR7">PUR 7</option><option value="PUR8">PUR 8</option>
-                    <option value="PUR9">PUR 9</option>
+                    <option value="PUR">PUR Anlage</option>
                 </optgroup>
                 <optgroup label="Spritzguss (IM/CIM)">
-                    <option value="IM1">IM 1</option><option value="IM2">IM 2</option>
-                    <option value="IM3">IM 3</option><option value="IM4">IM 4</option>
-                    <option value="IM5">IM 5</option><option value="CIM1">CIM 1</option>
+                    <option value="IM_CIM">Spritzguss (IM/CIM)</option>
                 </optgroup>
                 <option value="COM">Compound</option>
             </select>
@@ -62,10 +56,14 @@
         </div>
     </div>
 
+    <div id="comTimeBox" style="display:none; margin-top:15px; text-align:center; padding:10px; background:rgba(56,189,248,0.1); border-radius:10px;">
+        <span style="color:#38bdf8; font-weight:bold;">Compound Zeit: <span id="comCounter">0</span> / 480 Min</span>
+    </div>
+
     <div id="artikelContainer"></div>
     <button type="button" class="add-btn" onclick="addArtikel()" style="width:100%; padding:10px; margin-top:15px; background:rgba(56,189,248,0.1); border:1px dashed #38bdf8; color:#38bdf8; border-radius:10px; cursor:pointer;">+ Artikel hinzufügen</button>
 
-    <button type="button" class="main-btn" onclick="speichern()" style="width:100%; padding:15px; margin-top:25px; background:#38bdf8; color:#0f172a; border:none; border-radius:15px; font-weight:bold; font-size:18px; cursor:pointer;">🚀 SPEICHERN & SENDEN</button>
+    <button type="button" id="sendBtn" onclick="speichernUndSenden()" style="width:100%; padding:15px; margin-top:25px; background:#38bdf8; color:#0f172a; border:none; border-radius:15px; font-weight:bold; font-size:18px; cursor:pointer;">🚀 SPEICHERN & SENDEN</button>
 </div>
 
 <script src="app.js"></script>
