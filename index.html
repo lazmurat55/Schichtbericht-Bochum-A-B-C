@@ -8,15 +8,13 @@
         :root { 
             --bg: #0f172a; 
             --card: #1e293b; 
-            --primary: #38bdf8; /* APG Mavisi */
+            --primary: #38bdf8; 
             --blue-dark: #1e40af;
             --text: #f1f5f9; 
-            --border: #38bdf8;
         }
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; }
         .card { width: 100%; max-width: 650px; background: var(--card); padding: 25px; border-radius: 24px; margin: auto; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         
-        /* BAŞLIK ALANI - BOCHUM EKLENDİ VE TAM MAVİ */
         .title-area { text-align: center; margin-bottom: 25px; padding: 15px; border-bottom: 3px solid var(--primary); background: rgba(56, 189, 248, 0.05); border-radius: 15px 15px 0 0; }
         .title-area h1 { margin: 0; font-size: 22px; letter-spacing: 1px; color: #fff; }
         .title-area p { margin: 5px 0 0; color: var(--primary); font-weight: bold; font-size: 14px; text-transform: uppercase; }
@@ -25,25 +23,20 @@
         select, input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--primary); background: #0f172a; color: white; font-size: 16px; box-sizing: border-box; }
         
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .worker-box, .artikel-box { background: rgba(56, 189, 248, 0.05); padding: 15px; border-radius: 15px; margin-top: 15px; border-left: 5px solid var(--primary); position: relative; }
         
-        /* KUTU TASARIMLARI - TAM MAVİ */
-        .worker-box, .artikel-box { background: rgba(56, 189, 248, 0.05); padding: 15px; border-radius: 15px; margin-top: 15px; border-left: 5px solid var(--primary); position: relative; border-right: 1px solid rgba(56, 189, 248, 0.1); }
-        
-        .add-btn { width: 100%; padding: 12px; margin-top: 10px; background: rgba(56, 189, 248, 0.1); border: 2px dashed var(--primary); color: var(--primary); font-weight: bold; border-radius: 10px; cursor: pointer; transition: 0.3s; }
-        .add-btn:hover { background: rgba(56, 189, 248, 0.2); }
-        
+        .add-btn { width: 100%; padding: 12px; margin-top: 10px; background: rgba(56, 189, 248, 0.1); border: 2px dashed var(--primary); color: var(--primary); font-weight: bold; border-radius: 10px; cursor: pointer; }
         .sub-btn { background: var(--blue-dark); color: white; border: 1px solid var(--primary); padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; cursor: pointer; font-size: 13px; font-weight: bold; }
         
-        .delete-btn { position: absolute; right: -5px; top: -5px; background: #ef4444; color: white; border: none; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+        .delete-btn { position: absolute; right: 5px; top: 5px; background: #ef4444; color: white; border: none; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; }
         
-        /* ANA BUTON - MAVİ */
-        .main-btn { width: 100%; padding: 18px; background: var(--primary); color: #0f172a; border: none; border-radius: 15px; font-weight: 800; font-size: 18px; margin-top: 30px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .main-btn { width: 100%; padding: 18px; background: var(--primary); color: #0f172a; border: none; border-radius: 15px; font-weight: 800; font-size: 18px; margin-top: 30px; cursor: pointer; text-transform: uppercase; }
         
         .ft-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0f172a; padding: 15px; border-radius: 10px; border: 1px solid var(--primary); margin-top: 5px; }
         .ft-item { text-align: center; font-size: 12px; color: var(--primary); }
         .ft-item input { width: 20px; height: 20px; accent-color: var(--primary); }
 
-        .error-msg { color: #fbbf24; font-size: 12px; font-weight: bold; margin-top: 8px; display: none; border: 1px solid #fbbf24; padding: 5px; border-radius: 5px; text-align: center; }
+        .error-msg { color: #fbbf24; font-size: 12px; font-weight: bold; margin-top: 8px; display: none; text-align: center; border: 1px solid #fbbf24; padding: 5px; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -142,7 +135,7 @@ function addWorker() {
     div.innerHTML = `<button class="delete-btn" onclick="this.parentElement.remove()">✕</button>
         <select class="workerSelect" onchange="this.nextElementSibling.style.display=(this.value==='Sonstige'?'block':'none')">
             ${workers[s].map(w => `<option value="${w}">${w}</option>`).join("")}
-        </select><input type="text" style="display:none; margin-top:10px; border-color:var(--primary);" placeholder="Name eingeben...">`;
+        </select><input type="text" style="display:none; margin-top:10px; border-color:var(--primary);" placeholder="Name...">`;
     document.getElementById("workerContainer").appendChild(div);
 }
 
@@ -174,9 +167,9 @@ function addRow(btn, type) {
     const target = btn.parentElement.previousElementSibling;
     const row = document.createElement("div");
     row.style = "display:flex; gap:5px; margin-top:8px;";
-    row.innerHTML = `<select style="flex:2; border-color:var(--primary);" class="${type}-c">${errorCodes[cat][type].map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
-        <input type="number" style="flex:1; border-color:var(--primary);" class="${type}-v" oninput="validate(this.closest('.artikel-box'))" placeholder="${type==='aus'?'Menge':'Min'}">
-        <button onclick="this.parentElement.remove(); validate(this.closest('.artikel-box'))" style="background:none; border:none; color:#ef4444; font-weight:bold; font-size:18px;">✕</button>`;
+    row.innerHTML = `<select style="flex:2;" class="${type}-c">${errorCodes[cat][type].map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
+        <input type="number" style="flex:1;" class="${type}-v" oninput="validate(this.closest('.artikel-box'))" placeholder="${type==='aus'?'Menge':'Min'}">
+        <button onclick="this.parentElement.remove(); validate(this.closest('.artikel-box'))" style="background:none; border:none; color:#ef4444; font-weight:bold;">✕</button>`;
     target.appendChild(row);
 }
 
@@ -187,14 +180,12 @@ function validate(box) {
     box.querySelector(".error-msg").style.display = (total > 0 && total !== sum) ? "block" : "none";
 }
 
-async function speichern() {
+function speichern() {
     const anlage = document.getElementById("anlage").value;
     const datum = document.getElementById("datum").value;
     const schicht = document.getElementById("schichtWahl").value;
 
-    let hasError = false;
-    document.querySelectorAll(".error-msg").forEach(m => { if(m.style.display === "block") hasError = true; });
-    if(hasError) return alert("❌ Fehler: Ausschuss-Mengen prüfen!");
+    if(!anlage) return alert("❌ Bitte Anlage wählen!");
 
     let staff = [];
     document.querySelectorAll(".worker-box").forEach(box => {
@@ -204,16 +195,29 @@ async function speichern() {
 
     let details = "";
     document.querySelectorAll(".artikel-box").forEach(box => {
-        const name = box.querySelector(".artName").value;
-        const gut = box.querySelector(".gut").value;
-        const ausTotal = box.querySelector(".ausTotal").value;
-        details += `📦 *${name}*\n  └ Gut: ${gut} | Aus: ${ausTotal}\n`;
-        box.querySelectorAll(".aus-v").forEach((v, i) => { if(v.value) details += `  ⚠️ ${box.querySelectorAll(".aus-c")[i].value}: ${v.value}\n`; });
-        box.querySelectorAll(".stoer-v").forEach((v, i) => { if(v.value) details += `  ⚙️ ${box.querySelectorAll(".stoer-c")[i].value}: ${v.value} Min\n`; });
+        const name = box.querySelector(".artName").value || "Unbekannt";
+        const gut = box.querySelector(".gut").value || 0;
+        const aus = box.querySelector(".ausTotal").value || 0;
+        const dauer = box.querySelector(".artDauer") ? ` (${box.querySelector(".artDauer").value} Min)` : "";
+        
+        details += `📦 *${name}*${dauer}\n  └ Gut: ${gut} | Aus: ${aus}\n`;
+        
+        box.querySelectorAll(".aus-v").forEach((v, i) => {
+            if(v.value) details += `  ⚠️ ${box.querySelectorAll(".aus-c")[i].value}: ${v.value}\n`;
+        });
+        box.querySelectorAll(".stoer-v").forEach((v, i) => {
+            if(v.value) details += `  ⚙️ ${box.querySelectorAll(".stoer-c")[i].value}: ${v.value} Min\n`;
+        });
     });
 
-    const report = `📊 *APG PRODUCTION REPORT BOCHUM*\n📅 Datum: ${datum}\n⏱️ Schicht: ${schicht}\n🏭 Anlage: ${anlage}\n👷 Mitarbeiter: ${staff.join(", ")}\n\n${details}`;
-    window.location.href = `whatsapp://send?phone=4917684126305&text=${encodeURIComponent(report)}`;
+    let ftList = [];
+    document.querySelectorAll(".ft-check:checked").forEach(c => ftList.push(c.value));
+    const ftText = ftList.length > 0 ? `🛠 FT: ${ftList.join(", ")}\n` : "";
+
+    const report = `📊 *APG REPORT BOCHUM*\n📅 Datum: ${datum}\n⏱️ Schicht: ${schicht}\n🏭 Anlage: ${anlage}\n${ftText}👷 Personal: ${staff.join(", ")}\n\n${details}`;
+    
+    const waUrl = `https://api.whatsapp.com/send?phone=4917684126305&text=${encodeURIComponent(report)}`;
+    window.open(waUrl, '_blank');
 }
 </script>
 </body>
