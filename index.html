@@ -8,30 +8,33 @@
 </head>
 <body>
 
-<div class="card">
-    <div class="title-area" style="text-align: center; border-bottom: 3px solid #38bdf8; margin-bottom: 20px; padding-bottom: 10px;">
-        <h1 style="margin:0; color:white; font-size:20px;">Adler Pelzer Group</h1>
-        <p style="margin:5px 0 0; color:#38bdf8; font-weight:bold; font-size:14px;">Production Bericht Bochum</p>
+<div class="card" style="width:100%; max-width:650px; background:#1e293b; padding:25px; border-radius:24px; margin:auto; border:1px solid #38bdf8; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+    <div class="title-area" style="text-align: center; border-bottom: 3px solid #38bdf8; margin-bottom: 25px; padding-bottom: 15px;">
+        <h1 style="margin:0; color:white; font-size:22px;">Adler Pelzer Group</h1>
+        <p style="margin:5px 0 0; color:#38bdf8; font-weight:bold; font-size:14px; text-transform:uppercase;">Production Bericht Bochum</p>
     </div>
 
-    <label>Schicht wählen</label>
-    <select id="schichtWahl" onchange="updateWorkerList()">
+    <label style="display:block; color:#38bdf8; font-weight:bold; margin-bottom:5px;">Schicht wählen</label>
+    <select id="schichtWahl" style="width:100%; padding:12px; background:#0f172a; color:white; border-radius:10px; border:1px solid #38bdf8;" onchange="updateWorkerList()">
         <option value="B">Schicht - B</option>
         <option value="A">Schicht - A</option>
         <option value="C">Schicht - C</option>
     </select>
 
-    <label style="margin-top:15px;">Personal (Mitarbeiter)</label>
+    <label style="display:block; color:#38bdf8; font-weight:bold; margin-top:20px; margin-bottom:5px;">Personal (Mitarbeiter)</label>
     <div id="workerContainer"></div>
-    <button type="button" class="add-btn" onclick="addWorker()" style="width:100%; padding:10px; background:rgba(56,189,248,0.1); border:1px dashed #38bdf8; color:#38bdf8; border-radius:10px; cursor:pointer;">+ Mitarbeiter hinzufügen</button>
+    <button type="button" onclick="addWorker()" style="width:100%; padding:12px; background:rgba(56,189,248,0.1); border:2px dashed #38bdf8; color:#38bdf8; font-weight:bold; border-radius:10px; cursor:pointer;">+ Mitarbeiter hinzufügen</button>
 
-    <div style="height: 2px; background: #38bdf8; opacity: 0.2; margin: 20px 0;"></div>
+    <div style="height: 2px; background: #38bdf8; opacity: 0.3; margin: 25px 0;"></div>
 
-    <div class="grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <div><label>Datum</label><input type="date" id="datum"></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
         <div>
-            <label>Anlage</label>
-            <select id="anlage" onchange="handleAnlageChange(this.value)">
+            <label style="color:#38bdf8; font-weight:bold;">Datum</label>
+            <input type="date" id="datum" style="width:100%; padding:12px; background:#0f172a; color:white; border:1px solid #38bdf8; border-radius:10px;">
+        </div>
+        <div>
+            <label style="color:#38bdf8; font-weight:bold;">Anlage</label>
+            <select id="anlage" style="width:100%; padding:12px; background:#0f172a; color:white; border:1px solid #38bdf8; border-radius:10px;" onchange="handleAnlageChange(this.value)">
                 <option value="">Wählen...</option>
                 <optgroup label="PUR">
                     <option value="PUR">PUR Anlage</option>
@@ -45,14 +48,14 @@
     </div>
 
     <div id="ftBox" style="display:none; margin-top:15px; background:rgba(0,0,0,0.2); padding:15px; border-radius:10px; border:1px solid #38bdf8;">
-        <label style="text-align:center; display:block;">Formträger (FT)</label>
-        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; text-align:center;">
-            <div><input type="checkbox" class="ft-check" value="FT1"><br><small>FT1</small></div>
-            <div><input type="checkbox" class="ft-check" value="FT2"><br><small>FT2</small></div>
-            <div><input type="checkbox" class="ft-check" value="FT3"><br><small>FT3</small></div>
-            <div><input type="checkbox" class="ft-check" value="FT4"><br><small>FT4</small></div>
-            <div><input type="checkbox" class="ft-check" value="FT5"><br><small>FT5</small></div>
-            <div><input type="checkbox" class="ft-check" value="FT6"><br><small>FT6</small></div>
+        <label style="text-align:center; display:block; color:#38bdf8;">Formträger (FT)</label>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; text-align:center; color:white;">
+            <div><input type="checkbox" class="ft-check" value="FT1" style="width:20px; height:20px;"><br><small>FT1</small></div>
+            <div><input type="checkbox" class="ft-check" value="FT2" style="width:20px; height:20px;"><br><small>FT2</small></div>
+            <div><input type="checkbox" class="ft-check" value="FT3" style="width:20px; height:20px;"><br><small>FT3</small></div>
+            <div><input type="checkbox" class="ft-check" value="FT4" style="width:20px; height:20px;"><br><small>FT4</small></div>
+            <div><input type="checkbox" class="ft-check" value="FT5" style="width:20px; height:20px;"><br><small>FT5</small></div>
+            <div><input type="checkbox" class="ft-check" value="FT6" style="width:20px; height:20px;"><br><small>FT6</small></div>
         </div>
     </div>
 
@@ -61,9 +64,9 @@
     </div>
 
     <div id="artikelContainer"></div>
-    <button type="button" class="add-btn" onclick="addArtikel()" style="width:100%; padding:10px; margin-top:15px; background:rgba(56,189,248,0.1); border:1px dashed #38bdf8; color:#38bdf8; border-radius:10px; cursor:pointer;">+ Artikel hinzufügen</button>
+    <button type="button" onclick="addArtikel()" style="width:100%; padding:12px; margin-top:20px; background:rgba(56,189,248,0.1); border:2px dashed #38bdf8; color:#38bdf8; font-weight:bold; border-radius:10px; cursor:pointer;">+ Artikel hinzufügen</button>
 
-    <button type="button" id="sendBtn" onclick="speichernUndSenden()" style="width:100%; padding:15px; margin-top:25px; background:#38bdf8; color:#0f172a; border:none; border-radius:15px; font-weight:bold; font-size:18px; cursor:pointer;">🚀 SPEICHERN & SENDEN</button>
+    <button type="button" id="sendBtn" onclick="speichernUndSenden()" style="width:100%; padding:18px; background:#38bdf8; color:#0f172a; border:none; border-radius:15px; font-weight:bold; font-size:18px; margin-top:30px; cursor:pointer; text-transform:uppercase;">🚀 SPEICHERN & SENDEN</button>
 </div>
 
 <script src="app.js"></script>
