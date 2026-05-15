@@ -3,32 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>APG Production Bericht</title>
+    <title>APG Production Bericht Bochum</title>
     <style>
-        :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --success: #22c55e; --danger: #ef4444; --text: #f1f5f9; }
+        :root { 
+            --bg: #0f172a; 
+            --card: #1e293b; 
+            --primary: #38bdf8; /* APG Mavisi */
+            --blue-dark: #1e40af;
+            --text: #f1f5f9; 
+            --border: #38bdf8;
+        }
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; }
-        .card { width: 100%; max-width: 650px; background: var(--card); padding: 25px; border-radius: 24px; margin: auto; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .card { width: 100%; max-width: 650px; background: var(--card); padding: 25px; border-radius: 24px; margin: auto; border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         
-        /* YENİ BAŞLIK TASARIMI */
-        .title-area { text-align: center; margin-bottom: 25px; padding: 15px; border-bottom: 2px solid var(--primary); }
-        .title-area h1 { margin: 0; font-size: 20px; letter-spacing: 1px; color: #fff; }
+        /* BAŞLIK ALANI - BOCHUM EKLENDİ VE TAM MAVİ */
+        .title-area { text-align: center; margin-bottom: 25px; padding: 15px; border-bottom: 3px solid var(--primary); background: rgba(56, 189, 248, 0.05); border-radius: 15px 15px 0 0; }
+        .title-area h1 { margin: 0; font-size: 22px; letter-spacing: 1px; color: #fff; }
         .title-area p { margin: 5px 0 0; color: var(--primary); font-weight: bold; font-size: 14px; text-transform: uppercase; }
 
         label { display: block; margin: 15px 0 5px; color: var(--primary); font-weight: bold; font-size: 14px; }
-        select, input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 16px; box-sizing: border-box; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .worker-box, .artikel-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; margin-top: 15px; border-left: 4px solid var(--primary); position: relative; }
-        .add-btn { width: 100%; padding: 12px; margin-top: 10px; background: transparent; border: 2px dashed var(--primary); color: var(--primary); font-weight: bold; border-radius: 10px; cursor: pointer; }
-        .sub-btn { background: #334155; color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; cursor: pointer; font-size: 13px; }
-        .delete-btn { position: absolute; right: 10px; top: 10px; background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        select, input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--primary); background: #0f172a; color: white; font-size: 16px; box-sizing: border-box; }
         
-        /* FT SEÇİM ALANI */
-        .ft-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0f172a; padding: 15px; border-radius: 10px; margin-top: 5px; }
-        .ft-item { text-align: center; font-size: 12px; }
-        .ft-item input { width: 22px; height: 22px; cursor: pointer; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        
+        /* KUTU TASARIMLARI - TAM MAVİ */
+        .worker-box, .artikel-box { background: rgba(56, 189, 248, 0.05); padding: 15px; border-radius: 15px; margin-top: 15px; border-left: 5px solid var(--primary); position: relative; border-right: 1px solid rgba(56, 189, 248, 0.1); }
+        
+        .add-btn { width: 100%; padding: 12px; margin-top: 10px; background: rgba(56, 189, 248, 0.1); border: 2px dashed var(--primary); color: var(--primary); font-weight: bold; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .add-btn:hover { background: rgba(56, 189, 248, 0.2); }
+        
+        .sub-btn { background: var(--blue-dark); color: white; border: 1px solid var(--primary); padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; cursor: pointer; font-size: 13px; font-weight: bold; }
+        
+        .delete-btn { position: absolute; right: -5px; top: -5px; background: #ef4444; color: white; border: none; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+        
+        /* ANA BUTON - MAVİ */
+        .main-btn { width: 100%; padding: 18px; background: var(--primary); color: #0f172a; border: none; border-radius: 15px; font-weight: 800; font-size: 18px; margin-top: 30px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .ft-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0f172a; padding: 15px; border-radius: 10px; border: 1px solid var(--primary); margin-top: 5px; }
+        .ft-item { text-align: center; font-size: 12px; color: var(--primary); }
+        .ft-item input { width: 20px; height: 20px; accent-color: var(--primary); }
 
-        .main-btn { width: 100%; padding: 18px; background: var(--success); color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 18px; margin-top: 30px; cursor: pointer; }
-        .error-msg { color: var(--danger); font-size: 12px; font-weight: bold; margin-top: 8px; display: none; }
+        .error-msg { color: #fbbf24; font-size: 12px; font-weight: bold; margin-top: 8px; display: none; border: 1px solid #fbbf24; padding: 5px; border-radius: 5px; text-align: center; }
     </style>
 </head>
 <body>
@@ -36,22 +51,28 @@
 <div class="card">
     <div class="title-area">
         <h1>Adler Pelzer Group</h1>
-        <p>Production Bericht</p>
+        <p>Production Bericht Bochum</p>
     </div>
 
     <label>Schicht wählen</label>
-    <select id="schichtWahl">
+    <select id="schichtWahl" onchange="clearWorkers()">
         <option value="B">Schicht - B</option>
         <option value="A">Schicht - A</option>
         <option value="C">Schicht - C</option>
     </select>
+
+    <label style="margin-top:20px;">Personal (Mitarbeiter)</label>
+    <div id="workerContainer"></div>
+    <button class="add-btn" onclick="addWorker()">+ Mitarbeiter hinzufügen</button>
+
+    <div style="height: 2px; background: var(--primary); opacity: 0.3; margin: 25px 0;"></div>
 
     <div class="grid">
         <div><label>Datum</label><input type="date" id="datum"></div>
         <div>
             <label>Anlage</label>
             <select id="anlage" onchange="toggleFT(this.value)">
-                <option value="">Bitte wählen...</option>
+                <option value="">Wählen...</option>
                 <optgroup label="PUR">
                     <option value="PUR 1">PUR 1</option><option value="PUR 2">PUR 2</option>
                     <option value="PUR 3">PUR 3</option><option value="PUR 4">PUR 4</option>
@@ -81,11 +102,7 @@
         </div>
     </div>
 
-    <label style="margin-top:20px; color:#94a3b8;">Personal (Mitarbeiter)</label>
-    <div id="workerContainer"></div>
-    <button class="add-btn" onclick="addWorker()">+ Mitarbeiter hinzufügen</button>
-
-    <label style="margin-top:20px; color:#94a3b8;">Produktion (Artikel)</label>
+    <label style="margin-top:20px;">Produktion (Artikel)</label>
     <div id="artikelContainer"></div>
     <button class="add-btn" onclick="addArtikel()">+ Artikel hinzufügen</button>
 
@@ -93,9 +110,6 @@
 </div>
 
 <script>
-// --- KODLAR BURADAN BAŞLIYOR ---
-const scriptURL = "https://script.google.com/macros/s/AKfycbx55ShhJiujy6xj8lJZoDOoRh5wSpYpbPCbCNVoKnqR53gSUwsmKzSVv4ZXaihBQwwzVg/exec";
-
 const workers = {
     "A": ["Kunert M. - 502", "Karali O. - 533 E", "Mikuczynski K. - 1212", "Türkmen E. - 1213 E", "Amrouch M. - 1268", "Stania D. - 1368", "Kantaroglu A. - 1382", "Krancioch A. - 1405", "Held D. - 1421", "Berisha I. - 1534", "Neji M. - 1536", "Mulugeta G. - 1633", "Udezue P. - 1686", "Jansen M. - 1692", "Aksoy O. - 1704", "Yildirim S. - 1710", "Brand N. - 1722", "Louze A. - 1724", "Blanquez Romero V. - 1725", "Diallo M.D. - 1726", "Sener E. - 1731 E", "Sonstige"],
     "B": ["Keskin Mur.-517", "Aldirmaz P.-577", "Anderwald R.-509 E", "Bayrakli F.-1377 E", "Kilic D.-1384 E", "Maafi T.-1273 E", "Besche T.-1472", "Eickhoff P.-1406", "Toth Renata-1699", "Gibba n.-1367", "Helf A.-1483", "Isbir J.-1715", "Jeyakumar S.-1698", "Kalisch T.-1451", "Kowarsch R.-484", "Nowak M.-1390", "Pähler D.-1332", "Patarcsity V.-1700", "Pulendran K.-1498", "Sahin E.-1721", "Savas S.-1360", "Schiavitelli C.-1669", "Uluyüz B.-1450", "Uzun S.-1433", "Sonstige"],
@@ -103,23 +117,32 @@ const workers = {
 };
 
 const errorCodes = {
-    PUR: { aus: ["C102 CIM n.voll", "C103 CIM beschädigt", "P101 Anfahrschrott", "P102 PUR n.voll", "P103 Schaum beschädigt", "P104 Schaumbild n.i.O.", "P105 Schaumhärtung n.i.O.", "P106 Einlegefehler", "Sonstige"], stoer: ["4-2-01 Werkzeug", "4-2-02 Maschine", "4-2-03 POLY/ISO Überdruck", "4-2-04 Mischkopf", "4-2-08 Reinigung", "Sonstige"] },
-    IM_CIM: { aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat.Umstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "3-02 Mat.Umstellung", "4-1-02 Maschine", "5-1-03 Wartezeit", "Sonstige"] },
-    COM: { aus: ["6-3-01 Anfahrschrott", "6-3-02 Materialfehler", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "4-3-02 Instandh.", "5-3-01 Mat.Mangel", "Sonstige"] }
+    PUR: { 
+        aus: ["C102 CIM n.voll", "C103 CIM beschädigt", "P101 Anfahrschrott", "P102 PUR n.voll", "P103 Schaum beschädigt", "P104 Schaumbild n.i.O.", "P105 Schaumhärtung n.i.O.", "P106 Einlegefehler", "Sonstige"], 
+        stoer: ["4-2-01 Werkzeug", "4-2-02 Maschine", "4-2-03 POLY/ISO Überdruck", "4-2-04 Mischkopf", "4-2-08 Reinigung", "5-2-04 Wartezeit Mat.", "Sonstige"] 
+    },
+    IM_CIM: { 
+        aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat.Umstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "Sonstige"], 
+        stoer: ["3-01 WZ-Wechsel", "3-02 Mat.Umstellung", "4-1-02 Maschine", "5-1-03 Wartezeit", "5-1-04 Personalmangel", "Sonstige"] 
+    },
+    COM: { 
+        aus: ["6-3-01 Anfahrschrott", "6-3-02 Materialfehler", "Sonstige"], 
+        stoer: ["3-01 WZ-Wechsel", "4-3-02 Instandh.", "5-3-01 Mat.Mangel", "Sonstige"] 
+    }
 };
 
 window.onload = () => { document.getElementById("datum").value = new Date().toISOString().split("T")[0]; };
-
+function clearWorkers() { document.getElementById("workerContainer").innerHTML = ""; }
 function toggleFT(val) { document.getElementById("ftBox").style.display = val.startsWith("PUR") ? "block" : "none"; }
 
 function addWorker() {
     const s = document.getElementById("schichtWahl").value;
     const div = document.createElement("div");
     div.className = "worker-box";
-    div.innerHTML = `<button class="delete-btn" onclick="this.parentElement.remove()">X</button>
+    div.innerHTML = `<button class="delete-btn" onclick="this.parentElement.remove()">✕</button>
         <select class="workerSelect" onchange="this.nextElementSibling.style.display=(this.value==='Sonstige'?'block':'none')">
             ${workers[s].map(w => `<option value="${w}">${w}</option>`).join("")}
-        </select><input type="text" style="display:none; margin-top:10px;" placeholder="Name eingeben...">`;
+        </select><input type="text" style="display:none; margin-top:10px; border-color:var(--primary);" placeholder="Name eingeben...">`;
     document.getElementById("workerContainer").appendChild(div);
 }
 
@@ -129,17 +152,17 @@ function addArtikel() {
     const unit = anlage === "COM" ? "kg" : "Stk";
     const div = document.createElement("div");
     div.className = "artikel-box";
-    div.innerHTML = `<button class="delete-btn" onclick="this.parentElement.remove(); validate(this.closest('.artikel-box'))">X</button>
+    div.innerHTML = `<button class="delete-btn" onclick="this.parentElement.remove(); validate(this.closest('.artikel-box'))">✕</button>
         <label>Artikel Bezeichnung</label><input class="artName" type="text" placeholder="Z.B. Teppich B1">
         ${anlage==='COM' ? '<label>Dauer (Min)</label><input type="number" class="artDauer" oninput="validate(this.closest(\'.artikel-box\'))">' : ''}
         <div class="grid">
             <div><label>Gut (${unit})</label><input type="number" class="gut"></div>
-            <div><label>Ausschuss Gesamt (${unit})</label><input type="number" class="ausTotal" oninput="validate(this.closest('.artikel-box'))"></div>
+            <div><label>Ausschuss (${unit})</label><input type="number" class="ausTotal" oninput="validate(this.closest('.artikel-box'))"></div>
         </div>
-        <div class="error-msg">⚠️ Ausschuss-Summe stimmt nicht mit Gesamt überein!</div>
+        <div class="error-msg">⚠️ Summe der Gründe stimmt nicht!</div>
         <div class="codes-area"></div>
         <div class="grid">
-            <button class="sub-btn" onclick="addRow(this,'aus')">+ Ausschuss-Grund</button>
+            <button class="sub-btn" onclick="addRow(this,'aus')">+ Ausschuss</button>
             <button class="sub-btn" onclick="addRow(this,'stoer')">+ Störung</button>
         </div>`;
     document.getElementById("artikelContainer").appendChild(div);
@@ -151,9 +174,9 @@ function addRow(btn, type) {
     const target = btn.parentElement.previousElementSibling;
     const row = document.createElement("div");
     row.style = "display:flex; gap:5px; margin-top:8px;";
-    row.innerHTML = `<select style="flex:2" class="${type}-c">${errorCodes[cat][type].map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
-        <input type="number" style="flex:1" class="${type}-v" oninput="validate(this.closest('.artikel-box'))" placeholder="Menge">
-        <button onclick="this.parentElement.remove(); validate(this.closest('.artikel-box'))" style="background:none; border:none; color:red; font-weight:bold;">✕</button>`;
+    row.innerHTML = `<select style="flex:2; border-color:var(--primary);" class="${type}-c">${errorCodes[cat][type].map(c=>`<option value="${c}">${c}</option>`).join("")}</select>
+        <input type="number" style="flex:1; border-color:var(--primary);" class="${type}-v" oninput="validate(this.closest('.artikel-box'))" placeholder="${type==='aus'?'Menge':'Min'}">
+        <button onclick="this.parentElement.remove(); validate(this.closest('.artikel-box'))" style="background:none; border:none; color:#ef4444; font-weight:bold; font-size:18px;">✕</button>`;
     target.appendChild(row);
 }
 
@@ -169,15 +192,9 @@ async function speichern() {
     const datum = document.getElementById("datum").value;
     const schicht = document.getElementById("schichtWahl").value;
 
-    let totalComMin = 0;
     let hasError = false;
-    document.querySelectorAll(".artikel-box").forEach(box => {
-        if(box.querySelector(".error-msg").style.display === "block") hasError = true;
-        if(box.querySelector(".artDauer")) totalComMin += parseFloat(box.querySelector(".artDauer").value) || 0;
-    });
-
+    document.querySelectorAll(".error-msg").forEach(m => { if(m.style.display === "block") hasError = true; });
     if(hasError) return alert("❌ Fehler: Ausschuss-Mengen prüfen!");
-    if(anlage === "COM" && totalComMin !== 480) return alert(`❌ Fehler: Gesamtdauer (${totalComMin} Min) muss 480 Min sein!`);
 
     let staff = [];
     document.querySelectorAll(".worker-box").forEach(box => {
@@ -185,20 +202,17 @@ async function speichern() {
         staff.push(s === "Sonstige" ? box.querySelector("input").value : s);
     });
 
-    let ftList = [];
-    document.querySelectorAll(".ft-check:checked").forEach(c => ftList.push(c.value));
-    const ftText = ftList.length > 0 ? `🛠 FT: ${ftList.join(", ")}\n` : "";
-
     let details = "";
     document.querySelectorAll(".artikel-box").forEach(box => {
         const name = box.querySelector(".artName").value;
         const gut = box.querySelector(".gut").value;
-        const aus = box.querySelector(".ausTotal").value;
-        details += `📦 *${name}*\n└ Gut: ${gut} | Aus: ${aus}\n`;
+        const ausTotal = box.querySelector(".ausTotal").value;
+        details += `📦 *${name}*\n  └ Gut: ${gut} | Aus: ${ausTotal}\n`;
+        box.querySelectorAll(".aus-v").forEach((v, i) => { if(v.value) details += `  ⚠️ ${box.querySelectorAll(".aus-c")[i].value}: ${v.value}\n`; });
+        box.querySelectorAll(".stoer-v").forEach((v, i) => { if(v.value) details += `  ⚙️ ${box.querySelectorAll(".stoer-c")[i].value}: ${v.value} Min\n`; });
     });
 
-    const report = `📊 *APG PRODUCTION REPORT*\n📅 Datum: ${datum}\n⏱️ Schicht: ${schicht}\n🏭 Anlage: ${anlage}\n${ftText}👷 Mitarbeiter: ${staff.join(", ")}\n\n${details}`;
-    
+    const report = `📊 *APG PRODUCTION REPORT BOCHUM*\n📅 Datum: ${datum}\n⏱️ Schicht: ${schicht}\n🏭 Anlage: ${anlage}\n👷 Mitarbeiter: ${staff.join(", ")}\n\n${details}`;
     window.location.href = `whatsapp://send?phone=4917684126305&text=${encodeURIComponent(report)}`;
 }
 </script>
