@@ -1,1 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>APG Rapor Paneli V2</title>
+    <style>
+        :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --success: #22c55e; --text: #f1f5f9; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; padding: 10px; margin: 0; }
+        .card { background: var(--card); max-width: 600px; margin: auto; padding: 25px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header img { width: 100%; border-radius: 15px; margin-bottom: 15px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary); font-size: 14px; }
+        select, input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: white; font-size: 16px; margin-bottom: 15px; box-sizing: border-box; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn-add { width: 100%; padding: 15px; border-radius: 12px; border: 2px dashed var(--primary); background: rgba(56, 189, 248, 0.05); color: var(--primary); font-weight: bold; cursor: pointer; margin-bottom: 15px; }
+        .worker-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 4px solid var(--primary); position: relative; }
+        .artikel-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid var(--primary); position: relative; }
+        .delete-btn { position: absolute; right: 10px; top: 10px; background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 8px; cursor: pointer; }
+        .main-btn { width: 100%; padding: 20px; border-radius: 18px; border: none; font-weight: 800; font-size: 18px; background: var(--success); color: white; cursor: pointer; margin-top: 20px; }
+    </style>
+</head>
+<body>
 
+<div class="card">
+    <div class="header">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_vj9hUon0Uv-fUvL636x5O9YvL59p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p/s1600/logo.png" alt="APG Logo">
+        <h1>Schichtportal V2</h1>
+    </div>
+
+    <label>Vardiya Seç / Schicht wählen</label>
+    <select id="schichtWahl">
+        <option value="B">Schicht - B (Murat)</option>
+        <option value="A">Schicht - A</option>
+        <option value="C">Schicht - C</option>
+    </select>
+
+    <div class="grid">
+        <div>
+            <label>Datum</label>
+            <input type="date" id="datum">
+        </div>
+        <div>
+            <label>Anlage</label>
+            <select id="anlage">
+                <option value="PUR 1">PUR 1</option>
+                <option value="PUR 2">PUR 2</option>
+                <option value="IM 1">IM 1</option>
+                <option value="IM 2">IM 2</option>
+                <option value="COM">COM</option>
+            </select>
+        </div>
+    </div>
+
+    <label>Personal (Mitarbeiter)</label>
+    <div id="workerContainer"></div>
+    <button type="button" class="btn-add" onclick="addWorker()">+ Mitarbeiter hinzufügen</button>
+
+    <label>Produktion (Artikel)</label>
+    <div id="artikelContainer"></div>
+    <button type="button" class="btn-add" onclick="addArtikel()">+ Artikel hinzufügen</button>
+
+    <button class="main-btn" onclick="speichern()">🚀 SPEICHERN & SENDEN</button>
+</div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbx55ShhJiujy6xj8lJZoDOoRh5wSpYpbPCbCNVoKnqR53gSUwsmKzSVv4ZXaihBQwwzVg/exec";
+
+// VARDIYA LİSTELERİ
+const workers = {
+    "A": ["Kunert M. - 502", "Karali O. - 533 E", "Mikuczynski K. - 1212", "Türkmen E. - 1213 E", "Amrouch M. - 1268", "Stania D. - 1368", "Kantaroglu A. - 1382", "Krancioch A. - 1405", "Held D. - 1421", "Berisha I. - 1534", "Neji M. - 1536", "Mulugeta G. - 1633", "Udezue P. - 1686", "Jansen M. - 1692", "Aksoy O. - 1704", "Yildirim S. - 1710", "Brand N. - 1722", "Louze A. - 1724", "Blanquez Romero V. - 1725", "Diallo M.D. - 1726", "Sener E. - 1731 E", "Klomrit, Thanin - 1070", "Garcia-Hervas, Francisco - 339", "Schönborn Ch. - 1361", "Sonstige"],
+    "B": ["Keskin Mur.-517", "Aldirmaz P.-577", "Anderwald R.-509 E", "Bayrakli F.-1377 E", "Kilic D.-1384 E", "Maafi T.-1273 E", "Besche T.-1472", "Eickhoff P.-1406", "Toth Renata-1699", "Gibba n.-1367", "Helf A.-1483", "Isbir J.-1715", "Jeyakumar S.-1698", "Kalisch T.-1451", "Kowarsch R.-484", "Nowak M.-1390", "Pähler D.-1332", "Patarcsity V.-1700", "Pulendran K.-1498", "Sahin E.-1721", "Savas S.-1360", "Schiavitelli C.-1669", "Uluyüz B.-1450", "Uzun S.-1433", "Klomrit, Thanin - 1070", "Garcia-Hervas, Francisco - 339", "Sonstige"],
+    "C": ["Beher T. - 510", "Keskin Mustafa - 518", "Kantaroglu Ö. - 580", "Savas R. - 608", "Rafo S. - 1277", "Gertz Kevin - 1357", "Gertz S. - 1358 E", "Schönborn Ch. - 1361", "Fortes Ch. - 1381", "Sakaguchi M. - 1391", "Mercan M. - 1437 E", "Krämer Ch. - 1449", "Juretzka T. - 1473", "Kumbara E. - 1474", "Skupio D. - 1475", "Skrago T. - 1484", "Bah A. - 1684", "Kaya A. - 1712", "Jdea A. - 1701", "Toure A. - 1713", "Schneider D. - 1714", "Tchaleu Bertrand - 1723", "Klomrit, Thanin - 1070", "Garcia-Hervas, Francisco - 339", "Sonstige"]
+};
+
+window.onload = () => { document.getElementById("datum").value = new Date().toISOString().split("T")[0]; };
+
+function addWorker() {
+    const schicht = document.getElementById("schichtWahl").value;
+    const div = document.createElement("div");
+    div.className = "worker-box";
+    div.innerHTML = `
+        <button class="delete-btn" onclick="this.parentElement.remove()">X</button>
+        <select class="workerSelect" onchange="toggleManual(this)">
+            ${workers[schicht].map(w => `<option value="${w}">${w}</option>`).join("")}
+        </select>
+        <input type="text" class="manualInp" placeholder="Leiharbeiter Name..." style="display:none; margin-top:10px;">
+    `;
+    document.getElementById("workerContainer").appendChild(div);
+}
+
+function toggleManual(sel) {
+    sel.nextElementSibling.style.display = (sel.value === "Sonstige") ? "block" : "none";
+}
+
+function addArtikel() {
+    const div = document.createElement("div");
+    div.className = "artikel-box";
+    div.innerHTML = `
+        <button class="delete-btn" onclick="this.parentElement.remove()">X</button>
+        <label>Artikel</label><input class="artName" type="text" placeholder="Z.B. Teppich B1">
+        <div class="grid">
+            <div><label>Gut</label><input class="gut" type="number" value="0"></div>
+            <div><label>Aus</label><input class="aus" type="number" value="0"></div>
+        </div>
+    `;
+    document.getElementById("artikelContainer").appendChild(div);
+}
+
+async function speichern() {
+    const schicht = document.getElementById("schichtWahl").value;
+    const anlage = document.getElementById("anlage").value;
+    const datum = document.getElementById("datum").value;
+    
+    let staff = [];
+    document.querySelectorAll(".worker-box").forEach(box => {
+        const s = box.querySelector(".workerSelect").value;
+        const m = box.querySelector(".manualInp").value;
+        staff.push(s === "Sonstige" ? m : s);
+    });
+
+    let prod = "";
+    document.querySelectorAll(".artikel-box").forEach(box => {
+        prod += `• ${box.querySelector(".artName").value}: G:${box.querySelector(".gut").value}, A:${box.querySelector(".aus").value}\n`;
+    });
+
+    const text = `📊 *APG REPORT*\n📅 *Datum:* ${datum}\n⏱️ *Schicht:* ${schicht}\n🏭 *Anlage:* ${anlage}\n👷 *Personal:* ${staff.join(", ")}\n\n📦 *PRODUKTION:*\n${prod}`;
+
+    try {
+        await fetch(scriptURL, { method: "POST", mode: "no-cors", body: JSON.stringify({ datum, schicht, mitarbeiter: staff.join(", "), anlage, artikel: prod }) });
+        window.location.href = `whatsapp://send?phone=4917684126305&text=${encodeURIComponent(text)}`;
+    } catch(e) { window.location.href = `whatsapp://send?phone=4917684126305&text=${encodeURIComponent(text)}`; }
+}
+</script>
+</body>
+</html>
