@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>APG Schichtportal PRO</title>
+    <title>APG Schichtbericht PRO</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_vj9hUon0Uv-fUvL636x5O9YvL59p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p9L5p/s1600/logo.png" style="width:100%; border-radius:15px;">
         </div>
 
-        <label>Vardiya Seç / Schicht wählen</label>
+        <label>Schicht wählen</label>
         <select id="schichtWahl">
             <option value="B">Schicht - B</option>
             <option value="A">Schicht - A</option>
@@ -20,10 +20,14 @@
         </select>
 
         <div class="grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <div><label>Datum</label><input type="date" id="datum"></div>
+            <div>
+                <label>Datum</label>
+                <input type="date" id="datum">
+            </div>
             <div>
                 <label>Anlage</label>
                 <select id="anlage">
+                    <option value="">--Bitte wählen--</option>
                     <option value="PUR 1">PUR 1</option>
                     <option value="PUR 2">PUR 2</option>
                     <option value="PUR 3">PUR 3</option>
@@ -46,7 +50,7 @@
         </div>
 
         <div id="ftBox" style="display:none; margin-top:10px;">
-            <label>FT Seç / FT wählen</label>
+            <label>FT wählen</label>
             <select id="ftSelect">
                 <option value="FT 1">FT 1</option>
                 <option value="FT 2">FT 2</option>
@@ -63,10 +67,10 @@
         </div>
 
         <div id="workerContainer"></div>
-        <button class="add-btn-main" onclick="addWorker()">+ Mitarbeiter hinzufügen</button>
+        <button class="add-btn-main" id="addWorkerBtn" type="button">+ Mitarbeiter hinzufügen</button>
 
         <div id="artikelContainer"></div>
-        <button class="add-btn-main" onclick="addArtikel()">+ Artikel hinzufügen</button>
+        <button class="add-btn-main" id="addArtikelBtn" type="button">+ Artikel hinzufügen</button>
 
         <button class="main-btn" onclick="speichern()">🚀 SPEICHERN & SENDEN</button>
     </div>
