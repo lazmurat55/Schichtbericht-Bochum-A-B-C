@@ -3,46 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>APG PRO Production Bericht</title>
+    <title>APG BOCHUM PRO V1</title>
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --blue-dark: #1e40af; --text: #f1f5f9; --danger: #ef4444; --success: #22c55e; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 10px; line-height: 1.6; }
-        .card { width: 100%; max-width: 650px; background: var(--card); padding: 25px; border-radius: 24px; margin: auto; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .header { text-align: center; border-bottom: 3px solid var(--primary); margin-bottom: 25px; padding-bottom: 15px; }
-        .header h1 { margin: 0; font-size: 22px; color: #fff; letter-spacing: 1px; }
-        .header p { margin: 5px 0 0; color: var(--primary); font-weight: bold; font-size: 14px; text-transform: uppercase; }
-        
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; }
+        .card { width: 100%; max-width: 650px; background: var(--card); padding: 25px; border-radius: 24px; margin: auto; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .header { text-align: center; border-bottom: 3px solid var(--primary); margin-bottom: 25px; padding-bottom: 10px; }
         label { display: block; margin: 15px 0 5px; color: var(--primary); font-weight: 800; font-size: 13px; text-transform: uppercase; }
-        select, input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 16px; transition: 0.3s; box-sizing: border-box; }
-        select:focus, input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
-        
-        /* Mitarbeiter Checkbox System */
-        .worker-selection-card { background: rgba(15, 23, 42, 0.6); padding: 15px; border-radius: 15px; border: 1px solid #334155; display: none; margin-top: 10px; max-height: 300px; overflow-y: auto; }
-        .worker-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
-        .worker-item input { width: 20px; height: 20px; margin-right: 15px; accent-color: var(--primary); }
-        
+        select, input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 16px; box-sizing: border-box; }
+        .worker-selection-card { background: rgba(15, 23, 42, 0.8); padding: 15px; border-radius: 15px; border: 1px solid var(--primary); display: none; margin-top: 10px; max-height: 350px; overflow-y: auto; z-index: 100; }
+        .worker-item { display: flex; align-items: center; padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+        .worker-item:hover { background: rgba(56, 189, 248, 0.1); }
+        .worker-item input { width: 22px; height: 22px; margin-right: 15px; accent-color: var(--primary); cursor: pointer; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .section-card { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 20px; margin-top: 20px; border: 1px solid rgba(56, 189, 248, 0.1); position: relative; }
-        
-        /* FT Selection Modern */
         .ft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
-        .ft-btn { padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 10px; color: #94a3b8; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .ft-btn { padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 10px; color: #94a3b8; cursor: pointer; font-weight: bold; }
         .ft-btn.active { background: var(--blue-dark); border-color: var(--primary); color: white; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
-        
-        .main-btn { width: 100%; padding: 20px; background: var(--primary); color: #0f172a; border: none; border-radius: 16px; font-weight: 900; font-size: 18px; margin-top: 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
-        .main-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; box-shadow: none; }
-        
+        .main-btn { width: 100%; padding: 20px; background: var(--primary); color: #0f172a; border: none; border-radius: 16px; font-weight: 900; font-size: 18px; margin-top: 30px; cursor: pointer; text-transform: uppercase; }
+        .main-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; }
         .add-btn { width: 100%; padding: 12px; margin-top: 10px; background: rgba(56, 189, 248, 0.1); border: 2px dashed var(--primary); color: var(--primary); font-weight: bold; border-radius: 12px; cursor: pointer; }
-        .sub-btn { background: var(--blue-dark); color: white; padding: 10px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; font-size: 12px; flex: 1; }
+        .sub-btn { background: var(--blue-dark); color: white; padding: 10px; border-radius: 10px; border: none; cursor: pointer; font-size: 12px; flex: 1; }
         .delete-btn { position: absolute; right: 10px; top: 10px; background: var(--danger); color: white; border: none; border-radius: 8px; width: 28px; height: 28px; cursor: pointer; }
-        
-        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-top: 5px; }
+        .status-badge { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-top: 10px; }
         .status-ok { background: var(--success); color: #000; }
         .status-error { background: var(--danger); color: #fff; }
-        
         .code-row { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
-        .code-row select { flex: 2; }
-        .code-row input { flex: 1; text-align: center; }
     </style>
 </head>
 <body>
@@ -61,9 +47,9 @@
     </select>
 
     <label style="margin-top:20px;">Personal (Mitarbeiter)</label>
-    <button type="button" class="add-btn" onclick="toggleWorkerCard()">Mitarbeiter auswählen / hinzufügen</button>
+    <button type="button" class="add-btn" onclick="toggleWorkerCard()">Mitarbeiter auswählen</button>
     <div id="workerSelectionCard" class="worker-selection-card"></div>
-    <div id="selectedWorkersDisplay" style="margin-top:10px; font-size:13px; color:var(--primary); font-weight:bold;"></div>
+    <div id="selectedWorkersDisplay" style="margin-top:10px; font-size:13px; color:var(--primary); font-weight:bold; min-height: 20px;"></div>
 
     <div style="height: 1px; background: rgba(56,189,248,0.2); margin: 25px 0;"></div>
 
@@ -73,12 +59,12 @@
             <label>Anlage</label>
             <select id="anlage" onchange="onAnlageChange(this.value)">
                 <option value="">Wählen...</option>
-                <optgroup label="PUR">
+                <optgroup label="PUR (Schaum)">
                     <option value="PUR1">PUR 1</option><option value="PUR2">PUR 2</option><option value="PUR3">PUR 3</option>
                     <option value="PUR4">PUR 4</option><option value="PUR5">PUR 5</option><option value="PUR6">PUR 6</option>
                     <option value="PUR7">PUR 7</option><option value="PUR8">PUR 8</option><option value="PUR9">PUR 9</option>
                 </optgroup>
-                <optgroup label="Spritzguss">
+                <optgroup label="Spritzguss (IM/CIM)">
                     <option value="IM1">IM 1</option><option value="IM2">IM 2</option><option value="IM3">IM 3</option>
                     <option value="IM4">IM 4</option><option value="IM5">IM 5</option><option value="CIM1">CIM 1</option>
                 </optgroup>
@@ -90,12 +76,12 @@
     <div id="ftBox" style="display:none; margin-top:20px;">
         <label>Formträger (FT)</label>
         <div class="ft-grid">
-            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT1</button>
-            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT2</button>
-            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT3</button>
-            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT4</button>
-            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT5</button>
-            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT6</button>
+            <button type="button" class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT1</button>
+            <button type="button" class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT2</button>
+            <button type="button" class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT3</button>
+            <button type="button" class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT4</button>
+            <button type="button" class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT5</button>
+            <button type="button" class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT6</button>
         </div>
     </div>
 
@@ -114,9 +100,9 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbx55ShhJiujy6xj8lJZoD
 const WHATSAPP_NR = "+4917623638794";
 
 const workerData = {
-    "A": ["Kunert M. - 502", "Karali O. - 533 E", "Mikuczynski K. - 1212", "Türkmen E. - 1213 E", "Amrouch M. - 1268", "Stania D. - 1368", "Kantaroglu A. - 1382", "Krancioch A. - 1405", "Held D. - 1421", "Berisha I. - 1534", "Neji M. - 1536", "Mulugeta G. - 1633", "Udezue P. - 1686", "Jansen M. - 1692", "Aksoy O. - 1704", "Yildirim S. - 1710", "Brand N. - 1722", "Louze A. - 1724", "Blanquez Romero V. - 1725", "Diallo M.D. - 1726", "Sener E. - 1731 E"],
-    "B": ["Keskin Mur.-517", "Aldirmaz P.-577", "Anderwald R.-509 E", "Bayrakli F.-1377 E", "Kilic D.-1384 E", "Maafi T.-1273 E", "Besche T.-1472", "Eickhoff P.-1406", "Toth Renata-1699", "Gibba n.-1367", "Helf A.-1483", "Isbir J.-1715", "Jeyakumar S.-1698", "Kalisch T.-1451", "Kowarsch R.-484", "Nowak M.-1390", "Pähler D.-1332", "Patarcsity V.-1700", "Pulendran K.-1498", "Sahin E.-1721", "Savas S.-1360", "Schiavitelli C.-1669", "Uluyüz B.-1450", "Uzun S.-1433"],
-    "C": ["Beher T. - 510", "Keskin Mustafa - 518", "Kantaroglu Ö. - 580", "Savas R. - 608", "Rafo S. - 1277", "Gertz Kevin - 1357", "Gertz S. - 1358 E", "Schönborn Ch. - 1361", "Fortes Ch. - 1381", "Sakaguchi M. - 1391", "Mercan M. - 1437 E", "Krämer Ch. - 1449", "Juretzka T. - 1473", "Kumbara E. - 1474", "Skupio D. - 1475", "Skrago T. - 1484", "Bah A. - 1684", "Kaya A. - 1712", "Jdea A. - 1701", "Toure A. - 1713", "Schneider D. - 1714", "Tchaleu Bertrand - 1723"]
+    "A": ["Kunert M. - 502", "Karali O. - 533 E", "Mikuczynski K. - 1212", "Türkmen E. - 1213 E", "Amrouch M. - 1268", "Stania D. - 1368", "Kantaroglu A. - 1382", "Krancioch A. - 1405", "Held D. - 1421", "Berisha I. - 1534", "Neji M. - 1536", "Mulugeta G. - 1633", "Udezue P. - 1686", "Jansen M. - 1692", "Aksoy O. - 1704", "Yildirim S. - 1710", "Brand N. - 1722", "Louze A. - 1724", "Blanquez Romero V. - 1725", "Diallo M.D. - 1726", "Sener E. - 1731 E", "Sonstige"],
+    "B": ["Keskin Mur.-517", "Aldirmaz P.-577", "Anderwald R.-509 E", "Bayrakli F.-1377 E", "Kilic D.-1384 E", "Maafi T.-1273 E", "Besche T.-1472", "Eickhoff P.-1406", "Toth Renata-1699", "Gibba n.-1367", "Helf A.-1483", "Isbir J.-1715", "Jeyakumar S.-1698", "Kalisch T.-1451", "Kowarsch R.-484", "Nowak M.-1390", "Pähler D.-1332", "Patarcsity V.-1700", "Pulendran K.-1498", "Sahin E.-1721", "Savas S.-1360", "Schiavitelli C.-1669", "Uluyüz B.-1450", "Uzun S.-1433", "Sonstige"],
+    "C": ["Beher T. - 510", "Keskin Mustafa - 518", "Kantaroglu Ö. - 580", "Savas R. - 608", "Rafo S. - 1277", "Gertz Kevin - 1357", "Gertz S. - 1358 E", "Schönborn Ch. - 1361", "Fortes Ch. - 1381", "Sakaguchi M. - 1391", "Mercan M. - 1437 E", "Krämer Ch. - 1449", "Juretzka T. - 1473", "Kumbara E. - 1474", "Skupio D. - 1475", "Skrago T. - 1484", "Bah A. - 1684", "Kaya A. - 1712", "Jdea A. - 1701", "Toure A. - 1713", "Schneider D. - 1714", "Tchaleu Bertrand - 1723", "Sonstige"]
 };
 
 const codeData = {
@@ -125,12 +111,12 @@ const codeData = {
         stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-2-01 Ungepl. Inst. Werkzeug", "4-2-02 Ungepl. Inst. Maschine", "4-2-03 POLY/ISO Überdruck", "4-2-04 Mischkopf n.i.o.", "4-2-05 Fehler Lichtschranke", "4-2-08 Reinigung Werkzeug", "5-2-04 Wartezeit Einrichter", "Sonstige"]
     },
     Spritz: {
-        aus: ["6-1-01 Anfahrschrott", "6-1-02 Materialumstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "Sonstige"],
-        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-1-01 Ungepl. Inst. Werkzeug", "4-1-02 Ungepl. Inst. Maschine", "4-1-03 Materialförderung", "4-1-06 Teileentnahme", "5-1-03 Wartezeit Einrichter", "Sonstige"]
+        aus: ["6-1-01 Anfahrschrott", "6-1-02 Materialumstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "6-1-06 Einfallstellen", "6-1-07 Brandstellen", "6-1-08 Silberstreifen", "Sonstige"],
+        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-1-01 Ungepl. Inst. Werkzeug", "4-1-02 Ungepl. Inst. Maschine", "4-1-03 Materialförderung gestört", "4-1-04 Probleme Dosiereinheit", "4-1-05 Probleme Schließeinheit", "4-1-06 Probleme Teileentnahme", "4-1-07 Probleme Werkzeugheizung", "4-1-08 Probleme Beflammprozess", "5-1-01 Materialmangel", "5-1-03 Wartezeit Einrichter", "Sonstige"]
     },
     COM: {
         aus: ["6-3-01 Anfahrschrott", "6-3-02 Materialfehler", "Sonstige"],
-        stoer: ["3-01 Werkzeugwechsel", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Maschine", "4-3-04 Silowechsel", "5-3-01 Materialmangel", "5-3-05 Feueralarm", "Sonstige"]
+        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Maschine", "4-3-04 Silowechsel", "5-3-01 Materialmangel", "5-3-05 Feueralarm", "Sonstige"]
     }
 };
 
@@ -139,7 +125,6 @@ window.onload = () => {
     resetWorkerSelection();
 };
 
-// --- MITARBEITER LOGIK ---
 function toggleWorkerCard() {
     const card = document.getElementById('workerSelectionCard');
     card.style.display = card.style.display === 'block' ? 'none' : 'block';
@@ -149,26 +134,26 @@ function resetWorkerSelection() {
     const schicht = document.getElementById('schichtWahl').value;
     const container = document.getElementById('workerSelectionCard');
     container.innerHTML = workerData[schicht].map(w => `
-        <div class="worker-item" onclick="toggleCheck(this)">
-            <input type="checkbox" value="${w}" onchange="updateSelectedWorkers()">
+        <div class="worker-item" onclick="toggleCB(this)">
+            <input type="checkbox" value="${w}" onclick="event.stopPropagation(); updateSelectedDisplay();">
             <span>${w}</span>
         </div>
     `).join("");
-    updateSelectedWorkers();
+    updateSelectedDisplay();
 }
 
-function toggleCheck(el) {
+function toggleCB(el) {
     const cb = el.querySelector('input');
     cb.checked = !cb.checked;
-    updateSelectedWorkers();
+    updateSelectedDisplay();
 }
 
-function updateSelectedWorkers() {
+function updateSelectedDisplay() {
     const selected = Array.from(document.querySelectorAll('#workerSelectionCard input:checked')).map(i => i.value);
-    document.getElementById('selectedWorkersDisplay').innerText = selected.length > 0 ? "Gewählt: " + selected.join(", ") : "Kein Mitarbeiter gewählt";
+    document.getElementById('selectedWorkersDisplay').innerText = selected.length > 0 ? "Gewählt: " + selected.join(", ") : "Bitte Personal wählen";
+    liveCheck();
 }
 
-// --- ANLAGE & FT LOGIK ---
 function onAnlageChange(val) {
     document.getElementById('ftBox').style.display = val.startsWith("PUR") ? "block" : "none";
     document.getElementById('comTimeBox').style.display = val === "COM" ? "block" : "none";
@@ -177,135 +162,99 @@ function onAnlageChange(val) {
     liveCheck();
 }
 
-function toggleFT(btn) {
-    btn.classList.toggle('active');
-}
-
-// --- ARTIKEL LOGIK ---
 function addArtikel() {
-    const anlage = document.getElementById('anlage').value;
-    if(!anlage) return alert("Anlage wählen!");
-    
     const id = Date.now();
     const div = document.createElement('div');
     div.className = "section-card artikel-row";
     div.id = `art_${id}`;
     div.innerHTML = `
-        <button class="delete-btn" onclick="removeArt('${id}')">✕</button>
+        <button type="button" class="delete-btn" onclick="document.getElementById('art_${id}').remove(); liveCheck();">✕</button>
         <label>Artikel Bezeichnung</label>
-        <input type="text" class="art-name" placeholder="...">
-        
-        ${anlage === 'COM' ? '<label>Dauer (Min)</label><input type="number" class="art-dauer" value="0" oninput="liveCheck()">' : ''}
-        
+        <input type="text" class="art-name">
+        ${document.getElementById('anlage').value === 'COM' ? '<label>Dauer (Min)</label><input type="number" class="art-dauer" value="0" oninput="liveCheck()">' : ''}
         <div class="grid" style="margin-top:10px;">
-            <div><label>Gut-Teile</label><input type="number" class="art-gut" value="0"></div>
-            <div><label>Ausschuss Gesamt</label><input type="number" class="art-aus-total" value="0" oninput="liveCheck()"></div>
+            <div><label>Gut</label><input type="number" class="art-gut" value="0"></div>
+            <div><label>Ausschuss</label><input type="number" class="art-aus-total" value="0" oninput="liveCheck()"></div>
         </div>
-        
-        <div class="status-badge" id="status_${id}"></div>
-        
-        <div class="code-area" id="codes_${id}"></div>
-        
+        <div class="status-badge" id="badge_${id}"></div>
+        <div id="rows_${id}"></div>
         <div style="display:flex; gap:10px; margin-top:15px;">
-            <button class="sub-btn" onclick="addRow('${id}', 'aus')">+ Ausschuss</button>
-            <button class="sub-btn" onclick="addRow('${id}', 'stoer')">+ Störung</button>
+            <button type="button" class="sub-btn" onclick="addRow('${id}', 'aus')">+ Ausschuss</button>
+            <button type="button" class="sub-btn" onclick="addRow('${id}', 'stoer')">+ Störung</button>
         </div>
     `;
     document.getElementById('artikelContainer').appendChild(div);
 }
 
-function removeArt(id) { document.getElementById(`art_${id}`).remove(); liveCheck(); }
-
 function addRow(artId, type) {
     const anlage = document.getElementById('anlage').value;
     const cat = anlage === 'COM' ? 'COM' : (anlage.startsWith("PUR") ? 'PUR' : 'Spritz');
-    const codes = codeData[cat][type];
-    
+    const list = codeData[cat][type];
     const div = document.createElement('div');
     div.className = "code-row";
-    div.innerHTML = `
-        <select class="${type}-c" style="flex:3;">${codes.map(c => `<option value="${c}">${c}</option>`).join("")}</select>
+    div.innerHTML = `<select class="${type}-c" style="flex:3;">${list.map(l => `<option value="${l}">${l}</option>`).join("")}</select>
         <input type="number" class="${type}-v" value="0" style="flex:1;" oninput="liveCheck()">
-        <button class="row-del" onclick="this.parentElement.remove(); liveCheck();" style="background:none; border:none; color:red; font-weight:bold; cursor:pointer;">✕</button>
-    `;
-    document.getElementById(`codes_${artId}`).appendChild(div);
+        <button type="button" onclick="this.parentElement.remove(); liveCheck();" style="color:red; background:none; border:none; font-weight:bold; cursor:pointer;">✕</button>`;
+    document.getElementById(`rows_${artId}`).appendChild(div);
     liveCheck();
 }
 
-// --- LIVE KONTROLLE ---
 function liveCheck() {
-    let allValid = true;
-    let totalComTime = 0;
-    const anlage = document.getElementById('anlage').value;
-
+    let valid = true;
+    let comTotal = 0;
+    const workers = document.querySelectorAll('#workerSelectionCard input:checked').length;
+    
     document.querySelectorAll('.artikel-row').forEach(row => {
         const artId = row.id.split('_')[1];
-        const totalAus = parseInt(row.querySelector('.art-aus-total').value) || 0;
-        let sumAus = 0;
-        row.querySelectorAll('.aus-v').forEach(inp => sumAus += parseInt(inp.value) || 0);
-        
-        const badge = document.getElementById(`status_${artId}`);
-        if(totalAus > 0 && totalAus !== sumAus) {
+        const total = parseInt(row.querySelector('.art-aus-total').value) || 0;
+        let sum = 0;
+        row.querySelectorAll('.aus-v').forEach(i => sum += parseInt(i.value) || 0);
+        const badge = document.getElementById(`badge_${artId}`);
+        if(total > 0 && total !== sum) {
             badge.className = "status-badge status-error";
-            badge.innerText = `Ausschuss: ${sumAus} / ${totalAus} ❌`;
-            allValid = false;
-        } else if (totalAus > 0) {
+            badge.innerText = `⚠️ Differenz: ${sum} / ${total}`;
+            valid = false;
+        } else if(total > 0) {
             badge.className = "status-badge status-ok";
-            badge.innerText = `Ausschuss: ${sumAus} / ${totalAus} ✅`;
-        } else {
-            badge.innerText = "";
-        }
-
-        if(anlage === 'COM') totalComTime += parseInt(row.querySelector('.art-dauer').value) || 0;
+            badge.innerText = `✅ Korrekt: ${sum} / ${total}`;
+        } else { badge.innerText = ""; }
+        if(document.getElementById('anlage').value === 'COM') comTotal += parseInt(row.querySelector('.art-dauer').value) || 0;
     });
 
-    if(anlage === 'COM') {
-        document.getElementById('comTotalLabel').innerText = totalComTime;
-        if(totalComTime !== 480) allValid = false;
+    if(document.getElementById('anlage').value === 'COM') {
+        document.getElementById('comTotalLabel').innerText = comTotal;
+        if(comTotal !== 480) valid = false;
     }
-
-    document.getElementById('mainSendBtn').disabled = !allValid;
+    if(workers === 0) valid = false;
+    document.getElementById('mainSendBtn').disabled = !valid;
 }
 
-// --- REPORT SYSTEM ---
 async function processFinalReport() {
     const btn = document.getElementById('mainSendBtn');
-    btn.disabled = true;
-    btn.innerText = "Senden... ⏳";
-
+    btn.innerText = "Wird gesendet..."; btn.disabled = true;
     const datum = document.getElementById('datum').value;
     const anlage = document.getElementById('anlage').value;
     const schicht = document.getElementById('schichtWahl').value;
-    const workers = Array.from(document.querySelectorAll('#workerSelectionCard input:checked')).map(i => i.value);
-    const activeFTs = Array.from(document.querySelectorAll('.ft-btn.active')).map(b => b.innerText);
+    const staff = Array.from(document.querySelectorAll('#workerSelectionCard input:checked')).map(i => i.value);
+    const fts = Array.from(document.querySelectorAll('.ft-btn.active')).map(b => b.innerText);
 
     let details = "";
     document.querySelectorAll('.artikel-row').forEach(row => {
-        const name = row.querySelector('.art-name').value || "Unbekannt";
-        const gut = row.querySelector('.art-gut').value;
-        const aus = row.querySelector('.art-aus-total').value;
-        const dauer = row.querySelector('.art-dauer') ? row.querySelector('.art-dauer').value + " Min" : "";
-
-        details += `━━━━━━━━━━\n📦 *Artikel:* ${name} ${dauer ? '('+dauer+')' : ''}\n✅ *Gut:* ${gut}\n⚠️ *Aus:* ${aus}\n`;
-        
+        const n = row.querySelector('.art-name').value || "Unbekannt";
+        details += `━━━━━━━━━━\n📦 *Artikel:* ${n}\n✅ Gut: ${row.querySelector('.art-gut').value}\n⚠️ Aus: ${row.querySelector('.art-aus-total').value}\n`;
         row.querySelectorAll('.code-row').forEach(cr => {
-            const code = cr.querySelector('select').value;
-            const val = cr.querySelector('input').value;
-            const type = cr.querySelector('select').classList.contains('aus-c') ? "⚠️" : "⚙️";
-            if(val > 0) details += `${type} ${code}: ${val}\n`;
+            const v = cr.querySelector('input').value;
+            if(v > 0) details += `${cr.querySelector('select').classList.contains('aus-c') ? '⚠️' : '⚙️'} ${cr.querySelector('select').value}: ${v}\n`;
         });
     });
 
-    const report = `📊 *APG PRODUCTION REPORT*\n\n👷 *Personal:* ${workers.join(", ")}\n🏭 *Anlage:* ${anlage}\n📅 *Datum:* ${datum}\n⏱ *Schicht:* ${schicht}\n${activeFTs.length > 0 ? '🛠 *FT:* ' + activeFTs.join(", ") : ''}\n\n${details}\n━━━━━━━━━━`;
+    const report = `📊 *APG REPORT*\n\n👷 *Personal:* ${staff.join(", ")}\n🏭 *Anlage:* ${anlage}\n📅 *Datum:* ${datum}\n⏱ *Schicht:* ${schicht}\n${fts.length ? '🛠 *FT:* '+fts.join(", ") : ''}\n${details}\n━━━━━━━━━━`;
 
     try {
         await fetch(scriptURL, { method: "POST", mode: "no-cors", body: JSON.stringify({ datum, anlage, report }) });
         window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(report)}`;
-    } catch(e) {
-        window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(report)}`;
-    } finally {
-        setTimeout(() => { btn.innerText = "🚀 SPEICHERN & SENDEN"; btn.disabled = false; }, 2000);
-    }
+    } catch(e) { window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(report)}`; }
+    setTimeout(() => { btn.innerText = "🚀 SPEICHERN & SENDEN"; btn.disabled = false; }, 2000);
 }
 </script>
 </body>
