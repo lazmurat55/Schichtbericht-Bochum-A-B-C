@@ -225,8 +225,8 @@ function liveCheck() {
         const id = row.id.split('_')[1]; const t = parseInt(row.querySelector('.art-aus-total').value) || 0;
         let s = 0; row.querySelectorAll('.aus-v').forEach(i => s += parseInt(i.value) || 0);
         const b = document.getElementById(`badge_${id}`);
-        if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText=\"⚠️ Differenz: \" + s + \"/\" + t; v=false; }
-        else if(t > 0) { b.className="status-badge status-ok"; b.innerText=\"✅ OK: \" + s + \"/\" + t; } else { b.innerText=""; }
+        if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText = "⚠️ Differenz: " + s + "/" + t; v=false; }
+        else if(t > 0) { b.className="status-badge status-ok"; b.innerText = "✅ OK: " + s + "/" + t; } else { b.innerText=""; }
         if(document.getElementById('anlage').value==='COM') cT += parseInt(row.querySelector('.art-duration')?.value) || 0;
     });
     if(document.getElementById('anlage').value==='COM') { document.getElementById('comTotal').innerText = cT; if(cT !== 480) v = false; }
