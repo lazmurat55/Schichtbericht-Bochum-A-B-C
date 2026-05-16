@@ -155,4 +155,32 @@ function liveCheck() {
         let s = 0; row.querySelectorAll('.aus-v').forEach(i => s += parseInt(i.value) || 0);
         const b = document.getElementById(`badge_${id}`);
         if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText=`⚠️ Diff: ${s}/${t}`; v=false; }
-        else if(t > 0) { b.className="status-badge
+        else if(t > 0) { b.className="status-badge status-ok"; b.innerText=`✅ OK: ${s}/${t}`; } else { b.innerText=""; }
+        if(document.getElementById('anlage').value==='COM') cT += parseInt(row.querySelector('.art-dauer').value) || 0;
+    });
+    if(document.getElementById('anlage').value==='COM') { document.getElementById('comTotal').innerText = cT; if(cT !== 480) v = false; }
+    if(selectedStaff.length === 0 || !document.getElementById('anlage').value) v = false;
+    document.getElementById('mainSendBtn').disabled = !v;
+}
+
+async function processReport() {
+    const btn = document.getElementById('mainSendBtn'); btn.innerText = "Sende..."; btn.disabled = true;
+    const fts = Array.from(document.querySelectorAll('.ft-btn.active')).map(x => x.innerText);
+    let d = ""; document.querySelectorAll('.artikel-row').forEach(row => {
+        d += `━━━━━━━━━━\n📦 *Artikel:* ${row.querySelector('.art-name').value || "NA"}\n✅ Gut: ${row.querySelector('.art-gut').value || 0}\n⚠️ Aus: ${row.querySelector('.art-aus-total').value || 0}\n`;
+        row.querySelectorAll('.code-row').forEach(cr => {
+            const val = cr.querySelector('input[type="number"]').value; if(val > 0) {
+                let n = cr.querySelector('select').value; if(n === "Sonstige") n = "✍️ " + (cr.querySelector('.sonstige-input').value || "Sonstige");
+                d += `${cr.querySelector('select').classList.contains('aus-c') ? '⚠️' : '⚙️'} ${n}: ${val}\n`;
+            }
+        });
+    });
+    const rep = `📊 *APG REPORT*\n\n👷 *Personal:* ${selectedStaff.join(", ")}\n🏭 *Anlage:* ${document.getElementById('anlage').value}\n📅 *Datum:* ${document.getElementById('datum').value}\n⏱ *Schicht:* ${currentSchicht}\n${fts.length ? '🛠 *FT:* '+fts.join(", ") : ''}\n${d}\n👤 *Gesendet von:* ${loggedInUser}\n━━━━━━━━━━`;
+    try { await fetch(scriptURL, { method: "POST", mode: "no-cors", body: JSON.stringify({ report: rep }) });
+    window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(rep)}`;
+    } catch(e) { window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(rep)}`; }
+    setTimeout(() => { btn.innerText = "🚀 SPEICHERN & SENDEN"; btn.disabled = false; }, 2000);
+}
+</script>
+</body>
+</html>
