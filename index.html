@@ -35,7 +35,7 @@
         .code-row { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 10px; border: 1px solid #334155; }
         .code-row-inputs { display: flex; gap: 8px; align-items: center; width: 100%; }
         .sonstige-input { width: 100%; margin-top: 4px; display: none; border-color: var(--primary); background: #0f172a; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     </style>
 </head>
 <body>
@@ -69,7 +69,7 @@
 
     <div class="grid-2">
         <div>
-            <label>Vardiya Grubu</label>
+            <label>Schicht wählen</label>
             <div class="schicht-group">
                 <button class="schicht-btn" id="btnA" onclick="setSchicht('A')">A</button>
                 <button class="schicht-btn" id="btnB" onclick="setSchicht('B')">B</button>
@@ -91,7 +91,7 @@
     
     <div class="grid-2" style="margin-top:20px;">
         <div>
-            <label>Datum (Editierbar)</label>
+            <label>Datum auswählen</label>
             <input type="date" id="datum">
         </div>
         <div><label>Anlage</label>
@@ -123,7 +123,6 @@
 </div>
 
 <script>
-// EN SON ALDIĞIN GÜNCEL LINK KODA İŞLENDİ
 const scriptURL = "https://script.google.com/macros/s/AKfycbzgZA8FY0Y3EZLRcYbltwTMBLcfywACXXdvccDRt86DSTru6-wbEnT3yZYjfM8FmVSStw/exec";
 const WHATSAPP_NR = "+4917623638794";
 
@@ -192,7 +191,7 @@ async function saveNewPassword() {
 
 function enterApp(u) { loggedInUser = u; document.getElementById('loginScreen').style.display='none'; document.getElementById('setPassScreen').style.display='none'; document.getElementById('mainApp').style.display='block'; document.getElementById('currentUserDisplay').innerText = "Angemeldet: " + u; setSchicht('B'); setSchichtType('Frühschicht'); }
 function setSchicht(s) { currentSchicht = s; document.querySelectorAll('.schicht-group .schicht-btn').forEach(b => { if(!b.classList.contains('type-btn')) b.classList.remove('active'); }); const target = Array.from(document.querySelectorAll('.schicht-group .schicht-btn')).find(b => b.innerText === s && !b.classList.contains('type-btn')); if(target) target.classList.add('active'); selectedStaff=[]; renderStaff(); }
-function setSchichtType(type) { currentSchichtType = type; document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active')); if(type==='Frühschicht') document.getElementById('sFrueh').classList.add('active'); if(type==='Spätschicht') document.getElementById('sSpaet').classList.add('active'); if(type==='Nachtschicht') document.getElementById('sNacht').classList.add('active'); }
+function setSchichtType(type) { currentSchichtType = type; document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active')); if(type=='Frühschicht') document.getElementById('sFrueh').classList.add('active'); if(type=='Spätschicht') document.getElementById('sSpaet').classList.add('active'); if(type=='Nachtschicht') document.getElementById('sNacht').classList.add('active'); }
 function openWorkerOverlay() { document.getElementById('workerList').innerHTML = workerData[currentSchicht].map(w => `<div class="worker-opt" onclick="addStaff('${w}')">${w}</div>`).join(""); document.getElementById('workerOverlay').style.display='flex'; }
 function addStaff(n) { if(!selectedStaff.includes(n)) selectedStaff.push(n); document.getElementById('workerOverlay').style.display='none'; renderStaff(); }
 function addManualWorker() { const v = document.getElementById('manualWorker').value; if(v) { selectedStaff.push("✍️ " + v); document.getElementById('manualWorker').value=""; document.getElementById('workerOverlay').style.display='none'; renderStaff(); } }
@@ -226,8 +225,8 @@ function liveCheck() {
         const id = row.id.split('_')[1]; const t = parseInt(row.querySelector('.art-aus-total').value) || 0;
         let s = 0; row.querySelectorAll('.aus-v').forEach(i => s += parseInt(i.value) || 0);
         const b = document.getElementById(`badge_${id}`);
-        if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText=`⚠️ Differenz: ${s}/${t}`; v=false; }
-        else if(t > 0) { b.className="status-badge status-ok"; b.innerText=`✅ OK: ${s}/${t}`; } else { b.innerText=""; }
+        if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText=\"⚠️ Differenz: \" + s + \"/\" + t; v=false; }
+        else if(t > 0) { b.className="status-badge status-ok"; b.innerText=\"✅ OK: \" + s + \"/\" + t; } else { b.innerText=""; }
         if(document.getElementById('anlage').value==='COM') cT += parseInt(row.querySelector('.art-duration')?.value) || 0;
     });
     if(document.getElementById('anlage').value==='COM') { document.getElementById('comTotal').innerText = cT; if(cT !== 480) v = false; }
@@ -238,8 +237,14 @@ function liveCheck() {
 async function processReport() {
     const btn = document.getElementById('mainSendBtn'); btn.innerText = "Sende..."; btn.disabled = true;
     const fts = Array.from(document.querySelectorAll('.ft-btn.active')).map(x => x.innerText).join(", ");
-    const chosenDate = document.getElementById('datum').value;
     
+    const rawDate = document.getElementById('datum').value;
+    let formattedReportDate = "";
+    if(rawDate) {
+        const parts = rawDate.split("-");
+        if(parts.length === 3) formattedReportDate = `${parts[2]}.${parts[1]}.${parts[0]}`;
+    }
+
     let articlesArray = [];
     let whatsappDetails = ""; 
 
@@ -278,16 +283,16 @@ async function processReport() {
         stoerCodes.forEach(c => whatsappDetails += `⚙️ ${c}\n`);
     });
 
-    const repText = `📊 *APG REPORT*\n\n👷 *Personal:* ${selectedStaff.join(", ")}\n🏭 *Anlage:* ${document.getElementById('anlage').value}\n📅 *Datum:* ${chosenDate}\n⏱ *Gruppe:* ${currentSchicht} Schicht\n🕒 *Schichtart:* ${currentSchichtType}\n${fts ? '🛠 *FT:* '+fts+'\n' : ''}${whatsappDetails}\n👤 *Gesendet von:* ${loggedInUser}\n━━━━━━━━━━`;
+    const repText = `📊 *APG REPORT*\n\n👷 *Personal:* ${selectedStaff.join(", ")}\n🏭 *Anlage:* ${document.getElementById('anlage').value}\n📅 *Datum:* ${formattedReportDate}\n⏱ *Gruppe:* ${currentSchicht} Schicht\n🕒 *Schichtart:* ${currentSchichtType}\n${fts ? '🛠 *FT:* '+fts+'\n' : ''}${whatsappDetails}\n👤 *Gesendet von:* ${loggedInUser}\n━━━━━━━━━━`;
     
     const payload = {
         action: "sendReport",
         sender: loggedInUser,
         staff: selectedStaff.join(", "),
         anlage: document.getElementById('anlage').value,
-        schicht: currentSchicht,
-        schichtType: currentSchichtType,
-        customDate: chosenDate,
+        schicht: currentSchicht, 
+        schichtType: currentSchichtType, 
+        customDate: formattedReportDate, 
         ft: fts || "-",
         articles: articlesArray
     };
