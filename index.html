@@ -4,13 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>APG BOCHUM SECURE PRO</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="APG Report">
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co/6Rdfm7mR/apg-logo-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/7tXwWwN3/apg-logo-180.png">
+    
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --blue-dark: #1e40af; --text: #f1f5f9; --danger: #ef4444; --success: #22c55e; }
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; }
         #loginScreen, #setPassScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; justify-content: center; align-items: center; }
         .login-card { background: var(--card); padding: 30px; border-radius: 20px; border: 2px solid var(--primary); width: 90%; max-width: 400px; text-align: center; }
         .card { width: 100%; max-width: 650px; background: var(--card); padding: 20px; border-radius: 20px; margin: auto; border: 1px solid rgba(56, 189, 248, 0.3); display: none; }
+        
+        .logo-container { text-align: center; margin-bottom: 15px; }
+        .logo-img { max-width: 180px; height: auto; display: block; margin: 0 auto; }
         .header { text-align: center; border-bottom: 3px solid var(--primary); margin-bottom: 20px; padding-bottom: 10px; }
+        
         .schicht-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .schicht-btn { padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 10px; color: white; cursor: pointer; font-weight: bold; }
         .schicht-btn.active { background: var(--primary); color: #0f172a; }
@@ -42,6 +54,9 @@
 
 <div id="loginScreen">
     <div class="login-card">
+        <div class="logo-container">
+            <img class="logo-img" src="https://i.ibb.co/7tXwWwN3/apg-logo-180.png" alt="APG Logo">
+        </div>
         <h2 style="color:var(--primary); margin-top:0;">APG LOGIN</h2>
         <p style="font-size:12px; color:#94a3b8;">Bitte Nachname und Passwort eingeben</p>
         <input type="text" id="userInp" placeholder="Nachname">
@@ -63,7 +78,9 @@
 
 <div class="card" id="mainApp">
     <div class="header">
-        <h1>Adler Pelzer Group</h1>
+        <div class="logo-container">
+            <img class="logo-img" src="https://i.ibb.co/7tXwWwN3/apg-logo-180.png" alt="APG Logo">
+        </div>
         <p id="currentUserDisplay" style="color:var(--success); font-size:12px; font-weight:bold;"></p>
     </div>
 
@@ -131,13 +148,14 @@ let currentSchichtType = "Frühschicht";
 let selectedStaff = [];
 let loggedInUser = "";
 
+// GİRİŞ SİSTEMİ: KESKINMUS 518 VE KATENZ 000 GÜVENLİ ŞEKİLDE EKLENDİ
 const initialDB = {"Keskin":"517","Aldirmaz":"577","Anderwald":"509","Bayrakli":"1377","Kilic":"1384","Maafi":"1273","Besche":"1472","Eickhoff":"1406","Toth":"1699","Gibba":"1367","Helf":"1483","Isbir":"1715","Jeyakumar":"1698","Kalisch":"1451","Kowarsch":"484","Nowak":"1390","Pähler":"1332","Patarcsity":"1700","Pulendran":"1498","Sahin":"1721","Savas":"1360","Schiavitelli":"1669","Uluyüz":"1450","Uzun":"1433","Kunert":"502","Karali":"533","Mikuczynski":"1212","Türkmen":"1213","Amrouch":"1268","Stania":"1368","Kantaroglu":"1382","Krancioch":"1405","Held":"1421","Berisha":"1534","Neji":"1536","Mulugeta":"1633","Udezue":"1686","Jansen":"1692","Aksoy":"1704","Yildirim":"1710","Brand":"1722","Louze":"1724","Blanquez":"1725","Diallo":"1726","Sener":"1731","Beher":"510","Rafo":"1277","Gertz":"1357","Schönborn":"1361","Fortes":"1381","Sakaguchi M.":"1391","Mercan":"1437","Krämer":"1449","Juretzka":"1473","Kumbara":"1474","Skupio":"1475","Skrago":"1484","Bah":"1684","Kaya":"1712","Jdea":"1701","Toure":"1713","Schneider":"1714","Tchaleu":"1723","Klomrit":"1070","Garcia":"339","Keskinmus":"518","Katenz":"000"};
 
-// KLOMRIT VE GARCIA TÜM VARDİYA LİSTELERİNE (A, B, C) SABİT OLARAK EKLENDİ
+// VARDİYA LİSTELERİ DÜZENLENDİ: Keskinmus normal C Schicht'e dahil edildi. Katenz (Müdür) işçi listelerinden çıkarıldı.
 const workerData = {
     "A": ["Kunert M.", "Karali O.", "Mikuczynski K.", "Türkmen E.", "Amrouch M.", "Stania D.", "Kantaroglu A.", "Krancioch A.", "Held D.", "Berisha I.", "Neji M.", "Mulugeta G.", "Udezue P.", "Jansen M.", "Aksoy O.", "Yildirim S.", "Brand N.", "Louze A.", "Blanquez Romero V.", "Diallo M.D.", "Sener E.", "Klomrit", "Garcia"],
     "B": ["Keskin Mur.", "Aldirmaz P.", "Anderwald R.", "Bayrakli F.", "Kilic D.", "Maafi T.", "Besche T.", "Eickhoff P.", "Toth Renata", "Gibba n.", "Helf A.", "Isbir J.", "Jeyakumar S.", "Kalisch T.", "Kowarsch R.", "Nowak M.", "Pähler D.", "Patarcsity V.", "Pulendran K.", "Sahin E.", "Savas S.", "Schiavitelli", "Uluyüz B.", "Uzun S.", "Klomrit", "Garcia"],
-    "C": ["Beher T.", "Keskin Mustafa", "Kantaroglu Ö.", "Savas R.", "Rafo S.", "Gertz Kevin", "Gertz S.", "Schönborn Ch.", "Fortes Ch.", "Sakaguchi M.", "Mercan M.", "Krämer Ch.", "Juretzka T.", "Kumbara E.", "Skupio D.", "Skrago T.", "Bah A.", "Kaya A.", "Jdea A.", "Toure A.", "Schneider D.", "Tchaleu Bertrand", "Klomrit", "Garcia"]
+    "C": ["Beher T.", "Keskin Mustafa", "Kantaroglu Ö.", "Savas R.", "Rafo S.", "Gertz Kevin", "Gertz S.", "Schönborn Ch.", "Fortes Ch.", "Sakaguchi M.", "Mercan M.", "Krämer Ch.", "Juretzka T.", "Kumbara E.", "Skupio D.", "Skrago T.", "Bah A.", "Kaya A.", "Jdea A.", "Toure A.", "Schneider D.", "Tchaleu Bertrand", "Keskinmus", "Klomrit", "Garcia"]
 };
 
 const codeData = {
