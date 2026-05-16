@@ -56,7 +56,7 @@
     <label>Schicht</label>
     <div class="schicht-group">
         <button class="schicht-btn" id="btnA" onclick="setSchicht('A')">A</button>
-        <button class="schicht-btn active" id="btnB" onclick="setSchicht('B')">B</button>
+        <button class="schicht-btn" id="btnB" onclick="setSchicht('B')">B</button>
         <button class="schicht-btn" id="btnC" onclick="setSchicht('C')">C</button>
     </div>
     <div id="workerDisplayContainer"></div>
@@ -94,11 +94,11 @@
 <script>
 const scriptURL = "https://script.google.com/macros/s/AKfycbx55ShhJiujy6xj8lJZoDOoRh5wSpYpbPCbCNVoKnqR53gSUwsmKzSVv4ZXaihBQwwzVg/exec";
 const WHATSAPP_NR = "+4917623638794";
-const authDB = {"Keskin":"517","Aldirmaz":"577","Anderwald":"509","Bayrakli":"1377","Kilic":"1384","Maafi":"1273","Besche":"1472","Eickhoff":"1406","Toth":"1699","Gibba":"1367","Helf":"1483","Isbir":"1715","Jeyakumar":"1698","Kalisch":"1451","Kowarsch":"484","Nowak":"1390","Pähler":"1332","Patarcsity":"1700","Pulendran":"1498","Sahin":"1721","Savas":"1360","Schiavitelli":"1669","Uluyüz":"1450","Uzun":"1433","Kunert":"502","Karali":"533","Mikuczynski":"1212","Türkmen":"1213","Amrouch":"1268","Stania":"1368","Kantaroglu":"1382","Krancioch":"1405","Held":"1421","Berisha":"1534","Neji":"1536","Mulugeta":"1633","Udezue":"1686","Jansen":"1692","Aksoy":"1704","Yildirim":"1710","Brand":"1722","Louze":"1724","Blanquez":"1725","Diallo":"1726","Sener":"1731","Beher":"510","Rafo":"1277","Gertz":"1357","Schönborn":"1361","Fortes":"1381","Sakaguchi":"1391","Mercan":"1437","Krämer":"1449","Juretzka":"1473","Kumbara":"1474","Skupio":"1475","Skrago":"1484","Bah":"1684","Kaya":"1712","Jdea":"1701","Toure":"1713","Schneider":"1714","Tchaleu":"1723","Klomrit":"1070","Garcia":"339"};
+const authDB = {"Keskin":"517","Aldirmaz":"577","Anderwald":"509","Bayrakli":"1377","Kilic":"1384","Maafi":"1273","Besche":"1472","Eickhoff":"1406","Toth":"1699","Gibba":"1367","Helf":"1483","Isbir":"1715","Jeyakumar":"1698","Kalisch":"1451","Kowarsch":"484","Nowak":"1390","Pähler":"1332","Patarcsity":"1700","Pulendran":"1498","Sahin":"1721","Savas":"1360","Schiavitelli":"1669","Uluyüz":"1450","Uzun":"1433","Kunert":"502","Karali":"533","Mikuczynski":"1212","Türkmen":"1213","Amrouch":"1268","Stania":"1368","Kantaroglu":"1382","Krancioch":"1405","Held":"1421","Berisha":"1534","Neji":"1536","Mulugeta":"1633","Udezue":"1686","Jansen":"1692","Aksoy":"1704","Yildirim":"1710","Brand":"1722","Louze":"1724","Blanquez":"1725","Diallo":"1726","Sener":"1731","Beher":"510","Rafo":"1277","Gertz":"1357","Schönborn":"1361","Fortes":"1381","Sakaguchi M.":"1391","Mercan":"1437","Krämer":"1449","Juretzka":"1473","Kumbara":"1474","Skupio":"1475","Skrago":"1484","Bah":"1684","Kaya":"1712","Jdea":"1701","Toure":"1713","Schneider":"1714","Tchaleu":"1723","Klomrit":"1070","Garcia":"339"};
 const workerData = {
-    "A": ["Kunert M.", "Karali O.", "Mikuczynski K.", "Türkmen E.", "Amrouch M.", "Stania D.", "Kantaroglu A.", "Krancioch A.", "Held D.", "Berisha I.", "Neji M.", "Mulugeta G.", "Udezue P.", "Jansen M.", "Aksoy O.", "Yildirim S.", "Brand N.", "Louze A.", "Blanquez Romero V.", "Diallo M.D.", "Sener E.", "Sonstige"],
-    "B": ["Keskin Mur.", "Aldirmaz P.", "Anderwald R.", "Bayrakli F.", "Kilic D.", "Maafi T.", "Besche T.", "Eickhoff P.", "Toth Renata", "Gibba n.", "Helf A.", "Isbir J.", "Jeyakumar S.", "Kalisch T.", "Kowarsch R.", "Nowak M.", "Pähler D.", "Patarcsity V.", "Pulendran K.", "Sahin E.", "Savas S.", "Schiavitelli C.", "Uluyüz B.", "Uzun S.", "Sonstige"],
-    "C": ["Beher T.", "Keskin Mustafa", "Kantaroglu Ö.", "Savas R.", "Rafo S.", "Gertz Kevin", "Gertz S.", "Schönborn Ch.", "Fortes Ch.", "Sakaguchi M.", "Mercan M.", "Krämer Ch.", "Juretzka T.", "Kumbara E.", "Skupio D.", "Skrago T.", "Bah A.", "Kaya A.", "Jdea A.", "Toure A.", "Schneider D.", "Tchaleu Bertrand", "Sonstige"]
+    "A": ["Kunert M.", "Karali O.", "Mikuczynski K.", "Türkmen E.", "Amrouch M.", "Stania D.", "Kantaroglu A.", "Krancioch A.", "Held D.", "Berisha I.", "Neji M.", "Mulugeta G.", "Udezue P.", "Jansen M.", "Aksoy O.", "Yildirim S.", "Brand N.", "Louze A.", "Blanquez Romero V.", "Diallo M.D.", "Sener E."],
+    "B": ["Keskin Mur.", "Aldirmaz P.", "Anderwald R.", "Bayrakli F.", "Kilic D.", "Maafi T.", "Besche T.", "Eickhoff P.", "Toth Renata", "Gibba n.", "Helf A.", "Isbir J.", "Jeyakumar S.", "Kalisch T.", "Kowarsch R.", "Nowak M.", "Pähler D.", "Patarcsity V.", "Pulendran K.", "Sahin E.", "Savas S.", "Schiavitelli C.", "Uluyüz B.", "Uzun S."],
+    "C": ["Beher T.", "Keskin Mustafa", "Kantaroglu Ö.", "Savas R.", "Rafo S.", "Gertz Kevin", "Gertz S.", "Schönborn Ch.", "Fortes Ch.", "Sakaguchi M.", "Mercan M.", "Krämer Ch.", "Juretzka T.", "Kumbara E.", "Skupio D.", "Skrago T.", "Bah A.", "Kaya A.", "Jdea A.", "Toure A.", "Schneider D.", "Tchaleu Bertrand"]
 };
 const codeData = {
     PUR: { 
@@ -116,50 +116,89 @@ const codeData = {
 };
 
 window.onload = () => { document.getElementById('datum').value = new Date().toISOString().split('T')[0]; };
+
 function checkLogin() {
     const u = document.getElementById('userInp').value.trim(); const p = document.getElementById('passInp').value.trim();
-    if(authDB[u] === p) { loggedInUser = u + " (" + p + ")"; document.getElementById('loginScreen').style.display='none'; document.getElementById('mainApp').style.display='block'; document.getElementById('currentUserDisplay').innerText = "Angemeldet: " + loggedInUser; } 
+    if(authDB[u] === p) {
+        loggedInUser = u + " (" + p + ")";
+        document.getElementById('loginScreen').style.display='none';
+        document.getElementById('mainApp').style.display='block';
+        document.getElementById('currentUserDisplay').innerText = "Angemeldet: " + loggedInUser;
+        // B Schicht'ini varsayılan olarak hem görsel hem sistemsel olarak tetikliyoruz
+        setSchicht('B');
+    } 
     else { document.getElementById('loginError').style.display='block'; }
 }
-function setSchicht(s) { currentSchicht = s; document.querySelectorAll('.schicht-btn').forEach(b => b.classList.remove('active')); document.getElementById('btn'+s).classList.add('active'); selectedStaff=[]; renderStaff(); }
-function openWorkerOverlay() { document.getElementById('workerList').innerHTML = workerData[currentSchicht].map(w => `<div class="worker-opt" onclick="addStaff('${w}')">${w}</div>`).join(""); document.getElementById('workerOverlay').style.display='flex'; }
-function addStaff(n) { if(n === "Sonstige") { /* Do nothing, use manual input */ } else { if(!selectedStaff.includes(n)) selectedStaff.push(n); document.getElementById('workerOverlay').style.display='none'; renderStaff(); } }
-function addManualWorker() { const v = document.getElementById('manualWorker').value; if(v) { selectedStaff.push("✍️ " + v); document.getElementById('manualWorker').value=""; document.getElementById('workerOverlay').style.display='none'; renderStaff(); } }
+
+function setSchicht(s) { 
+    currentSchicht = s; 
+    document.querySelectorAll('.schicht-btn').forEach(b => b.classList.remove('active')); 
+    document.getElementById('btn'+s).classList.add('active'); 
+    selectedStaff=[]; 
+    renderStaff(); 
+}
+
+function openWorkerOverlay() { 
+    document.getElementById('workerList').innerHTML = workerData[currentSchicht].map(w => `<div class="worker-opt" onclick="addStaff('${w}')">${w}</div>`).join(""); 
+    document.getElementById('workerOverlay').style.display='flex'; 
+}
+
+function addStaff(n) { 
+    if(!selectedStaff.includes(n)) selectedStaff.push(n); 
+    document.getElementById('workerOverlay').style.display='none'; 
+    renderStaff(); 
+}
+
+function addManualWorker() { 
+    const v = document.getElementById('manualWorker').value; 
+    if(v) { 
+        selectedStaff.push("✍️ " + v); 
+        document.getElementById('manualWorker').value=""; 
+        document.getElementById('workerOverlay').style.display='none'; 
+        renderStaff(); 
+    } 
+}
+
 function renderStaff() { document.getElementById('workerDisplayContainer').innerHTML = selectedStaff.map(s => `<div class="selected-worker"><span>${s}</span><span onclick="removeStaff('${s}')" style="color:red; cursor:pointer;">✕</span></div>`).join(""); liveCheck(); }
 function removeStaff(n) { selectedStaff = selectedStaff.filter(x => x !== n); renderStaff(); }
+
 function onAnlageChange(v) { document.getElementById('ftBox').style.display = v.startsWith("PUR") ? "block" : "none"; document.getElementById('comTimeBox').style.display = v === "COM" ? "block" : "none"; document.getElementById('artikelContainer').innerHTML = ""; liveCheck(); }
+
 function addArtikel() {
     const id = Date.now(); const div = document.createElement('div'); div.className = "section-card artikel-row"; div.id = `art_${id}`;
     div.innerHTML = `<button onclick="this.parentElement.remove(); liveCheck();" style="position:absolute; right:10px; top:10px; background:red; color:white; border:none; border-radius:5px;">✕</button>
-        <label>Artikel</label><input type="text" class="art-name">
-        ${document.getElementById('anlage').value==='COM' ? '<label>Dauer (Min)</label><input type="number" class="art-dauer" oninput="liveCheck()">' : ''}
-        <div class="grid" style="margin-top:10px;"><div><label>Gut</label><input type="number" class="art-gut"></div><div><label>Aus Gesamt</label><input type="number" class="art-aus-total" oninput="liveCheck()"></div></div>
+        <label>Artikel</label><input type="text" class="art-name" placeholder="Name eingeben...">
+        ${document.getElementById('anlage').value==='COM' ? '<label>Dauer (Min)</label><input type="number" class="art-dauer" placeholder="Minuten..." oninput="liveCheck()">' : ''}
+        <div class="grid" style="margin-top:10px;"><div><label>Gut</label><input type="number" class="art-gut" placeholder="Anzahl..."></div><div><label>Aus Gesamt</label><input type="number" class="art-aus-total" placeholder="Anzahl..." oninput="liveCheck()"></div></div>
         <div class="status-badge" id="badge_${id}"></div><div id="rows_${id}"></div>
-        <div style="display:flex; gap:10px; margin-top:10px;"><button class="sub-btn" onclick="addRow('${id}','aus')">+ Aus-Grund</button><button class="sub-btn" onclick="addRow('${id}','stoer')">+ Störung</button></div>`;
+        <div style="display:flex; gap:10px; margin-top:10px;"><button class="sub-btn" onclick="addRow('${id}','aus')">+ Ausschuss</button><button class="sub-btn" onclick="addRow('${id}','stoer')">+ Störung</button></div>`;
     document.getElementById('artikelContainer').appendChild(div);
 }
+
 function addRow(artId, type) {
     const anl = document.getElementById('anlage').value; const cat = anl==='COM'?'COM':(anl.startsWith("PUR")?'PUR':'Spritz');
     const div = document.createElement('div'); div.className="code-row";
     div.innerHTML = `<div style="display:flex; gap:5px;"><select class="${type}-c" style="flex:3;" onchange="this.nextElementSibling.nextElementSibling.style.display=(this.value==='Sonstige'?'block':'none')">
-        ${codeData[cat][type].map(c => `<option value="${c}">${c}</option>`).join("")}</select><input type="number" class="${type}-v" style="flex:1;" oninput="liveCheck()">
+        ${codeData[cat][type].map(c => `<option value="${c}">${c}</option>`).join("")}</select><input type="number" class="${type}-v" style="flex:1;" placeholder="Menge" oninput="liveCheck()">
         <input type="text" class="sonstige-input" placeholder="Grund manuell..."><button onclick="this.parentElement.parentElement.remove(); liveCheck();" style="color:red; background:none; border:none;">✕</button></div>`;
     document.getElementById(`rows_${artId}`).appendChild(div);
 }
+
 function liveCheck() {
     let v = true; let cT = 0;
     document.querySelectorAll('.artikel-row').forEach(row => {
         const id = row.id.split('_')[1]; const t = parseInt(row.querySelector('.art-aus-total').value) || 0;
         let s = 0; row.querySelectorAll('.aus-v').forEach(i => s += parseInt(i.value) || 0);
         const b = document.getElementById(`badge_${id}`);
-        if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText=`⚠️ Diff: ${s}/${t}`; v=false; }
-        else if(t > 0) { b.className="status-badge status-ok"; b.innerText=`✅ OK: ${s}/${t}`; } else { b.innerText=""; }
+        if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText=`⚠️ Differenz: ${s}/${t}`; v=false; }
+        else if(t > 0) { b.className="status-badge status-ok"; b.innerText=`✅ Korrekt: ${s}/${t}`; } else { b.innerText=""; }
         if(document.getElementById('anlage').value==='COM') cT += parseInt(row.querySelector('.art-dauer').value) || 0;
     });
     if(document.getElementById('anlage').value==='COM') { document.getElementById('comTotal').innerText = cT; if(cT !== 480) v = false; }
     if(selectedStaff.length === 0 || !document.getElementById('anlage').value) v = false;
     document.getElementById('mainSendBtn').disabled = !v;
 }
+
 async function processReport() {
     const btn = document.getElementById('mainSendBtn'); btn.innerText = "Sende..."; btn.disabled = true;
     const fts = Array.from(document.querySelectorAll('.ft-btn.active')).map(x => x.innerText);
@@ -172,7 +211,7 @@ async function processReport() {
             }
         });
     });
-    const rep = `📊 *APG REPORT*\n\n👷 *Personal:* ${selectedStaff.join(", ")}\n🏭 *Anlage:* ${document.getElementById('anlage').value}\n📅 *Datum:* ${document.getElementById('datum').value}\n⏱ *Schicht:* ${currentSchicht}\n${fts.length ? '🛠 *FT:* '+fts.join(", ") : ''}\n${d}\n👤 *Von:* ${loggedInUser}\n━━━━━━━━━━`;
+    const rep = `📊 *APG REPORT*\n\n👷 *Personal:* ${selectedStaff.join(", ")}\n🏭 *Anlage:* ${document.getElementById('anlage').value}\n📅 *Datum:* ${document.getElementById('datum').value}\n⏱ *Schicht:* ${currentSchicht}\n${fts.length ? '🛠 *FT:* '+fts.join(", ") : ''}\n${d}\n👤 *Gesendet von:* ${loggedInUser}\n━━━━━━━━━━`;
     try { await fetch(scriptURL, { method: "POST", mode: "no-cors", body: JSON.stringify({ report: rep }) });
     window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(rep)}`;
     } catch(e) { window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(rep)}`; }
