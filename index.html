@@ -1,884 +1,312 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APG Production Bericht Bochum</title>
-
-<style>
-
-:root{
-    --bg:#0f172a;
-    --bg2:#111827;
-    --card:#1e293b;
-    --primary:#38bdf8;
-    --primary2:#2563eb;
-    --text:#f1f5f9;
-    --danger:#ef4444;
-    --success:#22c55e;
-}
-
-body{
-    margin:0;
-    padding:15px;
-    background:linear-gradient(180deg,var(--bg),var(--bg2));
-    color:var(--text);
-    font-family:'Segoe UI',sans-serif;
-}
-
-.card{
-    max-width:750px;
-    margin:auto;
-    background:var(--card);
-    border-radius:25px;
-    padding:25px;
-    border:1px solid rgba(56,189,248,0.2);
-    box-shadow:0 0 30px rgba(56,189,248,0.15);
-}
-
-.topbar{
-    text-align:center;
-    margin-bottom:25px;
-    border-bottom:2px solid rgba(56,189,248,0.15);
-    padding-bottom:20px;
-}
-
-.topbar h1{
-    margin:0;
-    color:var(--primary);
-    font-size:30px;
-}
-
-.topbar p{
-    color:#94a3b8;
-}
-
-.section-title{
-    color:var(--primary);
-    font-size:20px;
-    font-weight:700;
-    margin-top:25px;
-    margin-bottom:15px;
-}
-
-.section-card{
-    background:#111827;
-    padding:18px;
-    border-radius:18px;
-    border:1px solid rgba(56,189,248,0.1);
-    margin-bottom:20px;
-}
-
-label{
-    display:block;
-    margin-bottom:8px;
-    color:var(--primary);
-    font-weight:700;
-}
-
-select,input{
-    width:100%;
-    padding:15px;
-    border-radius:14px;
-    border:1px solid rgba(56,189,248,0.25);
-    background:#0f172a;
-    color:white;
-    font-size:16px;
-    box-sizing:border-box;
-    margin-bottom:15px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-.worker-box,
-.artikel-box{
-    background:#0f172a;
-    padding:18px;
-    border-radius:18px;
-    margin-top:15px;
-    position:relative;
-    border-left:5px solid var(--primary);
-}
-
-.delete-btn{
-    position:absolute;
-    top:12px;
-    right:12px;
-    width:32px;
-    height:32px;
-    border:none;
-    border-radius:10px;
-    background:var(--danger);
-    color:white;
-    font-size:18px;
-    cursor:pointer;
-}
-
-.add-btn{
-    width:100%;
-    padding:16px;
-    border:none;
-    border-radius:16px;
-    background:var(--primary2);
-    color:white;
-    font-size:16px;
-    font-weight:700;
-    cursor:pointer;
-    margin-top:10px;
-}
-
-.main-btn{
-    width:100%;
-    padding:20px;
-    border:none;
-    border-radius:18px;
-    background:var(--primary);
-    color:#0f172a;
-    font-size:20px;
-    font-weight:800;
-    cursor:pointer;
-    margin-top:25px;
-}
-
-.ft-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin-bottom:15px;
-}
-
-.ft-item input{
-    display:none;
-}
-
-.ft-item label{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:60px;
-    background:#111827;
-    border-radius:14px;
-    border:2px solid rgba(56,189,248,0.15);
-    color:white;
-    cursor:pointer;
-    transition:0.2s;
-}
-
-.ft-item input:checked + label{
-    background:var(--primary);
-    color:#0f172a;
-    border-color:var(--primary);
-    box-shadow:0 0 15px rgba(56,189,248,0.4);
-}
-
-.code-row{
-    display:flex;
-    gap:8px;
-    margin-top:10px;
-}
-
-.code-row select,
-.code-row input{
-    margin:0;
-}
-
-.row-del{
-    width:45px;
-    border:none;
-    border-radius:10px;
-    background:var(--danger);
-    color:white;
-    font-size:18px;
-    cursor:pointer;
-}
-
-.error-msg{
-    display:none;
-    background:rgba(239,68,68,0.15);
-    color:#fca5a5;
-    padding:10px;
-    border-radius:10px;
-    margin-top:10px;
-    font-weight:700;
-}
-
-.counter-box{
-    background:#0f172a;
-    padding:15px;
-    border-radius:15px;
-    border:1px solid rgba(56,189,248,0.2);
-    text-align:center;
-    margin-top:15px;
-}
-
-.counter{
-    font-size:24px;
-    font-weight:800;
-    color:var(--success);
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>APG PRO Production Bericht</title>
+    <style>
+        :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --blue-dark: #1e40af; --text: #f1f5f9; --danger: #ef4444; --success: #22c55e; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 10px; line-height: 1.6; }
+        .card { width: 100%; max-width: 650px; background: var(--card); padding: 25px; border-radius: 24px; margin: auto; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .header { text-align: center; border-bottom: 3px solid var(--primary); margin-bottom: 25px; padding-bottom: 15px; }
+        .header h1 { margin: 0; font-size: 22px; color: #fff; letter-spacing: 1px; }
+        .header p { margin: 5px 0 0; color: var(--primary); font-weight: bold; font-size: 14px; text-transform: uppercase; }
+        
+        label { display: block; margin: 15px 0 5px; color: var(--primary); font-weight: 800; font-size: 13px; text-transform: uppercase; }
+        select, input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 16px; transition: 0.3s; box-sizing: border-box; }
+        select:focus, input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+        
+        /* Mitarbeiter Checkbox System */
+        .worker-selection-card { background: rgba(15, 23, 42, 0.6); padding: 15px; border-radius: 15px; border: 1px solid #334155; display: none; margin-top: 10px; max-height: 300px; overflow-y: auto; }
+        .worker-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+        .worker-item input { width: 20px; height: 20px; margin-right: 15px; accent-color: var(--primary); }
+        
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .section-card { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 20px; margin-top: 20px; border: 1px solid rgba(56, 189, 248, 0.1); position: relative; }
+        
+        /* FT Selection Modern */
+        .ft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+        .ft-btn { padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 10px; color: #94a3b8; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .ft-btn.active { background: var(--blue-dark); border-color: var(--primary); color: white; box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+        
+        .main-btn { width: 100%; padding: 20px; background: var(--primary); color: #0f172a; border: none; border-radius: 16px; font-weight: 900; font-size: 18px; margin-top: 30px; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
+        .main-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; box-shadow: none; }
+        
+        .add-btn { width: 100%; padding: 12px; margin-top: 10px; background: rgba(56, 189, 248, 0.1); border: 2px dashed var(--primary); color: var(--primary); font-weight: bold; border-radius: 12px; cursor: pointer; }
+        .sub-btn { background: var(--blue-dark); color: white; padding: 10px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; font-size: 12px; flex: 1; }
+        .delete-btn { position: absolute; right: 10px; top: 10px; background: var(--danger); color: white; border: none; border-radius: 8px; width: 28px; height: 28px; cursor: pointer; }
+        
+        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-top: 5px; }
+        .status-ok { background: var(--success); color: #000; }
+        .status-error { background: var(--danger); color: #fff; }
+        
+        .code-row { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
+        .code-row select { flex: 2; }
+        .code-row input { flex: 1; text-align: center; }
+    </style>
 </head>
-
 <body>
 
 <div class="card">
+    <div class="header">
+        <h1>Adler Pelzer Group</h1>
+        <p>Production Bericht Bochum PRO</p>
+    </div>
 
-<div class="topbar">
-<h1>Adler Pelzer Group</h1>
-<p>Production Bericht Bochum</p>
-</div>
+    <label>Schicht wählen</label>
+    <select id="schichtWahl" onchange="resetWorkerSelection()">
+        <option value="B">Schicht - B</option>
+        <option value="A">Schicht - A</option>
+        <option value="C">Schicht - C</option>
+    </select>
 
-<div class="section-title">
-⏱ Schicht wählen
-</div>
+    <label style="margin-top:20px;">Personal (Mitarbeiter)</label>
+    <button type="button" class="add-btn" onclick="toggleWorkerCard()">Mitarbeiter auswählen / hinzufügen</button>
+    <div id="workerSelectionCard" class="worker-selection-card"></div>
+    <div id="selectedWorkersDisplay" style="margin-top:10px; font-size:13px; color:var(--primary); font-weight:bold;"></div>
 
-<div class="section-card">
+    <div style="height: 1px; background: rgba(56,189,248,0.2); margin: 25px 0;"></div>
 
-<select id="schichtWahl"
-onchange="document.getElementById('workerContainer').innerHTML=''">
+    <div class="grid">
+        <div><label>Datum</label><input type="date" id="datum"></div>
+        <div>
+            <label>Anlage</label>
+            <select id="anlage" onchange="onAnlageChange(this.value)">
+                <option value="">Wählen...</option>
+                <optgroup label="PUR">
+                    <option value="PUR1">PUR 1</option><option value="PUR2">PUR 2</option><option value="PUR3">PUR 3</option>
+                    <option value="PUR4">PUR 4</option><option value="PUR5">PUR 5</option><option value="PUR6">PUR 6</option>
+                    <option value="PUR7">PUR 7</option><option value="PUR8">PUR 8</option><option value="PUR9">PUR 9</option>
+                </optgroup>
+                <optgroup label="Spritzguss">
+                    <option value="IM1">IM 1</option><option value="IM2">IM 2</option><option value="IM3">IM 3</option>
+                    <option value="IM4">IM 4</option><option value="IM5">IM 5</option><option value="CIM1">CIM 1</option>
+                </optgroup>
+                <option value="COM">Compound</option>
+            </select>
+        </div>
+    </div>
 
-<option value="A">Schicht A</option>
-<option value="B" selected>Schicht B</option>
-<option value="C">Schicht C</option>
+    <div id="ftBox" style="display:none; margin-top:20px;">
+        <label>Formträger (FT)</label>
+        <div class="ft-grid">
+            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT1</button>
+            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT2</button>
+            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT3</button>
+            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT4</button>
+            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT5</button>
+            <button type="button" class="ft-btn" onclick="toggleFT(this)">FT6</button>
+        </div>
+    </div>
 
-</select>
+    <div id="comTimeBox" style="display:none; margin-top:20px; text-align:center; background:rgba(56,189,248,0.1); padding:15px; border-radius:15px; border:1px solid var(--primary);">
+        <span style="font-size: 18px; font-weight: 900; color:var(--primary);">Compound Zeit: <span id="comTotalLabel">0</span> / 480 Min</span>
+    </div>
 
-</div>
+    <div id="artikelContainer"></div>
+    <button type="button" class="add-btn" style="margin-top:20px;" onclick="addArtikel()">+ Artikel hinzufügen</button>
 
-<div class="section-title">
-👷 Mitarbeiter
-</div>
-
-<div class="section-card">
-
-<div id="workerContainer"></div>
-
-<button class="add-btn" onclick="addWorker()">
-+ Mitarbeiter hinzufügen
-</button>
-
-</div>
-
-<div class="section-title">
-🏭 Anlage
-</div>
-
-<div class="section-card">
-
-<div class="grid">
-
-<div>
-
-<label>Datum</label> <input type="date" id="datum">
-
-</div>
-
-<div>
-
-<label>Anlage</label>
-
-<select id="anlage" onchange="toggleAnlage(this.value)">
-
-<optgroup label="PUR">
-
-<option value="PUR1">PUR1</option>
-<option value="PUR2">PUR2</option>
-<option value="PUR3">PUR3</option>
-<option value="PUR4">PUR4</option>
-<option value="PUR5">PUR5</option>
-<option value="PUR6">PUR6</option>
-<option value="PUR7">PUR7</option>
-<option value="PUR8">PUR8</option>
-<option value="PUR9">PUR9</option>
-
-</optgroup>
-
-<optgroup label="Spritzguss">
-
-<option value="IM1">IM1</option>
-<option value="IM2">IM2</option>
-<option value="IM3">IM3</option>
-<option value="IM4">IM4</option>
-<option value="IM5">IM5</option>
-<option value="CIM1">CIM1</option>
-
-</optgroup>
-
-<option value="COM">COM</option>
-
-</select>
-
-</div>
-
-</div>
-
-<div id="ftBox" style="display:none;">
-
-<label>🛠 Formträger wählen</label>
-
-<div class="ft-grid">
-
-<div class="ft-item">
-<input type="checkbox" id="ft1" class="ft-check" value="FT1">
-<label for="ft1">FT1</label>
-</div>
-
-<div class="ft-item">
-<input type="checkbox" id="ft2" class="ft-check" value="FT2">
-<label for="ft2">FT2</label>
-</div>
-
-<div class="ft-item">
-<input type="checkbox" id="ft3" class="ft-check" value="FT3">
-<label for="ft3">FT3</label>
-</div>
-
-<div class="ft-item">
-<input type="checkbox" id="ft4" class="ft-check" value="FT4">
-<label for="ft4">FT4</label>
-</div>
-
-<div class="ft-item">
-<input type="checkbox" id="ft5" class="ft-check" value="FT5">
-<label for="ft5">FT5</label>
-</div>
-
-<div class="ft-item">
-<input type="checkbox" id="ft6" class="ft-check" value="FT6">
-<label for="ft6">FT6</label>
-</div>
-
-</div>
-
-</div>
-
-<div id="comBox" style="display:none;">
-
-<div class="counter-box">
-
-<div>Compound Zeit</div>
-
-<div class="counter">
-<span id="comCounter">0</span> / 480 Min
-</div>
-
-<div id="restzeit">
-Restzeit: 480 Min
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="section-title">
-📦 Artikel
-</div>
-
-<div class="section-card">
-
-<div id="artikelContainer"></div>
-
-<button class="add-btn" onclick="addArtikel()">
-+ Artikel hinzufügen
-</button>
-
-</div>
-
-<button class="main-btn" onclick="processAll()">
-🚀 SPEICHERN & SENDEN
-</button>
-
+    <button type="button" id="mainSendBtn" class="main-btn" onclick="processFinalReport()">🚀 SPEICHERN & SENDEN</button>
 </div>
 
 <script>
-
+const scriptURL = "https://script.google.com/macros/s/AKfycbx55ShhJiujy6xj8lJZoDOoRh5wSpYpbPCbCNVoKnqR53gSUwsmKzSVv4ZXaihBQwwzVg/exec";
 const WHATSAPP_NR = "+4917623638794";
 
-document.getElementById("datum").value =
-new Date().toISOString().split('T')[0];
-
-const workerLists = {
-
-A:[
-"Kunert M.",
-"Karali O.",
-"Mikuczynski K.",
-"Türkmen E.",
-"Sonstige"
-],
-
-B:[
-"Keskin Mur.",
-"Aldirmaz P.",
-"Bayrakli F.",
-"Kilic D.",
-"Maafi T.",
-"Besche T.",
-"Sonstige"
-],
-
-C:[
-"Keskin Mustafa",
-"Kantaroglu Ö.",
-"Savas R.",
-"Rafo S.",
-"Sonstige"
-]
-
+const workerData = {
+    "A": ["Kunert M. - 502", "Karali O. - 533 E", "Mikuczynski K. - 1212", "Türkmen E. - 1213 E", "Amrouch M. - 1268", "Stania D. - 1368", "Kantaroglu A. - 1382", "Krancioch A. - 1405", "Held D. - 1421", "Berisha I. - 1534", "Neji M. - 1536", "Mulugeta G. - 1633", "Udezue P. - 1686", "Jansen M. - 1692", "Aksoy O. - 1704", "Yildirim S. - 1710", "Brand N. - 1722", "Louze A. - 1724", "Blanquez Romero V. - 1725", "Diallo M.D. - 1726", "Sener E. - 1731 E"],
+    "B": ["Keskin Mur.-517", "Aldirmaz P.-577", "Anderwald R.-509 E", "Bayrakli F.-1377 E", "Kilic D.-1384 E", "Maafi T.-1273 E", "Besche T.-1472", "Eickhoff P.-1406", "Toth Renata-1699", "Gibba n.-1367", "Helf A.-1483", "Isbir J.-1715", "Jeyakumar S.-1698", "Kalisch T.-1451", "Kowarsch R.-484", "Nowak M.-1390", "Pähler D.-1332", "Patarcsity V.-1700", "Pulendran K.-1498", "Sahin E.-1721", "Savas S.-1360", "Schiavitelli C.-1669", "Uluyüz B.-1450", "Uzun S.-1433"],
+    "C": ["Beher T. - 510", "Keskin Mustafa - 518", "Kantaroglu Ö. - 580", "Savas R. - 608", "Rafo S. - 1277", "Gertz Kevin - 1357", "Gertz S. - 1358 E", "Schönborn Ch. - 1361", "Fortes Ch. - 1381", "Sakaguchi M. - 1391", "Mercan M. - 1437 E", "Krämer Ch. - 1449", "Juretzka T. - 1473", "Kumbara E. - 1474", "Skupio D. - 1475", "Skrago T. - 1484", "Bah A. - 1684", "Kaya A. - 1712", "Jdea A. - 1701", "Toure A. - 1713", "Schneider D. - 1714", "Tchaleu Bertrand - 1723"]
 };
 
-const codes = {
-
-PUR:{
-aus:[
-"6-2-01 Temperatur zu niedrig",
-"6-2-02 Schaum haftet nicht",
-"6-2-03 Einlegefehler Bauteil",
-"6-2-04 Einlegefehler CIM",
-"6-2-05 Schussabbruch",
-"Sonstige"
-],
-
-stoer:[
-"3-01 Werkzeugwechsel",
-"3-02 Materialumstellung",
-"4-2-01 Ungepl. Inst. Werkzeug",
-"4-2-02 Ungepl. Inst. Maschine",
-"5-2-01 Logistik Mangel",
-"Sonstige"
-]
-
-},
-
-Spritzguss:{
-aus:[
-"6-1-01 Anfahrschrott",
-"6-1-02 Materialumstellung",
-"6-1-03 CIM n.voll",
-"Sonstige"
-],
-
-stoer:[
-"3-01 Werkzeugwechsel",
-"4-1-01 Ungepl. Inst. Werkzeug",
-"4-1-02 Ungepl. Inst. Maschine",
-"Sonstige"
-]
-
-},
-
-COM:{
-aus:[
-"6-3-01 Anfahrschrott",
-"6-3-02 Materialfehler",
-"Sonstige"
-],
-
-stoer:[
-"3-01 Werkzeugwechsel",
-"4-3-01 Messer schleifen",
-"4-3-02 Ungepl. Inst. Maschine",
-"Sonstige"
-]
-
-}
-
+const codeData = {
+    PUR: {
+        aus: ["6-2-01 Temperatur zu niedrig", "6-2-02 Schaum haftet nicht", "6-2-03 Einlegefehler Bauteil", "6-2-04 Einlegefehler CIM", "6-2-05 Schussabbruch", "6-2-06 CIM nicht voll", "6-2-07 Lippe gerissen", "6-2-08 CIM gerissen", "Sonstige"],
+        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-2-01 Ungepl. Inst. Werkzeug", "4-2-02 Ungepl. Inst. Maschine", "4-2-03 POLY/ISO Überdruck", "4-2-04 Mischkopf n.i.o.", "4-2-05 Fehler Lichtschranke", "4-2-08 Reinigung Werkzeug", "5-2-04 Wartezeit Einrichter", "Sonstige"]
+    },
+    Spritz: {
+        aus: ["6-1-01 Anfahrschrott", "6-1-02 Materialumstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "Sonstige"],
+        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-1-01 Ungepl. Inst. Werkzeug", "4-1-02 Ungepl. Inst. Maschine", "4-1-03 Materialförderung", "4-1-06 Teileentnahme", "5-1-03 Wartezeit Einrichter", "Sonstige"]
+    },
+    COM: {
+        aus: ["6-3-01 Anfahrschrott", "6-3-02 Materialfehler", "Sonstige"],
+        stoer: ["3-01 Werkzeugwechsel", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Maschine", "4-3-04 Silowechsel", "5-3-01 Materialmangel", "5-3-05 Feueralarm", "Sonstige"]
+    }
 };
 
-function toggleAnlage(val){
+window.onload = () => {
+    document.getElementById('datum').value = new Date().toISOString().split('T')[0];
+    resetWorkerSelection();
+};
 
-    document.getElementById("ftBox").style.display =
-    val.startsWith("PUR") ? "block" : "none";
-
-    document.getElementById("comBox").style.display =
-    val === "COM" ? "block" : "none";
-
+// --- MITARBEITER LOGIK ---
+function toggleWorkerCard() {
+    const card = document.getElementById('workerSelectionCard');
+    card.style.display = card.style.display === 'block' ? 'none' : 'block';
 }
 
-function addWorker(){
+function resetWorkerSelection() {
+    const schicht = document.getElementById('schichtWahl').value;
+    const container = document.getElementById('workerSelectionCard');
+    container.innerHTML = workerData[schicht].map(w => `
+        <div class="worker-item" onclick="toggleCheck(this)">
+            <input type="checkbox" value="${w}" onchange="updateSelectedWorkers()">
+            <span>${w}</span>
+        </div>
+    `).join("");
+    updateSelectedWorkers();
+}
 
-    const s =
-    document.getElementById("schichtWahl").value;
+function toggleCheck(el) {
+    const cb = el.querySelector('input');
+    cb.checked = !cb.checked;
+    updateSelectedWorkers();
+}
 
-    const div =
-    document.createElement("div");
+function updateSelectedWorkers() {
+    const selected = Array.from(document.querySelectorAll('#workerSelectionCard input:checked')).map(i => i.value);
+    document.getElementById('selectedWorkersDisplay').innerText = selected.length > 0 ? "Gewählt: " + selected.join(", ") : "Kein Mitarbeiter gewählt";
+}
 
-    div.className = "worker-box";
+// --- ANLAGE & FT LOGIK ---
+function onAnlageChange(val) {
+    document.getElementById('ftBox').style.display = val.startsWith("PUR") ? "block" : "none";
+    document.getElementById('comTimeBox').style.display = val === "COM" ? "block" : "none";
+    document.getElementById('artikelContainer').innerHTML = "";
+    document.querySelectorAll('.ft-btn').forEach(b => b.classList.remove('active'));
+    liveCheck();
+}
 
+function toggleFT(btn) {
+    btn.classList.toggle('active');
+}
+
+// --- ARTIKEL LOGIK ---
+function addArtikel() {
+    const anlage = document.getElementById('anlage').value;
+    if(!anlage) return alert("Anlage wählen!");
+    
+    const id = Date.now();
+    const div = document.createElement('div');
+    div.className = "section-card artikel-row";
+    div.id = `art_${id}`;
     div.innerHTML = `
-
-    <button class="delete-btn"
-    onclick="this.parentElement.remove()">
-    ✕
-    </button>
-
-    <label>Mitarbeiter</label>
-
-    <select class="workerSelect">
-
-    ${workerLists[s]
-    .map(w=>`<option value="${w}">${w}</option>`)
-    .join("")}
-
-    </select>
-
+        <button class="delete-btn" onclick="removeArt('${id}')">✕</button>
+        <label>Artikel Bezeichnung</label>
+        <input type="text" class="art-name" placeholder="...">
+        
+        ${anlage === 'COM' ? '<label>Dauer (Min)</label><input type="number" class="art-dauer" value="0" oninput="liveCheck()">' : ''}
+        
+        <div class="grid" style="margin-top:10px;">
+            <div><label>Gut-Teile</label><input type="number" class="art-gut" value="0"></div>
+            <div><label>Ausschuss Gesamt</label><input type="number" class="art-aus-total" value="0" oninput="liveCheck()"></div>
+        </div>
+        
+        <div class="status-badge" id="status_${id}"></div>
+        
+        <div class="code-area" id="codes_${id}"></div>
+        
+        <div style="display:flex; gap:10px; margin-top:15px;">
+            <button class="sub-btn" onclick="addRow('${id}', 'aus')">+ Ausschuss</button>
+            <button class="sub-btn" onclick="addRow('${id}', 'stoer')">+ Störung</button>
+        </div>
     `;
-
-    document.getElementById("workerContainer")
-    .appendChild(div);
-
+    document.getElementById('artikelContainer').appendChild(div);
 }
 
-function addArtikel(){
+function removeArt(id) { document.getElementById(`art_${id}`).remove(); liveCheck(); }
 
-    const anl =
-    document.getElementById("anlage").value;
-
-    if(!anl){
-
-        alert("Bitte Anlage wählen!");
-        return;
-
-    }
-
-    const div =
-    document.createElement("div");
-
-    div.className = "artikel-box";
-
+function addRow(artId, type) {
+    const anlage = document.getElementById('anlage').value;
+    const cat = anlage === 'COM' ? 'COM' : (anlage.startsWith("PUR") ? 'PUR' : 'Spritz');
+    const codes = codeData[cat][type];
+    
+    const div = document.createElement('div');
+    div.className = "code-row";
     div.innerHTML = `
-
-    <button class="delete-btn"
-    onclick="this.parentElement.remove();updateCounter()">
-    ✕
-    </button>
-
-    <label>Artikel Bezeichnung</label>
-    <input type="text" class="artName">
-
-    ${anl==="COM" ? `
-
-    <label>Dauer (Min)</label>
-
-    <input type="number"
-    class="artDauer"
-    oninput="updateCounter()">
-
-    ` : ''}
-
-    <div class="grid">
-
-    <div>
-
-    <label>Gutteile</label>
-    <input type="number" class="gut">
-
-    </div>
-
-    <div>
-
-    <label>Ausschuss Gesamt</label>
-
-    <input type="number"
-    class="ausTotal"
-    oninput="validate(this.closest('.artikel-box'))">
-
-    </div>
-
-    </div>
-
-    <div class="error-msg">
-    Ausschuss-Summe stimmt nicht!
-    </div>
-
-    <div class="row-list"></div>
-
-    <div class="grid">
-
-    <button type="button"
-    class="add-btn"
-    onclick="addRow(this,'aus')">
-
-    + Ausschuss
-
-    </button>
-
-    <button type="button"
-    class="add-btn"
-    onclick="addRow(this,'stoer')">
-
-    + Störung
-
-    </button>
-
-    </div>
-
+        <select class="${type}-c" style="flex:3;">${codes.map(c => `<option value="${c}">${c}</option>`).join("")}</select>
+        <input type="number" class="${type}-v" value="0" style="flex:1;" oninput="liveCheck()">
+        <button class="row-del" onclick="this.parentElement.remove(); liveCheck();" style="background:none; border:none; color:red; font-weight:bold; cursor:pointer;">✕</button>
     `;
-
-    document.getElementById("artikelContainer")
-    .appendChild(div);
-
+    document.getElementById(`codes_${artId}`).appendChild(div);
+    liveCheck();
 }
 
-function addRow(btn,type){
+// --- LIVE KONTROLLE ---
+function liveCheck() {
+    let allValid = true;
+    let totalComTime = 0;
+    const anlage = document.getElementById('anlage').value;
 
-    const anl =
-    document.getElementById("anlage").value;
+    document.querySelectorAll('.artikel-row').forEach(row => {
+        const artId = row.id.split('_')[1];
+        const totalAus = parseInt(row.querySelector('.art-aus-total').value) || 0;
+        let sumAus = 0;
+        row.querySelectorAll('.aus-v').forEach(inp => sumAus += parseInt(inp.value) || 0);
+        
+        const badge = document.getElementById(`status_${artId}`);
+        if(totalAus > 0 && totalAus !== sumAus) {
+            badge.className = "status-badge status-error";
+            badge.innerText = `Ausschuss: ${sumAus} / ${totalAus} ❌`;
+            allValid = false;
+        } else if (totalAus > 0) {
+            badge.className = "status-badge status-ok";
+            badge.innerText = `Ausschuss: ${sumAus} / ${totalAus} ✅`;
+        } else {
+            badge.innerText = "";
+        }
 
-    let cat =
-    anl==="COM"
-    ? "COM"
-    : (anl.startsWith("PUR")
-    ? "PUR"
-    : "Spritzguss");
-
-    const target =
-    btn.parentElement.previousElementSibling;
-
-    const row =
-    document.createElement("div");
-
-    row.className = "code-row";
-
-    row.innerHTML = `
-
-    <select class="${type}-c" style="flex:2;">
-
-    ${codes[cat][type]
-    .map(c=>`<option value="${c}">${c}</option>`)
-    .join("")}
-
-    </select>
-
-    <input type="number"
-    class="${type}-v"
-    style="flex:1;"
-    oninput="validate(this.closest('.artikel-box'))"
-    placeholder="Menge">
-
-    <button type="button"
-    class="row-del"
-    onclick="this.parentElement.remove();validate(this.closest('.artikel-box'))">
-
-    ✕
-
-    </button>
-
-    `;
-
-    target.appendChild(row);
-
-}
-
-function validate(box){
-
-    const total =
-    parseFloat(box.querySelector(".ausTotal").value) || 0;
-
-    let sum = 0;
-
-    box.querySelectorAll(".aus-v")
-    .forEach(i=>{
-
-        sum += (parseFloat(i.value) || 0);
-
+        if(anlage === 'COM') totalComTime += parseInt(row.querySelector('.art-dauer').value) || 0;
     });
 
-    box.querySelector(".error-msg")
-    .style.display =
-    (total > 0 && total !== sum)
-    ? "block"
-    : "none";
-
-}
-
-function updateCounter(){
-
-    let total = 0;
-
-    document.querySelectorAll(".artDauer")
-    .forEach(i=>{
-
-        total += (parseFloat(i.value) || 0);
-
-    });
-
-    document.getElementById("comCounter")
-    .innerText = total;
-
-    document.getElementById("restzeit")
-    .innerText =
-    "Restzeit: " + (480-total) + " Min";
-
-}
-
-function processAll(){
-
-    const anl =
-    document.getElementById("anlage").value;
-
-    const date =
-    document.getElementById("datum").value;
-
-    const schicht =
-    document.getElementById("schichtWahl").value;
-
-    const counterVal =
-    parseFloat(document.getElementById("comCounter")
-    ?.innerText || 0);
-
-    if(anl==="COM" && counterVal !== 480){
-
-        alert("Dauer muss 480 Min sein!");
-        return;
-
+    if(anlage === 'COM') {
+        document.getElementById('comTotalLabel').innerText = totalComTime;
+        if(totalComTime !== 480) allValid = false;
     }
 
-    let err = false;
-
-    document.querySelectorAll(".error-msg")
-    .forEach(m=>{
-
-        if(m.style.display==="block")
-        err = true;
-
-    });
-
-    if(err){
-
-        alert("Ausschuss-Summen prüfen!");
-        return;
-
-    }
-
-    let staff = [];
-
-    document.querySelectorAll(".workerSelect")
-    .forEach(w=>{
-
-        staff.push(w.value);
-
-    });
-
-    let ftList = [];
-
-    document.querySelectorAll(".ft-check:checked")
-    .forEach(f=>{
-
-        ftList.push(f.value);
-
-    });
-
-    let report = "";
-
-    report += "━━━━━━━━━━\n";
-    report += "👷 Mitarbeiter\n";
-    report += "━━━━━━━━━━\n";
-
-    report += staff.join("\n");
-
-    report += "\n\n";
-
-    report += "🏭 Anlage\n";
-    report += anl + "\n\n";
-
-    report += "📅 Datum\n";
-    report += date + "\n\n";
-
-    report += "⏱ Schicht\n";
-    report += schicht + "\n\n";
-
-    if(ftList.length > 0){
-
-        report += "🛠 Formträger\n";
-
-        ftList.forEach(ft=>{
-
-            report += "• " + ft + "\n";
-
-        });
-
-        report += "\n";
-
-    }
-
-    document.querySelectorAll(".artikel-box")
-    .forEach(box=>{
-
-        report += "━━━━━━━━━━\n";
-
-        report += "📦 Artikel\n";
-
-        report +=
-        box.querySelector(".artName").value + "\n\n";
-
-        report += "✅ Gutteile\n";
-
-        report +=
-        (box.querySelector(".gut").value || 0)
-        + "\n\n";
-
-        report += "⚠️ Ausschuss\n";
-
-        report +=
-        (box.querySelector(".ausTotal").value || 0)
-        + "\n";
-
-        box.querySelectorAll(".aus-v")
-        .forEach((v,i)=>{
-
-            if(v.value){
-
-                report +=
-                "• "
-                + box.querySelectorAll(".aus-c")[i].value
-                + " → "
-                + v.value
-                + "\n";
-
-            }
-
-        });
-
-        report += "\n⚙️ Störung\n";
-
-        box.querySelectorAll(".stoer-v")
-        .forEach((v,i)=>{
-
-            if(v.value){
-
-                report +=
-                "• "
-                + box.querySelectorAll(".stoer-c")[i].value
-                + " → "
-                + v.value
-                + " Min\n";
-
-            }
-
-        });
-
-        report += "\n";
-
-    });
-
-    const waUrl =
-    `https://wa.me/${WHATSAPP_NR}?text=${encodeURIComponent(report)}`;
-
-    window.open(waUrl);
-
+    document.getElementById('mainSendBtn').disabled = !allValid;
 }
 
+// --- REPORT SYSTEM ---
+async function processFinalReport() {
+    const btn = document.getElementById('mainSendBtn');
+    btn.disabled = true;
+    btn.innerText = "Senden... ⏳";
+
+    const datum = document.getElementById('datum').value;
+    const anlage = document.getElementById('anlage').value;
+    const schicht = document.getElementById('schichtWahl').value;
+    const workers = Array.from(document.querySelectorAll('#workerSelectionCard input:checked')).map(i => i.value);
+    const activeFTs = Array.from(document.querySelectorAll('.ft-btn.active')).map(b => b.innerText);
+
+    let details = "";
+    document.querySelectorAll('.artikel-row').forEach(row => {
+        const name = row.querySelector('.art-name').value || "Unbekannt";
+        const gut = row.querySelector('.art-gut').value;
+        const aus = row.querySelector('.art-aus-total').value;
+        const dauer = row.querySelector('.art-dauer') ? row.querySelector('.art-dauer').value + " Min" : "";
+
+        details += `━━━━━━━━━━\n📦 *Artikel:* ${name} ${dauer ? '('+dauer+')' : ''}\n✅ *Gut:* ${gut}\n⚠️ *Aus:* ${aus}\n`;
+        
+        row.querySelectorAll('.code-row').forEach(cr => {
+            const code = cr.querySelector('select').value;
+            const val = cr.querySelector('input').value;
+            const type = cr.querySelector('select').classList.contains('aus-c') ? "⚠️" : "⚙️";
+            if(val > 0) details += `${type} ${code}: ${val}\n`;
+        });
+    });
+
+    const report = `📊 *APG PRODUCTION REPORT*\n\n👷 *Personal:* ${workers.join(", ")}\n🏭 *Anlage:* ${anlage}\n📅 *Datum:* ${datum}\n⏱ *Schicht:* ${schicht}\n${activeFTs.length > 0 ? '🛠 *FT:* ' + activeFTs.join(", ") : ''}\n\n${details}\n━━━━━━━━━━`;
+
+    try {
+        await fetch(scriptURL, { method: "POST", mode: "no-cors", body: JSON.stringify({ datum, anlage, report }) });
+        window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(report)}`;
+    } catch(e) {
+        window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(report)}`;
+    } finally {
+        setTimeout(() => { btn.innerText = "🚀 SPEICHERN & SENDEN"; btn.disabled = false; }, 2000);
+    }
+}
 </script>
-
 </body>
 </html>
