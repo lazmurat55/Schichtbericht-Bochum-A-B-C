@@ -1,139 +1,884 @@
-FINAL PRO VERSION WIRD ENTHALTEN
+<!DOCTYPE html>
 
-━━━━━━━━━━━━━━━━━━
-✅ DEIN KOMPLETTES SYSTEM
-━━━━━━━━━━━━━━━━━━
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APG Production Bericht Bochum</title>
 
-ALLES bleibt erhalten:
+<style>
 
-✔ Mitarbeiterlisten
-✔ Schicht A/B/C
-✔ PUR1–PUR9
-✔ IM1–IM5
-✔ CIM1
-✔ Compound
-✔ Ausschuss Codes
-✔ Störung Codes
-✔ Live Kontrolle
-✔ WhatsApp
-✔ Google Sheets
-✔ Dynamische Artikel
-✔ Dynamische Ausschuss Reihen
-✔ Dynamische Störung Reihen
+:root{
+    --bg:#0f172a;
+    --bg2:#111827;
+    --card:#1e293b;
+    --primary:#38bdf8;
+    --primary2:#2563eb;
+    --text:#f1f5f9;
+    --danger:#ef4444;
+    --success:#22c55e;
+}
 
-━━━━━━━━━━━━━━━━━━
-✅ NEUE PRO FEATURES
-━━━━━━━━━━━━━━━━━━
+body{
+    margin:0;
+    padding:15px;
+    background:linear-gradient(180deg,var(--bg),var(--bg2));
+    color:var(--text);
+    font-family:'Segoe UI',sans-serif;
+}
 
-✔ Modernes Design
-✔ Karten-System
-✔ Premium Dark Mode
-✔ Adler Pelzer Blau
-✔ FT Auswahl modern
-✔ FT Anzeige im Report
-✔ Mobile Optimierung
-✔ Schnellere Bedienung
-✔ Größere Buttons
-✔ Moderne Animationen
-✔ Professioneller WhatsApp Report
+.card{
+    max-width:750px;
+    margin:auto;
+    background:var(--card);
+    border-radius:25px;
+    padding:25px;
+    border:1px solid rgba(56,189,248,0.2);
+    box-shadow:0 0 30px rgba(56,189,248,0.15);
+}
 
-━━━━━━━━━━━━━━━━━━
-✅ MITARBEITER SYSTEM
-━━━━━━━━━━━━━━━━━━
+.topbar{
+    text-align:center;
+    margin-bottom:25px;
+    border-bottom:2px solid rgba(56,189,248,0.15);
+    padding-bottom:20px;
+}
 
-Button:
+.topbar h1{
+    margin:0;
+    color:var(--primary);
+    font-size:30px;
+}
 
-* Mitarbeiter hinzufügen
+.topbar p{
+    color:#94a3b8;
+}
 
-↓
+.section-title{
+    color:var(--primary);
+    font-size:20px;
+    font-weight:700;
+    margin-top:25px;
+    margin-bottom:15px;
+}
 
-Liste öffnet sich
+.section-card{
+    background:#111827;
+    padding:18px;
+    border-radius:18px;
+    border:1px solid rgba(56,189,248,0.1);
+    margin-bottom:20px;
+}
 
-↓
+label{
+    display:block;
+    margin-bottom:8px;
+    color:var(--primary);
+    font-weight:700;
+}
 
-Mitarbeiter klicken sich selbst an:
+select,input{
+    width:100%;
+    padding:15px;
+    border-radius:14px;
+    border:1px solid rgba(56,189,248,0.25);
+    background:#0f172a;
+    color:white;
+    font-size:16px;
+    box-sizing:border-box;
+    margin-bottom:15px;
+}
 
-☑ Keskin Mur.
-☑ Aldirmaz P.
-☑ Bayrakli F.
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
 
-━━━━━━━━━━━━━━━━━━
-✅ FT SYSTEM
-━━━━━━━━━━━━━━━━━━
+.worker-box,
+.artikel-box{
+    background:#0f172a;
+    padding:18px;
+    border-radius:18px;
+    margin-top:15px;
+    position:relative;
+    border-left:5px solid var(--primary);
+}
 
-PUR gewählt →
+.delete-btn{
+    position:absolute;
+    top:12px;
+    right:12px;
+    width:32px;
+    height:32px;
+    border:none;
+    border-radius:10px;
+    background:var(--danger);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
 
-FT Box erscheint:
+.add-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:16px;
+    background:var(--primary2);
+    color:white;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:10px;
+}
 
-FT1 FT2 FT3
-FT4 FT5 FT6
+.main-btn{
+    width:100%;
+    padding:20px;
+    border:none;
+    border-radius:18px;
+    background:var(--primary);
+    color:#0f172a;
+    font-size:20px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:25px;
+}
 
-aktive FT = blau
+.ft-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-bottom:15px;
+}
 
-━━━━━━━━━━━━━━━━━━
-✅ AUSSCHUSS SYSTEM
-━━━━━━━━━━━━━━━━━━
+.ft-item input{
+    display:none;
+}
 
-Ausschuss Gesamt:
+.ft-item label{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:60px;
+    background:#111827;
+    border-radius:14px;
+    border:2px solid rgba(56,189,248,0.15);
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+}
 
-25
+.ft-item input:checked + label{
+    background:var(--primary);
+    color:#0f172a;
+    border-color:var(--primary);
+    box-shadow:0 0 15px rgba(56,189,248,0.4);
+}
 
-Einzelcodes:
+.code-row{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
 
-10
-5
-10
+.code-row select,
+.code-row input{
+    margin:0;
+}
 
-↓
+.row-del{
+    width:45px;
+    border:none;
+    border-radius:10px;
+    background:var(--danger);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
 
-25 / 25 ✅
+.error-msg{
+    display:none;
+    background:rgba(239,68,68,0.15);
+    color:#fca5a5;
+    padding:10px;
+    border-radius:10px;
+    margin-top:10px;
+    font-weight:700;
+}
 
-wenn falsch:
+.counter-box{
+    background:#0f172a;
+    padding:15px;
+    border-radius:15px;
+    border:1px solid rgba(56,189,248,0.2);
+    text-align:center;
+    margin-top:15px;
+}
 
-20 / 25 ❌
+.counter{
+    font-size:24px;
+    font-weight:800;
+    color:var(--success);
+}
 
-Senden blockiert.
+</style>
 
-━━━━━━━━━━━━━━━━━━
-✅ COMPOUND SYSTEM
-━━━━━━━━━━━━━━━━━━
+</head>
 
-480 Minuten Live Kontrolle bleibt.
+<body>
 
-━━━━━━━━━━━━━━━━━━
-✅ REPORT SYSTEM
-━━━━━━━━━━━━━━━━━━
+<div class="card">
 
-Professionelles WhatsApp Format:
+<div class="topbar">
+<h1>Adler Pelzer Group</h1>
+<p>Production Bericht Bochum</p>
+</div>
 
-━━━━━━━━━━
+<div class="section-title">
+⏱ Schicht wählen
+</div>
+
+<div class="section-card">
+
+<select id="schichtWahl"
+onchange="document.getElementById('workerContainer').innerHTML=''">
+
+<option value="A">Schicht A</option>
+<option value="B" selected>Schicht B</option>
+<option value="C">Schicht C</option>
+
+</select>
+
+</div>
+
+<div class="section-title">
 👷 Mitarbeiter
-━━━━━━━━━━
+</div>
 
+<div class="section-card">
+
+<div id="workerContainer"></div>
+
+<button class="add-btn" onclick="addWorker()">
++ Mitarbeiter hinzufügen
+</button>
+
+</div>
+
+<div class="section-title">
 🏭 Anlage
+</div>
 
-📅 Datum
+<div class="section-card">
 
-⏱ Schicht
+<div class="grid">
 
-🛠 FT
+<div>
 
+<label>Datum</label> <input type="date" id="datum">
+
+</div>
+
+<div>
+
+<label>Anlage</label>
+
+<select id="anlage" onchange="toggleAnlage(this.value)">
+
+<optgroup label="PUR">
+
+<option value="PUR1">PUR1</option>
+<option value="PUR2">PUR2</option>
+<option value="PUR3">PUR3</option>
+<option value="PUR4">PUR4</option>
+<option value="PUR5">PUR5</option>
+<option value="PUR6">PUR6</option>
+<option value="PUR7">PUR7</option>
+<option value="PUR8">PUR8</option>
+<option value="PUR9">PUR9</option>
+
+</optgroup>
+
+<optgroup label="Spritzguss">
+
+<option value="IM1">IM1</option>
+<option value="IM2">IM2</option>
+<option value="IM3">IM3</option>
+<option value="IM4">IM4</option>
+<option value="IM5">IM5</option>
+<option value="CIM1">CIM1</option>
+
+</optgroup>
+
+<option value="COM">COM</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div id="ftBox" style="display:none;">
+
+<label>🛠 Formträger wählen</label>
+
+<div class="ft-grid">
+
+<div class="ft-item">
+<input type="checkbox" id="ft1" class="ft-check" value="FT1">
+<label for="ft1">FT1</label>
+</div>
+
+<div class="ft-item">
+<input type="checkbox" id="ft2" class="ft-check" value="FT2">
+<label for="ft2">FT2</label>
+</div>
+
+<div class="ft-item">
+<input type="checkbox" id="ft3" class="ft-check" value="FT3">
+<label for="ft3">FT3</label>
+</div>
+
+<div class="ft-item">
+<input type="checkbox" id="ft4" class="ft-check" value="FT4">
+<label for="ft4">FT4</label>
+</div>
+
+<div class="ft-item">
+<input type="checkbox" id="ft5" class="ft-check" value="FT5">
+<label for="ft5">FT5</label>
+</div>
+
+<div class="ft-item">
+<input type="checkbox" id="ft6" class="ft-check" value="FT6">
+<label for="ft6">FT6</label>
+</div>
+
+</div>
+
+</div>
+
+<div id="comBox" style="display:none;">
+
+<div class="counter-box">
+
+<div>Compound Zeit</div>
+
+<div class="counter">
+<span id="comCounter">0</span> / 480 Min
+</div>
+
+<div id="restzeit">
+Restzeit: 480 Min
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section-title">
 📦 Artikel
+</div>
 
-✅ Gutteile
+<div class="section-card">
 
-⚠️ Ausschuss
+<div id="artikelContainer"></div>
 
-⚙️ Störung
+<button class="add-btn" onclick="addArtikel()">
++ Artikel hinzufügen
+</button>
 
-━━━━━━━━━━
+</div>
 
-━━━━━━━━━━━━━━━━━━
-WICHTIG
-━━━━━━━━━━━━━━━━━━
+<button class="main-btn" onclick="processAll()">
+🚀 SPEICHERN & SENDEN
+</button>
 
-Das wird jetzt:
+</div>
 
-DEIN ORIGINAL SYSTEM
-+
-PROFESSIONELLES UPGRADE
+<script>
+
+const WHATSAPP_NR = "+4917623638794";
+
+document.getElementById("datum").value =
+new Date().toISOString().split('T')[0];
+
+const workerLists = {
+
+A:[
+"Kunert M.",
+"Karali O.",
+"Mikuczynski K.",
+"Türkmen E.",
+"Sonstige"
+],
+
+B:[
+"Keskin Mur.",
+"Aldirmaz P.",
+"Bayrakli F.",
+"Kilic D.",
+"Maafi T.",
+"Besche T.",
+"Sonstige"
+],
+
+C:[
+"Keskin Mustafa",
+"Kantaroglu Ö.",
+"Savas R.",
+"Rafo S.",
+"Sonstige"
+]
+
+};
+
+const codes = {
+
+PUR:{
+aus:[
+"6-2-01 Temperatur zu niedrig",
+"6-2-02 Schaum haftet nicht",
+"6-2-03 Einlegefehler Bauteil",
+"6-2-04 Einlegefehler CIM",
+"6-2-05 Schussabbruch",
+"Sonstige"
+],
+
+stoer:[
+"3-01 Werkzeugwechsel",
+"3-02 Materialumstellung",
+"4-2-01 Ungepl. Inst. Werkzeug",
+"4-2-02 Ungepl. Inst. Maschine",
+"5-2-01 Logistik Mangel",
+"Sonstige"
+]
+
+},
+
+Spritzguss:{
+aus:[
+"6-1-01 Anfahrschrott",
+"6-1-02 Materialumstellung",
+"6-1-03 CIM n.voll",
+"Sonstige"
+],
+
+stoer:[
+"3-01 Werkzeugwechsel",
+"4-1-01 Ungepl. Inst. Werkzeug",
+"4-1-02 Ungepl. Inst. Maschine",
+"Sonstige"
+]
+
+},
+
+COM:{
+aus:[
+"6-3-01 Anfahrschrott",
+"6-3-02 Materialfehler",
+"Sonstige"
+],
+
+stoer:[
+"3-01 Werkzeugwechsel",
+"4-3-01 Messer schleifen",
+"4-3-02 Ungepl. Inst. Maschine",
+"Sonstige"
+]
+
+}
+
+};
+
+function toggleAnlage(val){
+
+    document.getElementById("ftBox").style.display =
+    val.startsWith("PUR") ? "block" : "none";
+
+    document.getElementById("comBox").style.display =
+    val === "COM" ? "block" : "none";
+
+}
+
+function addWorker(){
+
+    const s =
+    document.getElementById("schichtWahl").value;
+
+    const div =
+    document.createElement("div");
+
+    div.className = "worker-box";
+
+    div.innerHTML = `
+
+    <button class="delete-btn"
+    onclick="this.parentElement.remove()">
+    ✕
+    </button>
+
+    <label>Mitarbeiter</label>
+
+    <select class="workerSelect">
+
+    ${workerLists[s]
+    .map(w=>`<option value="${w}">${w}</option>`)
+    .join("")}
+
+    </select>
+
+    `;
+
+    document.getElementById("workerContainer")
+    .appendChild(div);
+
+}
+
+function addArtikel(){
+
+    const anl =
+    document.getElementById("anlage").value;
+
+    if(!anl){
+
+        alert("Bitte Anlage wählen!");
+        return;
+
+    }
+
+    const div =
+    document.createElement("div");
+
+    div.className = "artikel-box";
+
+    div.innerHTML = `
+
+    <button class="delete-btn"
+    onclick="this.parentElement.remove();updateCounter()">
+    ✕
+    </button>
+
+    <label>Artikel Bezeichnung</label>
+    <input type="text" class="artName">
+
+    ${anl==="COM" ? `
+
+    <label>Dauer (Min)</label>
+
+    <input type="number"
+    class="artDauer"
+    oninput="updateCounter()">
+
+    ` : ''}
+
+    <div class="grid">
+
+    <div>
+
+    <label>Gutteile</label>
+    <input type="number" class="gut">
+
+    </div>
+
+    <div>
+
+    <label>Ausschuss Gesamt</label>
+
+    <input type="number"
+    class="ausTotal"
+    oninput="validate(this.closest('.artikel-box'))">
+
+    </div>
+
+    </div>
+
+    <div class="error-msg">
+    Ausschuss-Summe stimmt nicht!
+    </div>
+
+    <div class="row-list"></div>
+
+    <div class="grid">
+
+    <button type="button"
+    class="add-btn"
+    onclick="addRow(this,'aus')">
+
+    + Ausschuss
+
+    </button>
+
+    <button type="button"
+    class="add-btn"
+    onclick="addRow(this,'stoer')">
+
+    + Störung
+
+    </button>
+
+    </div>
+
+    `;
+
+    document.getElementById("artikelContainer")
+    .appendChild(div);
+
+}
+
+function addRow(btn,type){
+
+    const anl =
+    document.getElementById("anlage").value;
+
+    let cat =
+    anl==="COM"
+    ? "COM"
+    : (anl.startsWith("PUR")
+    ? "PUR"
+    : "Spritzguss");
+
+    const target =
+    btn.parentElement.previousElementSibling;
+
+    const row =
+    document.createElement("div");
+
+    row.className = "code-row";
+
+    row.innerHTML = `
+
+    <select class="${type}-c" style="flex:2;">
+
+    ${codes[cat][type]
+    .map(c=>`<option value="${c}">${c}</option>`)
+    .join("")}
+
+    </select>
+
+    <input type="number"
+    class="${type}-v"
+    style="flex:1;"
+    oninput="validate(this.closest('.artikel-box'))"
+    placeholder="Menge">
+
+    <button type="button"
+    class="row-del"
+    onclick="this.parentElement.remove();validate(this.closest('.artikel-box'))">
+
+    ✕
+
+    </button>
+
+    `;
+
+    target.appendChild(row);
+
+}
+
+function validate(box){
+
+    const total =
+    parseFloat(box.querySelector(".ausTotal").value) || 0;
+
+    let sum = 0;
+
+    box.querySelectorAll(".aus-v")
+    .forEach(i=>{
+
+        sum += (parseFloat(i.value) || 0);
+
+    });
+
+    box.querySelector(".error-msg")
+    .style.display =
+    (total > 0 && total !== sum)
+    ? "block"
+    : "none";
+
+}
+
+function updateCounter(){
+
+    let total = 0;
+
+    document.querySelectorAll(".artDauer")
+    .forEach(i=>{
+
+        total += (parseFloat(i.value) || 0);
+
+    });
+
+    document.getElementById("comCounter")
+    .innerText = total;
+
+    document.getElementById("restzeit")
+    .innerText =
+    "Restzeit: " + (480-total) + " Min";
+
+}
+
+function processAll(){
+
+    const anl =
+    document.getElementById("anlage").value;
+
+    const date =
+    document.getElementById("datum").value;
+
+    const schicht =
+    document.getElementById("schichtWahl").value;
+
+    const counterVal =
+    parseFloat(document.getElementById("comCounter")
+    ?.innerText || 0);
+
+    if(anl==="COM" && counterVal !== 480){
+
+        alert("Dauer muss 480 Min sein!");
+        return;
+
+    }
+
+    let err = false;
+
+    document.querySelectorAll(".error-msg")
+    .forEach(m=>{
+
+        if(m.style.display==="block")
+        err = true;
+
+    });
+
+    if(err){
+
+        alert("Ausschuss-Summen prüfen!");
+        return;
+
+    }
+
+    let staff = [];
+
+    document.querySelectorAll(".workerSelect")
+    .forEach(w=>{
+
+        staff.push(w.value);
+
+    });
+
+    let ftList = [];
+
+    document.querySelectorAll(".ft-check:checked")
+    .forEach(f=>{
+
+        ftList.push(f.value);
+
+    });
+
+    let report = "";
+
+    report += "━━━━━━━━━━\n";
+    report += "👷 Mitarbeiter\n";
+    report += "━━━━━━━━━━\n";
+
+    report += staff.join("\n");
+
+    report += "\n\n";
+
+    report += "🏭 Anlage\n";
+    report += anl + "\n\n";
+
+    report += "📅 Datum\n";
+    report += date + "\n\n";
+
+    report += "⏱ Schicht\n";
+    report += schicht + "\n\n";
+
+    if(ftList.length > 0){
+
+        report += "🛠 Formträger\n";
+
+        ftList.forEach(ft=>{
+
+            report += "• " + ft + "\n";
+
+        });
+
+        report += "\n";
+
+    }
+
+    document.querySelectorAll(".artikel-box")
+    .forEach(box=>{
+
+        report += "━━━━━━━━━━\n";
+
+        report += "📦 Artikel\n";
+
+        report +=
+        box.querySelector(".artName").value + "\n\n";
+
+        report += "✅ Gutteile\n";
+
+        report +=
+        (box.querySelector(".gut").value || 0)
+        + "\n\n";
+
+        report += "⚠️ Ausschuss\n";
+
+        report +=
+        (box.querySelector(".ausTotal").value || 0)
+        + "\n";
+
+        box.querySelectorAll(".aus-v")
+        .forEach((v,i)=>{
+
+            if(v.value){
+
+                report +=
+                "• "
+                + box.querySelectorAll(".aus-c")[i].value
+                + " → "
+                + v.value
+                + "\n";
+
+            }
+
+        });
+
+        report += "\n⚙️ Störung\n";
+
+        box.querySelectorAll(".stoer-v")
+        .forEach((v,i)=>{
+
+            if(v.value){
+
+                report +=
+                "• "
+                + box.querySelectorAll(".stoer-c")[i].value
+                + " → "
+                + v.value
+                + " Min\n";
+
+            }
+
+        });
+
+        report += "\n";
+
+    });
+
+    const waUrl =
+    `https://wa.me/${WHATSAPP_NR}?text=${encodeURIComponent(report)}`;
+
+    window.open(waUrl);
+
+}
+
+</script>
+
+</body>
+</html>
