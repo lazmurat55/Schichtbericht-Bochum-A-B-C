@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>APG BOCHUM FINAL PRO</title>
+    <title>APG BOCHUM SECURE REPORT</title>
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --blue-dark: #1e40af; --text: #f1f5f9; --danger: #ef4444; --success: #22c55e; }
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; }
-        .card { width: 100%; max-width: 650px; background: var(--card); padding: 20px; border-radius: 20px; margin: auto; border: 1px solid rgba(56, 189, 248, 0.3); }
+        #loginScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; justify-content: center; align-items: center; }
+        .login-card { background: var(--card); padding: 30px; border-radius: 20px; border: 2px solid var(--primary); width: 90%; max-width: 400px; text-align: center; }
+        .card { width: 100%; max-width: 650px; background: var(--card); padding: 20px; border-radius: 20px; margin: auto; border: 1px solid rgba(56, 189, 248, 0.3); display: none; }
         .header { text-align: center; border-bottom: 3px solid var(--primary); margin-bottom: 20px; padding-bottom: 10px; }
         .schicht-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .schicht-btn { padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 10px; color: white; cursor: pointer; font-weight: bold; }
@@ -17,7 +19,6 @@
         #workerOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
         .overlay-content { background: var(--card); width: 90%; max-width: 400px; max-height: 80vh; overflow-y: auto; border-radius: 20px; padding: 20px; border: 1px solid var(--primary); }
         .worker-opt { padding: 12px; border-bottom: 1px solid #334155; cursor: pointer; }
-        .worker-opt:hover { background: var(--blue-dark); }
         .selected-worker { display: flex; justify-content: space-between; padding: 10px; background: rgba(56,189,248,0.1); border-radius: 10px; margin-top: 5px; border: 1px solid var(--primary); }
         .section-card { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; margin-top: 15px; position: relative; border: 1px solid rgba(56,189,248,0.1); }
         .ft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
@@ -36,22 +37,21 @@
 </head>
 <body>
 
-<div id="workerOverlay">
-    <div class="overlay-content">
-        <h3 style="color:var(--primary);">Mitarbeiter wählen</h3>
-        <div id="workerList"></div>
-        <div style="margin-top:15px; border-top:1px solid #444; padding-top:10px;">
-            <input type="text" id="manualWorker" placeholder="Sonstige Name...">
-            <button class="add-btn" onclick="addManualWorker()">Hinzufügen</button>
-        </div>
-        <button class="main-btn" onclick="document.getElementById('workerOverlay').style.display='none'">Schließen</button>
+<div id="loginScreen">
+    <div class="login-card">
+        <h2 style="color:var(--primary); margin-top:0;">APG LOGIN</h2>
+        <p style="font-size:12px; color:#94a3b8;">Soyadınızı ve Personel No'nuzu giriniz</p>
+        <input type="text" id="userInp" placeholder="Nachname (Soyadı)">
+        <input type="password" id="passInp" placeholder="Personalnummer (Şifre)" style="margin-top:10px;">
+        <button class="main-btn" onclick="checkLogin()">ANMELDEN</button>
+        <p id="loginError" style="color:red; font-size:12px; margin-top:10px; display:none;">⚠️ Zugangsdaten falsch!</p>
     </div>
 </div>
 
-<div class="card">
+<div class="card" id="mainApp">
     <div class="header">
         <h1>Adler Pelzer Group</h1>
-        <p>Production Bericht Bochum PRO</p>
+        <p id="currentUserDisplay" style="color:var(--success); font-size:12px; font-weight:bold;"></p>
     </div>
 
     <label>Schicht wählen</label>
@@ -62,197 +62,97 @@
     </div>
 
     <div id="workerDisplayContainer"></div>
-    <button type="button" class="add-btn" onclick="openWorkerOverlay()">+ Mitarbeiter hinzufügen</button>
+    <button class="add-btn" onclick="document.getElementById('workerOverlay').style.display='flex'; renderWorkerList();">+ Mitarbeiter hinzufügen</button>
 
     <div class="grid" style="margin-top:20px;">
         <div><label>Datum</label><input type="date" id="datum"></div>
-        <div>
-            <label>Anlage</label>
+        <div><label>Anlage</label>
             <select id="anlage" onchange="onAnlageChange(this.value)">
                 <option value="">Wählen...</option>
-                <optgroup label="PUR">
-                    <option value="PUR1">PUR 1</option><option value="PUR2">PUR 2</option><option value="PUR3">PUR 3</option>
-                    <option value="PUR4">PUR 4</option><option value="PUR5">PUR 5</option><option value="PUR6">PUR 6</option>
-                    <option value="PUR7">PUR 7</option><option value="PUR8">PUR 8</option><option value="PUR9">PUR 9</option>
-                </optgroup>
-                <optgroup label="Spritzguss">
-                    <option value="IM1">IM 1</option><option value="IM2">IM 2</option><option value="IM3">IM 3</option>
-                    <option value="IM4">IM 4</option><option value="IM5">IM 5</option><option value="CIM1">CIM 1</option>
-                </optgroup>
+                <optgroup label="PUR"><option value="PUR1">PUR 1</option><option value="PUR2">PUR 2</option><option value="PUR3">PUR 3</option><option value="PUR4">PUR 4</option><option value="PUR5">PUR 5</option><option value="PUR6">PUR 6</option><option value="PUR7">PUR 7</option><option value="PUR8">PUR 8</option><option value="PUR9">PUR 9</option></optgroup>
+                <optgroup label="Spritzguss"><option value="IM1">IM 1</option><option value="IM2">IM 2</option><option value="IM3">IM 3</option><option value="IM4">IM 4</option><option value="IM5">IM 5</option><option value="CIM1">CIM 1</option></optgroup>
                 <option value="COM">Compound</option>
             </select>
         </div>
     </div>
 
-    <div id="ftBox" style="display:none;">
-        <label>Formträger (FT)</label>
-        <div class="ft-grid">
-            <button class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT1</button>
-            <button class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT2</button>
-            <button class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT3</button>
-            <button class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT4</button>
-            <button class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT5</button>
-            <button class="ft-btn" onclick="this.classList.toggle('active'); liveCheck();">FT6</button>
-        </div>
-    </div>
-
-    <div id="comTimeBox" style="display:none; margin-top:15px; text-align:center; background:rgba(56,189,248,0.1); padding:10px; border-radius:10px;">
-        <span style="font-weight:bold; color:var(--primary);">Compound: <span id="comTotal">0</span> / 480 Min</span>
-    </div>
-
+    <div id="ftBox" style="display:none;"><label>Formträger (FT)</label><div class="ft-grid"><button class="ft-btn" onclick="this.classList.toggle('active')">FT1</button><button class="ft-btn" onclick="this.classList.toggle('active')">FT2</button><button class="ft-btn" onclick="this.classList.toggle('active')">FT3</button><button class="ft-btn" onclick="this.classList.toggle('active')">FT4</button><button class="ft-btn" onclick="this.classList.toggle('active')">FT5</button><button class="ft-btn" onclick="this.classList.toggle('active')">FT6</button></div></div>
+    <div id="comTimeBox" style="display:none; margin-top:15px; text-align:center; background:rgba(56,189,248,0.1); padding:10px; border-radius:10px;"><span style="font-weight:bold; color:var(--primary);">Compound: <span id="comTotal">0</span> / 480 Min</span></div>
     <div id="artikelContainer"></div>
-    <button type="button" class="add-btn" onclick="addArtikel()">+ Artikel hinzufügen</button>
-
-    <button type="button" id="mainSendBtn" class="main-btn" onclick="processReport()">🚀 SPEICHERN & SENDEN</button>
+    <button class="add-btn" onclick="addArtikel()">+ Artikel hinzufügen</button>
+    <button id="mainSendBtn" class="main-btn" onclick="processReport()">🚀 SPEICHERN & SENDEN</button>
 </div>
+
+<div id="workerOverlay"><div class="overlay-content"><h3 style="color:var(--primary);">Mitarbeiter wählen</h3><div id="workerList"></div><button class="main-btn" onclick="document.getElementById('workerOverlay').style.display='none'">Schließen</button></div></div>
 
 <script>
 const scriptURL = "https://script.google.com/macros/s/AKfycbx55ShhJiujy6xj8lJZoDOoRh5wSpYpbPCbCNVoKnqR53gSUwsmKzSVv4ZXaihBQwwzVg/exec";
 const WHATSAPP_NR = "+4917623638794";
 let currentSchicht = 'B';
 let selectedStaff = [];
+let loggedInUser = "";
+
+// LOGIN DATABASE (Nachname : Personalnummer)
+const authDB = {
+    "Keskin": "517", "Aldirmaz": "577", "Anderwald": "509", "Bayrakli": "1377", "Kilic": "1384", "Maafi": "1273", "Besche": "1472", "Eickhoff": "1406", "Toth": "1699", "Gibba": "1367", "Helf": "1483", "Isbir": "1715", "Jeyakumar": "1698", "Kalisch": "1451", "Kowarsch": "484", "Nowak": "1390", "Pähler": "1332", "Patarcsity": "1700", "Pulendran": "1498", "Sahin": "1721", "Savas": "1360", "Schiavitelli": "1669", "Uluyüz": "1450", "Uzun": "1433", "Kunert": "502", "Karali": "533", "Mikuczynski": "1212", "Türkmen": "1213", "Amrouch": "1268", "Stania": "1368", "Kantaroglu": "1382", "Krancioch": "1405", "Held": "1421", "Berisha": "1534", "Neji": "1536", "Mulugeta": "1633", "Udezue": "1686", "Jansen": "1692", "Aksoy": "1704", "Yildirim": "1710", "Brand": "1722", "Louze": "1724", "Blanquez": "1725", "Diallo": "1726", "Sener": "1731", "Beher": "510", "Rafo": "1277", "Gertz": "1357", "Schönborn": "1361", "Fortes": "1381", "Sakaguchi": "1391", "Mercan": "1437", "Krämer": "1449", "Juretzka": "1473", "Kumbara": "1474", "Skupio": "1475", "Skrago": "1484", "Bah": "1684", "Kaya": "1712", "Jdea": "1701", "Toure": "1713", "Schneider": "1714", "Tchaleu": "1723", "Klomrit": "1070", "Garcia": "339"
+};
 
 const workerData = {
-    "A": ["Kunert M. - 502", "Karali O. - 533 E", "Mikuczynski K. - 1212", "Türkmen E. - 1213 E", "Amrouch M. - 1268", "Stania D. - 1368", "Kantaroglu A. - 1382", "Krancioch A. - 1405", "Held D. - 1421", "Berisha I. - 1534", "Neji M. - 1536", "Mulugeta G. - 1633", "Udezue P. - 1686", "Jansen M. - 1692", "Aksoy O. - 1704", "Yildirim S. - 1710", "Brand N. - 1722", "Louze A. - 1724", "Blanquez Romero V. - 1725", "Diallo M.D. - 1726", "Sener E. - 1731 E", "Klomrit Thanin-1070", "Garcia-Hervas Francisco-339"],
-    "B": ["Keskin Mur.-517", "Aldirmaz P.-577", "Anderwald R.-509 E", "Bayrakli F.-1377 E", "Kilic D.-1384 E", "Maafi T.-1273 E", "Besche T.-1472", "Eickhoff P.-1406", "Toth Renata-1699", "Gibba n.-1367", "Helf A.-1483", "Isbir J.-1715", "Jeyakumar S.-1698", "Kalisch T.-1451", "Kowarsch R.-484", "Nowak M.-1390", "Pähler D.-1332", "Patarcsity V.-1700", "Pulendran K.-1498", "Sahin E.-1721", "Savas S.-1360", "Schiavitelli C.-1669", "Uluyüz B.-1450", "Uzun S.-1433", "Klomrit Thanin-1070", "Garcia-Hervas Francisco-339"],
-    "C": ["Beher T. - 510", "Keskin Mustafa - 518", "Kantaroglu Ö. - 580", "Savas R. - 608", "Rafo S. - 1277", "Gertz Kevin - 1357", "Gertz S. - 1358 E", "Schönborn Ch. - 1361", "Fortes Ch. - 1381", "Sakaguchi M. - 1391", "Mercan M. - 1437 E", "Krämer Ch. - 1449", "Juretzka T. - 1473", "Kumbara E. - 1474", "Skupio D. - 1475", "Skrago T. - 1484", "Bah A. - 1684", "Kaya A. - 1712", "Jdea A. - 1701", "Toure A. - 1713", "Schneider D. - 1714", "Tchaleu Bertrand - 1723", "Klomrit Thanin-1070", "Garcia-Hervas Francisco-339"]
+    "A": ["Kunert M.", "Karali O.", "Mikuczynski K.", "Türkmen E.", "Amrouch M.", "Stania D.", "Kantaroglu A.", "Krancioch A.", "Held D.", "Berisha I.", "Neji M.", "Mulugeta G.", "Udezue P.", "Jansen M.", "Aksoy O.", "Yildirim S.", "Brand N.", "Louze A.", "Blanquez Romero V.", "Diallo M.D.", "Sener E."],
+    "B": ["Keskin Mur.", "Aldirmaz P.", "Anderwald R.", "Bayrakli F.", "Kilic D.", "Maafi T.", "Besche T.", "Eickhoff P.", "Toth Renata", "Gibba n.", "Helf A.", "Isbir J.", "Jeyakumar S.", "Kalisch T.", "Kowarsch R.", "Nowak M.", "Pähler D.", "Patarcsity V.", "Pulendran K.", "Sahin E.", "Savas S.", "Schiavitelli C.", "Uluyüz B.", "Uzun S."],
+    "C": ["Beher T.", "Keskin Mustafa", "Kantaroglu Ö.", "Savas R.", "Rafo S.", "Gertz Kevin", "Gertz S.", "Schönborn Ch.", "Fortes Ch.", "Sakaguchi M.", "Mercan M.", "Krämer Ch.", "Juretzka T.", "Kumbara E.", "Skupio D.", "Skrago T.", "Bah A.", "Kaya A.", "Jdea A.", "Toure A.", "Schneider D.", "Tchaleu Bertrand"]
 };
 
 const codeData = {
-    PUR: {
-        aus: ["6-2-01 Temp zu niedrig", "6-2-02 Schaum haftet nicht", "6-2-03 Einlegefehler Bauteil", "6-2-04 Einlegefehler CIM", "6-2-05 Schussabbruch", "6-2-06 CIM n.voll", "6-2-07 Lippe gerissen", "6-2-08 CIM gerissen", "7-2-01 Nacharbeit Bauteil", "Sonstige"],
-        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umstellung", "4-2-01 Ungepl. Inst. WZ", "4-2-02 Ungepl. Inst. Maschine", "4-2-03 Poly/Iso Überdruck", "4-2-04 Mischkopf n.i.o.", "4-2-05 Fehler Lichtschranke", "4-2-06 Trennmittelpistole", "4-2-07 Formträger Initiator", "4-2-08 Reinigung WZ", "4-2-09 Not Aus", "5-2-01 Logistik Mangel", "5-2-04 Wartezeit Einrichter", "5-2-10 Poly/Iso leer", "Sonstige"]
-    },
-    Spritz: {
-        aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat-Umstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "6-1-06 Einfallstellen", "6-1-07 Brandstellen", "6-1-08 Silberstreifen", "Sonstige"],
-        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umstellung", "4-1-01 Ungepl. Inst. WZ", "4-1-02 Ungepl. Inst. Maschine", "4-1-03 Mat-Förderung gestört", "4-1-04 Probleme Dosiereinheit", "4-1-05 Probleme Schließeinh.", "4-1-06 Probleme Teileentnahme", "4-1-07 Probleme WZ-Heizung", "4-1-08 Probleme Beflammung", "5-1-03 Wartezeit Einrichter", "Sonstige"]
-    },
-    COM: {
-        aus: ["6-3-01 Anfahrschrott", "6-3-02 Mat-Fehler", "Sonstige"],
-        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umstellung", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Masch", "4-3-04 Silowechsel", "5-3-01 Mat-Mangel", "5-3-05 Feueralarm", "Sonstige"]
-    }
+    PUR: { aus: ["6-2-01 Temp niedrig", "6-2-02 Schaum haftet nicht", "6-2-03 Einlegef. Bauteil", "6-2-04 Einlegef. CIM", "6-2-05 Schussabbruch", "6-2-06 CIM n.voll", "6-2-07 Lippe gerissen", "6-2-08 CIM gerissen", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Ums.", "4-2-01 Ungepl. Inst. WZ", "4-2-02 Ungepl. Inst. Masch", "4-2-03 Überdruck", "4-2-04 Mischkopf", "4-2-08 Reinigung", "5-2-04 Wartezeit Einr.", "Sonstige"] },
+    Spritz: { aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat-Ums.", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "6-1-06 Einfallstellen", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Ums.", "4-1-01 Ungepl. Inst. WZ", "4-1-02 Ungepl. Inst. Masch", "4-1-03 Mat-Förderung", "4-1-06 Teileentnahme", "5-1-03 Wartezeit Einr.", "Sonstige"] },
+    COM: { aus: ["6-3-01 Anfahrschrott", "6-3-02 Mat-Fehler", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Ums.", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Masch", "4-3-04 Silowechsel", "5-3-01 Mat-Mangel", "Sonstige"] }
 };
 
-window.onload = () => { document.getElementById('datum').value = new Date().toISOString().split('T')[0]; };
-
-function setSchicht(s) {
-    currentSchicht = s;
-    document.querySelectorAll('.schicht-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('btn' + s).classList.add('active');
-    selectedStaff = []; renderStaff();
+function checkLogin() {
+    const user = document.getElementById('userInp').value.trim();
+    const pass = document.getElementById('passInp').value.trim();
+    if(authDB[user] && authDB[user] === pass) {
+        loggedInUser = `${user} (${pass})`;
+        document.getElementById('loginScreen').style.display='none';
+        document.getElementById('mainApp').style.display='block';
+        document.getElementById('currentUserDisplay').innerText = "Angemeldet: " + loggedInUser;
+    } else { document.getElementById('loginError').style.display='block'; }
 }
 
-function openWorkerOverlay() {
-    const cont = document.getElementById('workerList');
-    cont.innerHTML = workerData[currentSchicht].map(w => `<div class="worker-opt" onclick="addStaff('${w}')">${w}</div>`).join("");
-    document.getElementById('workerOverlay').style.display = 'flex';
-}
-
-function addStaff(n) {
-    if(!selectedStaff.includes(n)) selectedStaff.push(n);
-    document.getElementById('workerOverlay').style.display = 'none';
-    renderStaff();
-}
-
-function addManualWorker() {
-    const val = document.getElementById('manualWorker').value;
-    if(val) { addStaff("✍️ " + val); document.getElementById('manualWorker').value = ""; }
-}
-
-function renderStaff() {
-    document.getElementById('workerDisplayContainer').innerHTML = selectedStaff.map(s => `
-        <div class="selected-worker"><span>${s}</span><span onclick="removeStaff('${s}')" style="color:red; cursor:pointer;">✕</span></div>
-    `).join("");
-    liveCheck();
-}
-
+function setSchicht(s) { currentSchicht = s; document.querySelectorAll('.schicht-btn').forEach(b => b.classList.remove('active')); document.getElementById('btn'+s).classList.add('active'); selectedStaff=[]; renderStaff(); }
+function renderWorkerList() { const c = document.getElementById('workerList'); c.innerHTML = workerData[currentSchicht].map(w => `<div class="worker-opt" onclick="addStaff('${w}')">${w}</div>`).join(""); }
+function addStaff(n) { if(!selectedStaff.includes(n)) selectedStaff.push(n); document.getElementById('workerOverlay').style.display='none'; renderStaff(); }
+function renderStaff() { document.getElementById('workerDisplayContainer').innerHTML = selectedStaff.map(s => `<div class="selected-worker"><span>${s}</span><span onclick="removeStaff('${s}')" style="color:red; cursor:pointer;">✕</span></div>`).join(""); liveCheck(); }
 function removeStaff(n) { selectedStaff = selectedStaff.filter(x => x !== n); renderStaff(); }
 
-function onAnlageChange(v) {
-    document.getElementById('ftBox').style.display = v.startsWith("PUR") ? "block" : "none";
-    document.getElementById('comTimeBox').style.display = v === "COM" ? "block" : "none";
-    document.getElementById('artikelContainer').innerHTML = "";
-    document.querySelectorAll('.ft-btn').forEach(b => b.classList.remove('active'));
-    liveCheck();
-}
+function onAnlageChange(v) { document.getElementById('ftBox').style.display = v.startsWith("PUR") ? "block" : "none"; document.getElementById('comTimeBox').style.display = v === "COM" ? "block" : "none"; document.getElementById('artikelContainer').innerHTML = ""; liveCheck(); }
 
 function addArtikel() {
-    const id = Date.now();
-    const div = document.createElement('div');
-    div.className = "section-card artikel-row"; div.id = `art_${id}`;
-    div.innerHTML = `
-        <button onclick="document.getElementById('art_${id}').remove(); liveCheck();" style="position:absolute; right:10px; top:10px; background:red; color:white; border:none; border-radius:5px;">✕</button>
-        <label>Artikel Bezeichnung</label><input type="text" class="art-name">
+    const id = Date.now(); const div = document.createElement('div'); div.className = "section-card artikel-row"; div.id = `art_${id}`;
+    div.innerHTML = `<button onclick="this.parentElement.remove(); liveCheck();" style="position:absolute; right:10px; top:10px; background:red; color:white; border:none; border-radius:5px;">✕</button>
+        <label>Artikel</label><input type="text" class="art-name">
         ${document.getElementById('anlage').value==='COM' ? '<label>Dauer (Min)</label><input type="number" class="art-dauer" oninput="liveCheck()">' : ''}
-        <div class="grid" style="margin-top:10px;">
-            <div><label>Gut</label><input type="number" class="art-gut"></div>
-            <div><label>Ausschuss Top</label><input type="number" class="art-aus-total" oninput="liveCheck()"></div>
-        </div>
-        <div class="status-badge" id="badge_${id}"></div>
-        <div id="rows_${id}"></div>
-        <div style="display:flex; gap:10px; margin-top:10px;">
-            <button class="sub-btn" onclick="addRow('${id}','aus')">+ Ausschuss</button>
-            <button class="sub-btn" onclick="addRow('${id}','stoer')">+ Störung</button>
-        </div>`;
+        <div class="grid" style="margin-top:10px;"><div><label>Gut</label><input type="number" class="art-gut"></div><div><label>Aus Gesamt</label><input type="number" class="art-aus-total" oninput="liveCheck()"></div></div>
+        <div class="status-badge" id="badge_${id}"></div><div id="rows_${id}"></div>
+        <div style="display:flex; gap:10px; margin-top:10px;"><button class="sub-btn" onclick="addRow('${id}','aus')">+ Aus</button><button class="sub-btn" onclick="addRow('${id}','stoer')">+ Stör</button></div>`;
     document.getElementById('artikelContainer').appendChild(div);
 }
 
 function addRow(artId, type) {
-    const anl = document.getElementById('anlage').value;
-    const cat = anl==='COM' ? 'COM' : (anl.startsWith("PUR") ? 'PUR' : 'Spritz');
-    const rId = Date.now();
-    const div = document.createElement('div');
-    div.className = "code-row";
-    div.innerHTML = `<div style="display:flex; gap:5px;">
-        <select class="${type}-c" style="flex:3;" onchange="this.nextElementSibling.nextElementSibling.style.display=(this.value==='Sonstige'?'block':'none')">
-            ${codeData[cat][type].map(c => `<option value="${c}">${c}</option>`).join("")}
-        </select>
-        <input type="number" class="${type}-v" style="flex:1;" oninput="liveCheck()">
-        <input type="text" class="sonstige-input" placeholder="Grund...">
-        <button onclick="this.parentElement.parentElement.remove(); liveCheck();" style="color:red; background:none; border:none; font-weight:bold;">✕</button>
-    </div>`;
+    const anl = document.getElementById('anlage').value; const cat = anl==='COM'?'COM':(anl.startsWith("PUR")?'PUR':'Spritz');
+    const div = document.createElement('div'); div.className="code-row";
+    div.innerHTML = `<div style="display:flex; gap:5px;"><select class="${type}-c" style="flex:3;" onchange="this.nextElementSibling.nextElementSibling.style.display=(this.value==='Sonstige'?'block':'none')">
+        ${codeData[cat][type].map(c => `<option value="${c}">${c}</option>`).join("")}</select><input type="number" class="${type}-v" style="flex:1;" oninput="liveCheck()">
+        <input type="text" class="sonstige-input" placeholder="Grund..."><button onclick="this.parentElement.parentElement.remove(); liveCheck();" style="color:red; background:none; border:none;">✕</button></div>`;
     document.getElementById(`rows_${artId}`).appendChild(div);
 }
 
 function liveCheck() {
-    let valid = true; let comT = 0;
+    let v = true; let cT = 0;
     document.querySelectorAll('.artikel-row').forEach(row => {
-        const id = row.id.split('_')[1];
-        const t = parseInt(row.querySelector('.art-aus-total').value) || 0;
+        const id = row.id.split('_')[1]; const t = parseInt(row.querySelector('.art-aus-total').value) || 0;
         let s = 0; row.querySelectorAll('.aus-v').forEach(i => s += parseInt(i.value) || 0);
         const b = document.getElementById(`badge_${id}`);
-        if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText=`⚠️ Diff: ${s}/${t}`; valid=false; }
-        else if(t > 0) { b.className="status-badge status-ok"; b.innerText=`✅ OK: ${s}/${t}`; }
-        else { b.innerText=""; }
-        if(document.getElementById('anlage').value==='COM') comT += parseInt(row.querySelector('.art-dauer').value) || 0;
-    });
-    if(document.getElementById('anlage').value==='COM') { document.getElementById('comTotal').innerText = comT; if(comT !== 480) valid = false; }
-    if(selectedStaff.length === 0 || !document.getElementById('anlage').value) valid = false;
-    document.getElementById('mainSendBtn').disabled = !valid;
-}
-
-async function processReport() {
-    const btn = document.getElementById('mainSendBtn'); btn.innerText = "Wird gesendet..."; btn.disabled = true;
-    const fts = Array.from(document.querySelectorAll('.ft-btn.active')).map(x => x.innerText);
-    let details = "";
-    document.querySelectorAll('.artikel-row').forEach(row => {
-        details += `━━━━━━━━━━\n📦 *Artikel:* ${row.querySelector('.art-name').value || "NA"}\n✅ Gut: ${row.querySelector('.art-gut').value || 0}\n⚠️ Aus: ${row.querySelector('.art-aus-total').value || 0}\n`;
-        row.querySelectorAll('.code-row').forEach(cr => {
-            const v = cr.querySelector('input[type="number"]').value;
-            if(v > 0) {
-                let n = cr.querySelector('select').value;
-                if(n === "Sonstige") n = "✍️ " + (cr.querySelector('.sonstige-input').value || "Sonstige");
-                details += `${cr.querySelector('select').classList.contains('aus-c') ? '⚠️' : '⚙️'} ${n}: ${v}\n`;
-            }
-        });
-    });
-    const report = `📊 *APG REPORT*\n\n👷 *Personal:* ${selectedStaff.join(", ")}\n🏭 *Anlage:* ${document.getElementById('anlage').value}\n📅 *Datum:* ${document.getElementById('datum').value}\n⏱ *Schicht:* ${currentSchicht}\n${fts.length ? '🛠 *FT:* '+fts.join(", ") : ''}\n${details}\n━━━━━━━━━━`;
-    try {
-        await fetch(scriptURL, { method: "POST", mode: "no-cors", body: JSON.stringify({ datum: document.getElementById('datum').value, anlage: document.getElementById('anlage').value, report }) });
-        window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(report)}`;
-    } catch(e) { window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(report)}`; }
-    setTimeout(() => { btn.innerText = "🚀 SPEICHERN & SENDEN"; btn.disabled = false; }, 2000);
-}
-</script>
-</body>
-</html>
+        if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText=`⚠️ Diff: ${s}/${t}`; v=false; }
+        else if(t > 0) { b.className="status-badge
