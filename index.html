@@ -20,14 +20,14 @@
         .overlay-content { background: var(--card); width: 90%; max-width: 400px; max-height: 80vh; overflow-y: auto; border-radius: 20px; padding: 20px; border: 1px solid var(--primary); }
         .worker-opt { padding: 12px; border-bottom: 1px solid #334155; cursor: pointer; }
         .selected-worker { display: flex; justify-content: space-between; padding: 10px; background: rgba(56,189,248,0.1); border-radius: 10px; margin-top: 5px; border: 1px solid var(--primary); }
-        .section-card { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; margin-top: 15px; position: relative; border: 1px solid rgba(56, 189, 248, 0.1); }
+        .section-card { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; margin-top: 15px; border: 1px solid rgba(56, 189, 248, 0.1); position: relative; }
         .ft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
         .ft-btn { padding: 10px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #94a3b8; cursor: pointer; }
         .ft-btn.active { background: var(--blue-dark); color: white; border-color: var(--primary); }
         .main-btn { width: 100%; padding: 18px; background: var(--primary); color: #0f172a; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; }
         .main-btn:disabled { background: #475569; cursor: not-allowed; }
         .add-btn { width: 100%; padding: 10px; margin-top: 10px; background: transparent; border: 2px dashed var(--primary); color: var(--primary); border-radius: 10px; cursor: pointer; }
-        .sub-btn { background: var(--blue-dark); color: white; padding: 8px; border-radius: 8px; border: none; cursor: pointer; font-size: 11px; flex: 1; font-weight: bold; }
+        .sub-btn { background: var(--blue-dark); color: white; padding: 8px; border-radius: 8px; border: none; cursor: pointer; font-size: 11px; flex: 1; }
         .status-badge { display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 11px; font-weight: bold; margin-top: 8px; }
         .status-ok { background: var(--success); color: black; }
         .status-error { background: var(--danger); color: white; }
@@ -40,9 +40,9 @@
 <div id="loginScreen">
     <div class="login-card">
         <h2 style="color:var(--primary); margin-top:0;">APG LOGIN</h2>
-        <p style="font-size:12px; color:#94a3b8;">Nachname und Personalnummer eingeben</p>
+        <p style="font-size:12px; color:#94a3b8;">Bitte Nachname und Passwort eingeben</p>
         <input type="text" id="userInp" placeholder="Nachname">
-        <input type="password" id="passInp" placeholder="Personalnummer" style="margin-top:10px;">
+        <input type="password" id="passInp" placeholder="Passwort" style="margin-top:10px;">
         <button class="main-btn" onclick="checkLogin()">ANMELDEN</button>
         <p id="loginError" style="color:red; font-size:12px; margin-top:10px; display:none;">⚠️ Zugangsdaten falsch!</p>
     </div>
@@ -101,74 +101,63 @@ const workerData = {
     "C": ["Beher T.", "Keskin Mustafa", "Kantaroglu Ö.", "Savas R.", "Rafo S.", "Gertz Kevin", "Gertz S.", "Schönborn Ch.", "Fortes Ch.", "Sakaguchi M.", "Mercan M.", "Krämer Ch.", "Juretzka T.", "Kumbara E.", "Skupio D.", "Skrago T.", "Bah A.", "Kaya A.", "Jdea A.", "Toure A.", "Schneider D.", "Tchaleu Bertrand"]
 };
 const codeData = {
-    PUR: { 
-        aus: ["6-2-01 Temp niedrig", "6-2-02 Schaum haftet nicht", "6-2-03 Einlegef. Bauteil", "6-2-04 Einlegef. CIM", "6-2-05 Schussabbruch", "6-2-06 CIM n.voll", "6-2-07 Lippe gerissen", "6-2-08 CIM gerissen", "7-2-01 Nacharbeit Bauteil", "Sonstige"],
-        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umst.", "4-2-01 Ungepl. Inst. WZ", "4-2-02 Ungepl. Inst. Masch", "4-2-03 Poly/Iso Überdruck", "4-2-04 Mischkopf nio", "4-2-05 Fehler Lichtschr.", "4-2-06 Trennmittelpist.", "4-2-07 Formträger Prob.", "4-2-08 Reinigung WZ", "4-2-09 Not Aus", "5-2-01 Logistik Mangel", "5-2-02 Keine Teile IM/CIM", "5-2-04 Wartezeit Einrichter", "5-2-10 Poly/Iso leer", "Sonstige"]
-    },
-    Spritz: { 
-        aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat-Umst.", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "6-1-06 Einfallstellen", "6-1-07 Brandstellen", "6-1-08 Silberstreifen", "Sonstige"],
-        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umst.", "4-1-01 Ungepl. Inst. WZ", "4-1-02 Ungepl. Inst. Masch", "4-1-03 Mat-Förderung Prob.", "4-1-04 Probleme Dosier.", "4-1-05 Probleme Schließeinh.", "4-1-06 Teileentnahme Prob.", "4-1-07 Probleme WZ-Heizung", "4-1-08 Probleme Beflamm.", "5-1-01 Mat-Mangel", "5-1-03 Wartezeit Einrichter", "Sonstige"]
-    },
-    COM: { 
-        aus: ["6-3-01 Anfahrschrott", "6-3-02 Mat-Fehler", "Sonstige"],
-        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umst.", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Masch", "4-3-04 Silowechsel", "5-3-01 Mat-Mangel", "5-3-05 Feueralarm", "Sonstige"]
-    }
+    PUR: { aus: ["6-2-01 Temp niedrig", "6-2-02 Schaum haftet nicht", "6-2-03 Einlegef. Bauteil", "6-2-04 Einlegef. CIM", "6-2-05 Schussabbruch", "6-2-06 CIM n.voll", "6-2-07 Lippe gerissen", "6-2-08 CIM gerissen", "7-2-01 Nacharbeit Bauteil", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Ums.", "4-2-01 Ungepl. Inst. WZ", "4-2-02 Ungepl. Inst. Masch", "4-2-03 Poly/Iso Überdruck", "4-2-04 Mischkopf nio", "4-2-05 Fehler Lichtschr.", "4-2-06 Trennmittelpist.", "4-2-07 Formträger Prob.", "4-2-08 Reinigung WZ", "4-2-09 Not Aus", "5-2-01 Logistik Mangel", "5-2-02 Keine CIM/IM Teile", "5-2-04 Wartezeit Einrichter", "5-2-10 Poly/Iso leer", "Sonstige"] },
+    Spritz: { aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat-Ums.", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "6-1-06 Einfallstellen", "6-1-07 Brandstellen", "6-1-08 Silberstreifen", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Ums.", "4-1-01 Ungepl. Inst. WZ", "4-1-02 Ungepl. Inst. Masch", "4-1-03 Mat-Förderung Prob.", "4-1-04 Probleme Dosier.", "4-1-05 Probleme Schließeinh.", "4-1-06 Teileentnahme Prob.", "4-1-07 Probleme WZ-Heizung", "4-1-08 Probleme Beflamm.", "5-1-01 Mat-Mangel", "5-1-03 Wartezeit Einrichter", "Sonstige"] },
+    COM: { aus: ["6-3-01 Anfahrschrott", "6-3-02 Mat-Fehler", "Sonstige"], stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Ums.", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Masch", "4-3-04 Silowechsel", "5-3-01 Mat-Mangel", "5-3-05 Feueralarm", "Sonstige"] }
 };
+
+let loggedInUser = "";
+let selectedStaff = [];
+let currentSchicht = 'B';
 
 window.onload = () => { document.getElementById('datum').value = new Date().toISOString().split('T')[0]; };
 
 function checkLogin() {
-    const u = document.getElementById('userInp').value.trim(); const p = document.getElementById('passInp').value.trim();
+    const u = document.getElementById('userInp').value.trim();
+    const p = document.getElementById('passInp').value.trim();
     if(authDB[u] === p) {
         loggedInUser = u + " (" + p + ")";
         document.getElementById('loginScreen').style.display='none';
         document.getElementById('mainApp').style.display='block';
         document.getElementById('currentUserDisplay').innerText = "Angemeldet: " + loggedInUser;
-        // B Schicht'ini varsayılan olarak hem görsel hem sistemsel olarak tetikliyoruz
         setSchicht('B');
-    } 
-    else { document.getElementById('loginError').style.display='block'; }
+    } else { document.getElementById('loginError').style.display='block'; }
 }
 
-function setSchicht(s) { 
-    currentSchicht = s; 
-    document.querySelectorAll('.schicht-btn').forEach(b => b.classList.remove('active')); 
-    document.getElementById('btn'+s).classList.add('active'); 
-    selectedStaff=[]; 
-    renderStaff(); 
+function setSchicht(s) {
+    currentSchicht = s;
+    document.querySelectorAll('.schicht-btn').forEach(b => b.classList.remove('active'));
+    const target = Array.from(document.querySelectorAll('.schicht-btn')).find(b => b.innerText === s);
+    if(target) target.classList.add('active');
+    selectedStaff = []; renderStaff();
 }
 
-function openWorkerOverlay() { 
-    document.getElementById('workerList').innerHTML = workerData[currentSchicht].map(w => `<div class="worker-opt" onclick="addStaff('${w}')">${w}</div>`).join(""); 
-    document.getElementById('workerOverlay').style.display='flex'; 
+function openWorkerOverlay() {
+    document.getElementById('workerList').innerHTML = workerData[currentSchicht].map(w => `<div class="worker-opt" onclick="addStaff('${w}')">${w}</div>`).join("");
+    document.getElementById('workerOverlay').style.display='flex';
 }
 
-function addStaff(n) { 
-    if(!selectedStaff.includes(n)) selectedStaff.push(n); 
-    document.getElementById('workerOverlay').style.display='none'; 
-    renderStaff(); 
-}
+function addStaff(n) { if(!selectedStaff.includes(n)) selectedStaff.push(n); document.getElementById('workerOverlay').style.display='none'; renderStaff(); }
 
-function addManualWorker() { 
-    const v = document.getElementById('manualWorker').value; 
-    if(v) { 
-        selectedStaff.push("✍️ " + v); 
-        document.getElementById('manualWorker').value=""; 
-        document.getElementById('workerOverlay').style.display='none'; 
-        renderStaff(); 
-    } 
+function addManualWorker() {
+    const v = document.getElementById('manualWorker').value;
+    if(v) { selectedStaff.push("✍️ " + v); document.getElementById('manualWorker').value=""; document.getElementById('workerOverlay').style.display='none'; renderStaff(); }
 }
 
 function renderStaff() { document.getElementById('workerDisplayContainer').innerHTML = selectedStaff.map(s => `<div class="selected-worker"><span>${s}</span><span onclick="removeStaff('${s}')" style="color:red; cursor:pointer;">✕</span></div>`).join(""); liveCheck(); }
 function removeStaff(n) { selectedStaff = selectedStaff.filter(x => x !== n); renderStaff(); }
 
-function onAnlageChange(v) { document.getElementById('ftBox').style.display = v.startsWith("PUR") ? "block" : "none"; document.getElementById('comTimeBox').style.display = v === "COM" ? "block" : "none"; document.getElementById('artikelContainer').innerHTML = ""; liveCheck(); }
+function onAnlageChange(v) {
+    document.getElementById('ftBox').style.display = v.startsWith("PUR") ? "block" : "none";
+    document.getElementById('comTimeBox').style.display = v === "COM" ? "block" : "none";
+    document.getElementById('artikelContainer').innerHTML = ""; liveCheck();
+}
 
 function addArtikel() {
     const id = Date.now(); const div = document.createElement('div'); div.className = "section-card artikel-row"; div.id = `art_${id}`;
     div.innerHTML = `<button onclick="this.parentElement.remove(); liveCheck();" style="position:absolute; right:10px; top:10px; background:red; color:white; border:none; border-radius:5px;">✕</button>
-        <label>Artikel</label><input type="text" class="art-name" placeholder="Name eingeben...">
-        ${document.getElementById('anlage').value==='COM' ? '<label>Dauer (Min)</label><input type="number" class="art-dauer" placeholder="Minuten..." oninput="liveCheck()">' : ''}
+        <label>Artikel</label><input type="text" class="art-name" placeholder="Name...">
+        ${document.getElementById('anlage').value==='COM' ? '<label>Dauer (Min)</label><input type="number" class="art-duration" oninput="liveCheck()">' : ''}
         <div class="grid" style="margin-top:10px;"><div><label>Gut</label><input type="number" class="art-gut" placeholder="Anzahl..."></div><div><label>Aus Gesamt</label><input type="number" class="art-aus-total" placeholder="Anzahl..." oninput="liveCheck()"></div></div>
         <div class="status-badge" id="badge_${id}"></div><div id="rows_${id}"></div>
         <div style="display:flex; gap:10px; margin-top:10px;"><button class="sub-btn" onclick="addRow('${id}','aus')">+ Ausschuss</button><button class="sub-btn" onclick="addRow('${id}','stoer')">+ Störung</button></div>`;
@@ -176,7 +165,8 @@ function addArtikel() {
 }
 
 function addRow(artId, type) {
-    const anl = document.getElementById('anlage').value; const cat = anl==='COM'?'COM':(anl.startsWith("PUR")?'PUR':'Spritz');
+    const anl = document.getElementById('anlage').value;
+    const cat = anl==='COM'?'COM':(anl.startsWith("PUR")?'PUR':'Spritz');
     const div = document.createElement('div'); div.className="code-row";
     div.innerHTML = `<div style="display:flex; gap:5px;"><select class="${type}-c" style="flex:3;" onchange="this.nextElementSibling.nextElementSibling.style.display=(this.value==='Sonstige'?'block':'none')">
         ${codeData[cat][type].map(c => `<option value="${c}">${c}</option>`).join("")}</select><input type="number" class="${type}-v" style="flex:1;" placeholder="Menge" oninput="liveCheck()">
@@ -191,8 +181,8 @@ function liveCheck() {
         let s = 0; row.querySelectorAll('.aus-v').forEach(i => s += parseInt(i.value) || 0);
         const b = document.getElementById(`badge_${id}`);
         if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText=`⚠️ Differenz: ${s}/${t}`; v=false; }
-        else if(t > 0) { b.className="status-badge status-ok"; b.innerText=`✅ Korrekt: ${s}/${t}`; } else { b.innerText=""; }
-        if(document.getElementById('anlage').value==='COM') cT += parseInt(row.querySelector('.art-dauer').value) || 0;
+        else if(t > 0) { b.className="status-badge status-ok"; b.innerText=`✅ OK: ${s}/${t}`; } else { b.innerText=""; }
+        if(document.getElementById('anlage').value==='COM') cT += parseInt(row.querySelector('.art-duration')?.value) || 0;
     });
     if(document.getElementById('anlage').value==='COM') { document.getElementById('comTotal').innerText = cT; if(cT !== 480) v = false; }
     if(selectedStaff.length === 0 || !document.getElementById('anlage').value) v = false;
@@ -212,8 +202,9 @@ async function processReport() {
         });
     });
     const rep = `📊 *APG REPORT*\n\n👷 *Personal:* ${selectedStaff.join(", ")}\n🏭 *Anlage:* ${document.getElementById('anlage').value}\n📅 *Datum:* ${document.getElementById('datum').value}\n⏱ *Schicht:* ${currentSchicht}\n${fts.length ? '🛠 *FT:* '+fts.join(", ") : ''}\n${d}\n👤 *Gesendet von:* ${loggedInUser}\n━━━━━━━━━━`;
-    try { await fetch(scriptURL, { method: "POST", mode: "no-cors", body: JSON.stringify({ report: rep }) });
-    window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(rep)}`;
+    try { 
+        await fetch(scriptURL, { method: "POST", mode: "no-cors", body: JSON.stringify({ report: rep }) });
+        window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(rep)}`;
     } catch(e) { window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(rep)}`; }
     setTimeout(() => { btn.innerText = "🚀 SPEICHERN & SENDEN"; btn.disabled = false; }, 2000);
 }
