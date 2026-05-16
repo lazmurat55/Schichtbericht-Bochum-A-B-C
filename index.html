@@ -3,36 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>APG BOCHUM PRO FINAL</title>
+    <title>APG BOCHUM PRO REPORT</title>
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --blue-dark: #1e40af; --text: #f1f5f9; --danger: #ef4444; --success: #22c55e; }
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; }
         .card { width: 100%; max-width: 650px; background: var(--card); padding: 25px; border-radius: 24px; margin: auto; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .header { text-align: center; border-bottom: 3px solid var(--primary); margin-bottom: 20px; padding-bottom: 10px; }
-        
-        /* Schicht Buttons */
         .schicht-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .schicht-btn { padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 10px; color: white; cursor: pointer; font-weight: bold; }
         .schicht-btn.active { background: var(--primary); color: #0f172a; border-color: var(--primary); }
-
         label { display: block; margin: 15px 0 5px; color: var(--primary); font-weight: 800; font-size: 13px; text-transform: uppercase; }
         select, input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 16px; box-sizing: border-box; }
-        
-        /* Mitarbeiter List Overlay */
         #workerOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
         .overlay-content { background: var(--card); width: 90%; max-width: 400px; max-height: 70vh; overflow-y: auto; border-radius: 20px; padding: 20px; border: 1px solid var(--primary); }
         .worker-opt { padding: 15px; border-bottom: 1px solid #334155; cursor: pointer; font-weight: bold; }
         .worker-opt:hover { background: var(--blue-dark); }
-
         .selected-worker { display: flex; justify-content: space-between; align-items: center; background: rgba(56,189,248,0.1); padding: 10px 15px; border-radius: 10px; margin-top: 5px; border: 1px solid var(--primary); }
-        
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .section-card { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 20px; margin-top: 20px; border: 1px solid rgba(56, 189, 248, 0.1); position: relative; }
-        
         .ft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
         .ft-btn { padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 10px; color: #94a3b8; cursor: pointer; font-weight: bold; }
         .ft-btn.active { background: var(--blue-dark); border-color: var(--primary); color: white; }
-
         .main-btn { width: 100%; padding: 20px; background: var(--primary); color: #0f172a; border: none; border-radius: 16px; font-weight: 900; font-size: 18px; margin-top: 30px; cursor: pointer; text-transform: uppercase; }
         .main-btn:disabled { background: #334155; color: #94a3b8; cursor: not-allowed; }
         .add-btn { width: 100%; padding: 12px; margin-top: 10px; background: rgba(56,189,248,0.1); border: 2px dashed var(--primary); color: var(--primary); font-weight: bold; border-radius: 12px; cursor: pointer; }
@@ -50,7 +41,7 @@
 <div class="card">
     <div class="header">
         <h1 style="margin:0;">Adler Pelzer Group</h1>
-        <p>Production Bericht Bochum PRO</p>
+        <p>Production Bericht Bochum FINAL</p>
     </div>
 
     <label>Schicht wählen</label>
@@ -116,23 +107,23 @@ let currentSchicht = 'B';
 let selectedStaff = [];
 
 const workerData = {
-    "A": ["Kunert M. - 502", "Karali O. - 533 E", "Mikuczynski K. - 1212", "Türkmen E. - 1213 E", "Amrouch M. - 1268", "Stania D. - 1368", "Kantaroglu A. - 1382", "Krancioch A. - 1405", "Held D. - 1421", "Berisha I. - 1534", "Neji M. - 1536", "Mulugeta G. - 1633", "Udezue P. - 1686", "Jansen M. - 1692", "Aksoy O. - 1704", "Yildirim S. - 1710", "Brand N. - 1722", "Louze A. - 1724", "Blanquez Romero V. - 1725", "Diallo M.D. - 1726", "Sener E. - 1731 E", "Sonstige"],
-    "B": ["Keskin Mur.-517", "Aldirmaz P.-577", "Anderwald R.-509 E", "Bayrakli F.-1377 E", "Kilic D.-1384 E", "Maafi T.-1273 E", "Besche T.-1472", "Eickhoff P.-1406", "Toth Renata-1699", "Gibba n.-1367", "Helf A.-1483", "Isbir J.-1715", "Jeyakumar S.-1698", "Kalisch T.-1451", "Kowarsch R.-484", "Nowak M.-1390", "Pähler D.-1332", "Patarcsity V.-1700", "Pulendran K.-1498", "Sahin E.-1721", "Savas S.-1360", "Schiavitelli C.-1669", "Uluyüz B.-1450", "Uzun S.-1433", "Sonstige"],
-    "C": ["Beher T. - 510", "Keskin Mustafa - 518", "Kantaroglu Ö. - 580", "Savas R. - 608", "Rafo S. - 1277", "Gertz Kevin - 1357", "Gertz S. - 1358 E", "Schönborn Ch. - 1361", "Fortes Ch. - 1381", "Sakaguchi M. - 1391", "Mercan M. - 1437 E", "Krämer Ch. - 1449", "Juretzka T. - 1473", "Kumbara E. - 1474", "Skupio D. - 1475", "Skrago T. - 1484", "Bah A. - 1684", "Kaya A. - 1712", "Jdea A. - 1701", "Toure A. - 1713", "Schneider D. - 1714", "Tchaleu Bertrand - 1723", "Sonstige"]
+    "A": ["Kunert M. - 502", "Karali O. - 533 E", "Mikuczynski K. - 1212", "Türkmen E. - 1213 E", "Amrouch M. - 1268", "Stania D. - 1368", "Kantaroglu A. - 1382", "Krancioch A. - 1405", "Held D. - 1421", "Berisha I. - 1534", "Neji M. - 1536", "Mulugeta G. - 1633", "Udezue P. - 1686", "Jansen M. - 1692", "Aksoy O. - 1704", "Yildirim S. - 1710", "Brand N. - 1722", "Louze A. - 1724", "Blanquez Romero V. - 1725", "Diallo M.D. - 1726", "Sener E. - 1731 E", "Klomrit Thanin-1070", "Garcia-Hervas Francisco-339", "Sonstige"],
+    "B": ["Keskin Mur.-517", "Aldirmaz P.-577", "Anderwald R.-509 E", "Bayrakli F.-1377 E", "Kilic D.-1384 E", "Maafi T.-1273 E", "Besche T.-1472", "Eickhoff P.-1406", "Toth Renata-1699", "Gibba n.-1367", "Helf A.-1483", "Isbir J.-1715", "Jeyakumar S.-1698", "Kalisch T.-1451", "Kowarsch R.-484", "Nowak M.-1390", "Pähler D.-1332", "Patarcsity V.-1700", "Pulendran K.-1498", "Sahin E.-1721", "Savas S.-1360", "Schiavitelli C.-1669", "Uluyüz B.-1450", "Uzun S.-1433", "Klomrit Thanin-1070", "Garcia-Hervas Francisco-339", "Sonstige"],
+    "C": ["Beher T. - 510", "Keskin Mustafa - 518", "Kantaroglu Ö. - 580", "Savas R. - 608", "Rafo S. - 1277", "Gertz Kevin - 1357", "Gertz S. - 1358 E", "Schönborn Ch. - 1361", "Fortes Ch. - 1381", "Sakaguchi M. - 1391", "Mercan M. - 1437 E", "Krämer Ch. - 1449", "Juretzka T. - 1473", "Kumbara E. - 1474", "Skupio D. - 1475", "Skrago T. - 1484", "Bah A. - 1684", "Kaya A. - 1712", "Jdea A. - 1701", "Toure A. - 1713", "Schneider D. - 1714", "Tchaleu Bertrand - 1723", "Klomrit Thanin-1070", "Garcia-Hervas Francisco-339", "Sonstige"]
 };
 
 const codeData = {
     PUR: {
-        aus: ["6-2-01 Temperatur zu niedrig", "6-2-02 Schaum haftet nicht", "6-2-03 Einlegefehler Bauteil", "6-2-04 Einlegefehler CIM", "6-2-05 Schussabbruch", "6-2-06 CIM nicht voll", "6-2-07 Lippe gerissen", "6-2-08 CIM gerissen", "Sonstige"],
-        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-2-01 Ungepl. Inst. Werkzeug", "4-2-02 Ungepl. Inst. Maschine", "4-2-03 POLY/ISO Überdruck", "4-2-04 Mischkopf n.i.o.", "4-2-08 Reinigung Werkzeug", "5-2-04 Wartezeit Einrichter", "Sonstige"]
+        aus: ["6-2-01 Temp zu niedrig", "6-2-02 Schaum haftet nicht", "6-2-03 Einlegefehler Bauteil", "6-2-04 Einlegefehler CIM", "6-2-05 Schussabbruch", "6-2-06 CIM nicht voll", "6-2-07 Lippe gerissen", "6-2-08 CIM gerissen", "7-2-01 Nacharbeit Bauteil", "Sonstige"],
+        stoer: ["3-01 Werkzeugwechsel", "3-02 Mat-Umstellung", "4-2-01 Ungepl. Inst. WZ", "4-2-02 Ungepl. Inst. Maschine", "4-2-03 Überdruck", "4-2-04 Mischkopf n.i.o.", "4-2-05 Fehler Lichtschranke", "4-2-06 Trennmittelpistole", "4-2-07 Formträger Problem", "4-2-08 Reinigung WZ", "4-2-09 Not Aus", "5-2-01 Logistik", "5-2-02 Keine CIM/IM Teile", "5-2-04 Wartezeit Einrichter", "5-2-10 Poly/Iso leer", "Sonstige"]
     },
     Spritz: {
-        aus: ["6-1-01 Anfahrschrott", "6-1-02 Materialumstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "Sonstige"],
-        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-1-01 Ungepl. Inst. Werkzeug", "4-1-02 Ungepl. Inst. Maschine", "4-1-03 Materialförderung", "4-1-06 Teileentnahme", "5-1-03 Wartezeit Einrichter", "Sonstige"]
+        aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat-Umstellung", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "6-1-06 Einfallstellen", "6-1-07 Brandstellen", "6-1-08 Silberstreifen", "Sonstige"],
+        stoer: ["3-01 Werkzeugwechsel", "3-02 Mat-Umstellung", "4-1-01 Ungepl. Inst. WZ", "4-1-02 Ungepl. Inst. Maschine", "4-1-03 Mat-Förderung gestört", "4-1-04 Probleme Dosierung", "4-1-05 Probleme Schließeinh.", "4-1-06 Teileentnahme", "4-1-07 Werkzeugheizung", "4-1-08 Beflammung", "5-1-01 Mat-Mangel", "5-1-03 Wartezeit Einrichter", "5-1-04 Umbesetzung", "Sonstige"]
     },
     COM: {
-        aus: ["6-3-01 Anfahrschrott", "6-3-02 Materialfehler", "Sonstige"],
-        stoer: ["3-01 Werkzeugwechsel", "3-02 Materialumstellung", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Maschine", "4-3-04 Silowechsel", "5-3-01 Mat-Mangel", "Sonstige"]
+        aus: ["6-3-01 Anfahrschrott", "6-3-02 Mat-Fehler", "Sonstige"],
+        stoer: ["3-01 Werkzeugwechsel", "3-02 Mat-Umstellung", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Maschine", "4-3-03 Gepl. Inst. Maschine", "4-3-04 Silowechsel", "5-3-01 Mat-Mangel", "5-3-03 Wartezeit Einrichter", "5-3-05 Feueralarm", "Sonstige"]
     }
 };
 
@@ -195,7 +186,7 @@ function addArtikel() {
         ${document.getElementById('anlage').value === 'COM' ? '<label>Dauer (Min)</label><input type="number" class="art-dauer" value="0" oninput="liveCheck()">' : ''}
         <div class="grid" style="margin-top:10px;">
             <div><label>Gut</label><input type="number" class="art-gut" value="0"></div>
-            <div><label>Ausschuss</label><input type="number" class="art-aus-total" value="0" oninput="liveCheck()"></div>
+            <div><label>Ausschuss Gesamt</label><input type="number" class="art-aus-total" value="0" oninput="liveCheck()"></div>
         </div>
         <div class="status-badge" id="badge_${id}"></div>
         <div id="rows_${id}"></div>
