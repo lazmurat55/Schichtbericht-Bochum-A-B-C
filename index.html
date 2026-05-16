@@ -1,630 +1,139 @@
-<!DOCTYPE html>
+FINAL PRO VERSION WIRD ENTHALTEN
 
-<html lang="de">
+━━━━━━━━━━━━━━━━━━
+✅ DEIN KOMPLETTES SYSTEM
+━━━━━━━━━━━━━━━━━━
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ALLES bleibt erhalten:
 
-<title>APG Production Report</title>
+✔ Mitarbeiterlisten
+✔ Schicht A/B/C
+✔ PUR1–PUR9
+✔ IM1–IM5
+✔ CIM1
+✔ Compound
+✔ Ausschuss Codes
+✔ Störung Codes
+✔ Live Kontrolle
+✔ WhatsApp
+✔ Google Sheets
+✔ Dynamische Artikel
+✔ Dynamische Ausschuss Reihen
+✔ Dynamische Störung Reihen
 
-<style>
+━━━━━━━━━━━━━━━━━━
+✅ NEUE PRO FEATURES
+━━━━━━━━━━━━━━━━━━
 
-:root{
-    --bg:#0f172a;
-    --bg2:#111827;
-    --card:#1e293b;
-    --primary:#38bdf8;
-    --primary2:#2563eb;
-    --text:#f1f5f9;
-    --danger:#ef4444;
-    --success:#22c55e;
-}
+✔ Modernes Design
+✔ Karten-System
+✔ Premium Dark Mode
+✔ Adler Pelzer Blau
+✔ FT Auswahl modern
+✔ FT Anzeige im Report
+✔ Mobile Optimierung
+✔ Schnellere Bedienung
+✔ Größere Buttons
+✔ Moderne Animationen
+✔ Professioneller WhatsApp Report
 
-body{
-    margin:0;
-    padding:15px;
-    background:linear-gradient(180deg,var(--bg),var(--bg2));
-    color:var(--text);
-    font-family:'Segoe UI',sans-serif;
-}
+━━━━━━━━━━━━━━━━━━
+✅ MITARBEITER SYSTEM
+━━━━━━━━━━━━━━━━━━
 
-.card{
-    max-width:750px;
-    margin:auto;
-    background:var(--card);
-    border-radius:25px;
-    padding:25px;
-    box-shadow:0 0 30px rgba(56,189,248,0.15);
-    border:1px solid rgba(56,189,248,0.2);
-}
+Button:
 
-.topbar{
-    text-align:center;
-    margin-bottom:30px;
-    border-bottom:2px solid rgba(56,189,248,0.15);
-    padding-bottom:20px;
-}
+* Mitarbeiter hinzufügen
 
-.topbar h1{
-    margin:0;
-    color:var(--primary);
-    font-size:30px;
-}
+↓
 
-.topbar p{
-    margin-top:8px;
-    color:#94a3b8;
-}
+Liste öffnet sich
 
-.section-title{
-    margin-top:25px;
-    margin-bottom:15px;
-    color:var(--primary);
-    font-size:20px;
-    font-weight:700;
-}
+↓
 
-.section-card{
-    background:#111827;
-    padding:18px;
-    border-radius:18px;
-    margin-bottom:20px;
-    border:1px solid rgba(56,189,248,0.15);
-}
+Mitarbeiter klicken sich selbst an:
 
-label{
-    display:block;
-    margin-bottom:8px;
-    color:var(--primary);
-    font-weight:700;
-}
+☑ Keskin Mur.
+☑ Aldirmaz P.
+☑ Bayrakli F.
 
-select,input{
-    width:100%;
-    padding:15px;
-    border-radius:14px;
-    border:1px solid rgba(56,189,248,0.3);
-    background:#0f172a;
-    color:white;
-    font-size:16px;
-    box-sizing:border-box;
-    margin-bottom:15px;
-}
+━━━━━━━━━━━━━━━━━━
+✅ FT SYSTEM
+━━━━━━━━━━━━━━━━━━
 
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
+PUR gewählt →
 
-.worker-list{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
+FT Box erscheint:
 
-.worker-item{
-    background:#0f172a;
-    padding:12px;
-    border-radius:12px;
-    border:1px solid rgba(56,189,248,0.1);
-}
+FT1 FT2 FT3
+FT4 FT5 FT6
 
-.worker-item label{
-    margin:0;
-    color:white;
-    font-size:14px;
-}
+aktive FT = blau
 
-.artikel-box{
-    background:#0f172a;
-    padding:18px;
-    border-radius:18px;
-    margin-top:15px;
-    position:relative;
-    border-left:5px solid var(--primary);
-}
+━━━━━━━━━━━━━━━━━━
+✅ AUSSCHUSS SYSTEM
+━━━━━━━━━━━━━━━━━━
 
-.delete-btn{
-    position:absolute;
-    top:12px;
-    right:12px;
-    width:32px;
-    height:32px;
-    border:none;
-    border-radius:10px;
-    background:var(--danger);
-    color:white;
-    font-size:18px;
-}
+Ausschuss Gesamt:
 
-.add-btn{
-    width:100%;
-    padding:16px;
-    border:none;
-    border-radius:16px;
-    background:var(--primary2);
-    color:white;
-    font-size:16px;
-    font-weight:700;
-    margin-top:10px;
-}
+25
 
-.main-btn{
-    width:100%;
-    padding:20px;
-    border:none;
-    border-radius:18px;
-    background:var(--primary);
-    color:#0f172a;
-    font-size:19px;
-    font-weight:800;
-    margin-top:30px;
-}
+Einzelcodes:
 
-.counter-box{
-    background:#0f172a;
-    border:1px solid rgba(56,189,248,0.2);
-    padding:15px;
-    border-radius:15px;
-    text-align:center;
-    margin-top:15px;
-}
+10
+5
+10
 
-.counter{
-    font-size:24px;
-    font-weight:800;
-    color:var(--success);
-}
+↓
 
-.error-msg{
-    display:none;
-    background:rgba(239,68,68,0.15);
-    color:#fca5a5;
-    padding:10px;
-    border-radius:10px;
-    margin-top:10px;
-    font-size:14px;
-    font-weight:700;
-}
+25 / 25 ✅
 
-</style>
+wenn falsch:
 
-</head>
+20 / 25 ❌
 
-<body>
+Senden blockiert.
 
-<div class="card">
+━━━━━━━━━━━━━━━━━━
+✅ COMPOUND SYSTEM
+━━━━━━━━━━━━━━━━━━
 
-<div class="topbar">
-<h1>Adler Pelzer Group</h1>
-<p>Production Report Bochum</p>
-</div>
+480 Minuten Live Kontrolle bleibt.
 
-<div class="section-title">
-⏱ Schicht wählen
-</div>
+━━━━━━━━━━━━━━━━━━
+✅ REPORT SYSTEM
+━━━━━━━━━━━━━━━━━━
 
-<div class="section-card">
+Professionelles WhatsApp Format:
 
-<select id="schichtWahl" onchange="loadWorkers()">
-
-<option value="A">Schicht A</option>
-<option value="B" selected>Schicht B</option>
-<option value="C">Schicht C</option>
-
-</select>
-
-</div>
-
-<div class="section-title">
+━━━━━━━━━━
 👷 Mitarbeiter
-</div>
+━━━━━━━━━━
 
-<div class="section-card">
-
-<div id="workerList" class="worker-list"></div>
-
-</div>
-
-<div class="section-title">
 🏭 Anlage
-</div>
 
-<div class="section-card">
+📅 Datum
 
-<div class="grid">
+⏱ Schicht
 
-<div>
-<label>Datum</label>
-<input type="date" id="datum">
-</div>
+🛠 FT
 
-<div>
-
-<label>Anlage</label>
-
-<select id="anlage">
-
-<optgroup label="PUR">
-
-<option value="PUR1">PUR1</option>
-<option value="PUR2">PUR2</option>
-<option value="PUR3">PUR3</option>
-<option value="PUR4">PUR4</option>
-<option value="PUR5">PUR5</option>
-<option value="PUR6">PUR6</option>
-<option value="PUR7">PUR7</option>
-<option value="PUR8">PUR8</option>
-<option value="PUR9">PUR9</option>
-
-</optgroup>
-
-<optgroup label="Spritzguss">
-
-<option value="IM1">IM1</option>
-<option value="IM2">IM2</option>
-<option value="IM3">IM3</option>
-<option value="IM4">IM4</option>
-<option value="IM5">IM5</option>
-<option value="CIM1">CIM1</option>
-
-</optgroup>
-
-<option value="COM">COM</option>
-
-</select>
-
-</div>
-
-</div>
-
-<div id="comBox" style="display:none;">
-
-<div class="counter-box">
-
-<div>Compound Zeit</div>
-
-<div class="counter">
-<span id="comCounter">0</span> / 480 Min
-</div>
-
-<div id="restzeit">
-Restzeit: 480 Min
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="section-title">
 📦 Artikel
-</div>
 
-<div class="section-card">
+✅ Gutteile
 
-<div id="artikelContainer"></div>
+⚠️ Ausschuss
 
-<button class="add-btn" onclick="addArtikel()">
-+ Artikel hinzufügen
-</button>
+⚙️ Störung
 
-</div>
+━━━━━━━━━━
 
-<button class="main-btn" onclick="sendReport()">
-🚀 SPEICHERN & SENDEN
-</button>
+━━━━━━━━━━━━━━━━━━
+WICHTIG
+━━━━━━━━━━━━━━━━━━
 
-</div>
+Das wird jetzt:
 
-<script>
-
-document.getElementById("datum").value =
-new Date().toISOString().split('T')[0];
-
-const workers = {
-
-A:[
-"Kunert M.",
-"Karali O.",
-"Mikuczynski K.",
-"Türkmen E.",
-"Sonstige"
-],
-
-B:[
-"Keskin Mur.",
-"Aldirmaz P.",
-"Bayrakli F.",
-"Kilic D.",
-"Maafi T.",
-"Besche T.",
-"Sonstige"
-],
-
-C:[
-"Keskin Mustafa",
-"Kantaroglu Ö.",
-"Savas R.",
-"Rafo S.",
-"Sonstige"
-]
-
-};
-
-function loadWorkers(){
-
-    const schicht =
-    document.getElementById("schichtWahl").value;
-
-    const container =
-    document.getElementById("workerList");
-
-    container.innerHTML = "";
-
-    workers[schicht].forEach(worker=>{
-
-        container.innerHTML += `
-
-        <div class="worker-item">
-
-        <label>
-
-        <input type="checkbox"
-        class="workerCheck"
-        value="${worker}">
-
-        ${worker}
-
-        </label>
-
-        </div>
-
-        `;
-
-    });
-
-}
-
-loadWorkers();
-
-document.getElementById("anlage")
-.addEventListener("change",function(){
-
-    if(this.value === "COM"){
-
-        document.getElementById("comBox")
-        .style.display = "block";
-
-    }else{
-
-        document.getElementById("comBox")
-        .style.display = "none";
-
-    }
-
-});
-
-function addArtikel(){
-
-    const anlage =
-    document.getElementById("anlage").value;
-
-    if(!anlage){
-
-        alert("Bitte Anlage wählen!");
-        return;
-
-    }
-
-    const div =
-    document.createElement("div");
-
-    div.className = "artikel-box";
-
-    div.innerHTML = `
-
-    <button class="delete-btn"
-    onclick="this.parentElement.remove();updateCounter()">
-    ✕
-    </button>
-
-    <label>📦 Artikel</label>
-
-    <input type="text"
-    class="artName"
-    placeholder="Artikelname">
-
-    ${anlage.startsWith("PUR") ? `
-
-    <label>🛠 FT wählen</label>
-
-    <select class="artikelFT">
-
-    <option value="">FT wählen...</option>
-
-    <option value="FT1">FT1</option>
-    <option value="FT2">FT2</option>
-    <option value="FT3">FT3</option>
-    <option value="FT4">FT4</option>
-    <option value="FT5">FT5</option>
-    <option value="FT6">FT6</option>
-
-    </select>
-
-    ` : ''}
-
-    ${anlage === "COM" ? `
-
-    <label>⏱ Dauer (Min)</label>
-
-    <input type="number"
-    class="dauer"
-    oninput="updateCounter()">
-
-    ` : ''}
-
-    <div class="grid">
-
-    <div>
-
-    <label>✅ Gutteile</label>
-
-    <input type="number"
-    class="gut">
-
-    </div>
-
-    <div>
-
-    <label>⚠️ Ausschuss Gesamt</label>
-
-    <input type="number"
-    class="ausTotal">
-
-    </div>
-
-    </div>
-
-    <label>⚙️ Störung</label>
-
-    <input type="text"
-    class="stoerung"
-    placeholder="Störung">
-
-    <input type="number"
-    class="stoerMin"
-    placeholder="Minuten">
-
-    `;
-
-    document.getElementById("artikelContainer")
-    .appendChild(div);
-
-}
-
-function updateCounter(){
-
-    let total = 0;
-
-    document.querySelectorAll(".dauer")
-    .forEach(d=>{
-
-        total += Number(d.value || 0);
-
-    });
-
-    document.getElementById("comCounter")
-    .innerText = total;
-
-    const rest = 480 - total;
-
-    document.getElementById("restzeit")
-    .innerText = "Restzeit: " + rest + " Min";
-
-}
-
-function sendReport(){
-
-    const schicht =
-    document.getElementById("schichtWahl").value;
-
-    const anlage =
-    document.getElementById("anlage").value;
-
-    const datum =
-    document.getElementById("datum").value;
-
-    const total =
-    Number(document.getElementById("comCounter")
-    .innerText);
-
-    if(anlage === "COM" && total !== 480){
-
-        alert("Compound Zeit muss 480 Minuten sein!");
-
-        return;
-
-    }
-
-    let report = "";
-
-    report += "━━━━━━━━━━\n";
-    report += "👷 Mitarbeiter\n";
-    report += "━━━━━━━━━━\n";
-
-    document.querySelectorAll(".workerCheck:checked")
-    .forEach(w=>{
-
-        report += "• " + w.value + "\n";
-
-    });
-
-    report += "\n";
-
-    report += "🏭 Anlage\n";
-    report += anlage + "\n\n";
-
-    report += "📅 Datum\n";
-    report += datum + "\n\n";
-
-    report += "⏱ Schicht\n";
-    report += schicht + "\n\n";
-
-    document.querySelectorAll(".artikel-box")
-    .forEach(box=>{
-
-        const artikel =
-        box.querySelector(".artName").value;
-
-        const ft =
-        box.querySelector(".artikelFT")?.value || "-";
-
-        const gut =
-        box.querySelector(".gut").value || 0;
-
-        const aus =
-        box.querySelector(".ausTotal").value || 0;
-
-        const stoer =
-        box.querySelector(".stoerung").value || "-";
-
-        const min =
-        box.querySelector(".stoerMin").value || 0;
-
-        report += "━━━━━━━━━━\n";
-        report += "📦 Artikel\n";
-        report += artikel + "\n\n";
-
-        if(anlage.startsWith("PUR")){
-
-            report += "🛠 FT\n";
-            report += ft + "\n\n";
-
-        }
-
-        report += "✅ Gutteile\n";
-        report += gut + "\n\n";
-
-        report += "⚠️ Ausschuss\n";
-        report += aus + "\n\n";
-
-        report += "⚙️ Störung\n";
-        report += stoer + " → " + min + " Min\n\n";
-
-    });
-
-    const url =
-    `https://wa.me/?text=${encodeURIComponent(report)}`;
-
-    window.open(url);
-
-}
-
-</script>
-
-</body>
-</html>
+DEIN ORIGINAL SYSTEM
++
+PROFESSIONELLES UPGRADE
