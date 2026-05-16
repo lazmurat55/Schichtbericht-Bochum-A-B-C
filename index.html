@@ -1,285 +1,183 @@
-/* ============================
-MODERN APG UI UPGRADE
-ESKİ CSS'İ TAMAMEN SİL
-BUNU YAPIŞTIR
-============================ */
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>APG BOCHUM PRO FINAL</title>
+    <style>
+        :root { --bg: #0f172a; --card: #1e293b; --primary: #38bdf8; --blue-dark: #1e40af; --text: #f1f5f9; --danger: #ef4444; --success: #22c55e; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; }
+        #loginScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; justify-content: center; align-items: center; }
+        .login-card { background: var(--card); padding: 30px; border-radius: 20px; border: 2px solid var(--primary); width: 90%; max-width: 400px; text-align: center; }
+        .card { width: 100%; max-width: 650px; background: var(--card); padding: 20px; border-radius: 20px; margin: auto; border: 1px solid rgba(56, 189, 248, 0.3); display: none; }
+        .header { text-align: center; border-bottom: 3px solid var(--primary); margin-bottom: 20px; padding-bottom: 10px; }
+        .schicht-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .schicht-btn { padding: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 10px; color: white; cursor: pointer; font-weight: bold; }
+        .schicht-btn.active { background: var(--primary); color: #0f172a; }
+        label { display: block; margin: 15px 0 5px; color: var(--primary); font-weight: bold; font-size: 13px; text-transform: uppercase; }
+        select, input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
+        #workerOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+        .overlay-content { background: var(--card); width: 90%; max-width: 400px; max-height: 80vh; overflow-y: auto; border-radius: 20px; padding: 20px; border: 1px solid var(--primary); }
+        .worker-opt { padding: 12px; border-bottom: 1px solid #334155; cursor: pointer; }
+        .selected-worker { display: flex; justify-content: space-between; padding: 10px; background: rgba(56,189,248,0.1); border-radius: 10px; margin-top: 5px; border: 1px solid var(--primary); }
+        .section-card { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; margin-top: 15px; position: relative; border: 1px solid rgba(56, 189, 248, 0.1); }
+        .ft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+        .ft-btn { padding: 10px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #94a3b8; cursor: pointer; }
+        .ft-btn.active { background: var(--blue-dark); color: white; border-color: var(--primary); }
+        .main-btn { width: 100%; padding: 18px; background: var(--primary); color: #0f172a; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; }
+        .main-btn:disabled { background: #475569; cursor: not-allowed; }
+        .add-btn { width: 100%; padding: 10px; margin-top: 10px; background: transparent; border: 2px dashed var(--primary); color: var(--primary); border-radius: 10px; cursor: pointer; }
+        .sub-btn { background: var(--blue-dark); color: white; padding: 8px; border-radius: 8px; border: none; cursor: pointer; font-size: 11px; flex: 1; font-weight: bold; }
+        .status-badge { display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 11px; font-weight: bold; margin-top: 8px; }
+        .status-ok { background: var(--success); color: black; }
+        .status-error { background: var(--danger); color: white; }
+        .code-row { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px; }
+        .sonstige-input { margin-top: 5px; display: none; border-color: var(--primary); }
+    </style>
+</head>
+<body>
 
-:root{
---bg:#0f172a;
---bg2:#111827;
---card:#1e293b;
---primary:#38bdf8;
---primary2:#2563eb;
---text:#f1f5f9;
---danger:#ef4444;
---success:#22c55e;
-}
-
-body{
-margin:0;
-padding:15px;
-background:linear-gradient(180deg,var(--bg),var(--bg2));
-color:var(--text);
-font-family:'Segoe UI',sans-serif;
-}
-
-.card{
-width:100%;
-max-width:750px;
-margin:auto;
-background:var(--card);
-padding:25px;
-border-radius:25px;
-border:1px solid rgba(56,189,248,0.15);
-box-shadow:0 0 30px rgba(56,189,248,0.15);
-}
-
-.title-area{
-text-align:center;
-margin-bottom:30px;
-padding-bottom:20px;
-border-bottom:2px solid rgba(56,189,248,0.15);
-}
-
-.title-area h1{
-margin:0;
-color:var(--primary);
-font-size:30px;
-font-weight:800;
-}
-
-.title-area p{
-margin-top:8px;
-color:#94a3b8;
-letter-spacing:1px;
-}
-
-label{
-display:block;
-margin-bottom:8px;
-color:var(--primary);
-font-weight:700;
-font-size:15px;
-}
-
-select,
-input{
-width:100%;
-padding:15px;
-border-radius:15px;
-border:1px solid rgba(56,189,248,0.25);
-background:#0f172a;
-color:white;
-font-size:16px;
-box-sizing:border-box;
-margin-bottom:15px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.worker-box,
-.artikel-box{
-background:#0f172a;
-padding:18px;
-border-radius:20px;
-margin-top:15px;
-border-left:5px solid var(--primary);
-position:relative;
-box-shadow:0 0 15px rgba(0,0,0,0.2);
-}
-
-.delete-btn{
-position:absolute;
-right:12px;
-top:12px;
-width:34px;
-height:34px;
-border:none;
-border-radius:10px;
-background:var(--danger);
-color:white;
-font-size:18px;
-cursor:pointer;
-}
-
-.add-btn{
-width:100%;
-padding:16px;
-border:none;
-border-radius:16px;
-background:var(--primary2);
-color:white;
-font-size:16px;
-font-weight:700;
-cursor:pointer;
-margin-top:10px;
-}
-
-.sub-btn{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-background:#1d4ed8;
-color:white;
-font-size:15px;
-font-weight:700;
-cursor:pointer;
-}
-
-.main-btn{
-width:100%;
-padding:20px;
-border:none;
-border-radius:18px;
-background:var(--primary);
-color:#0f172a;
-font-size:20px;
-font-weight:800;
-margin-top:30px;
-cursor:pointer;
-}
-
-.main-btn:disabled{
-opacity:0.5;
-}
-
-.ft-container{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin-top:15px;
-}
-
-.ft-item input{
-display:none;
-}
-
-.ft-item label{
-display:flex;
-justify-content:center;
-align-items:center;
-height:60px;
-background:#111827;
-border-radius:16px;
-border:2px solid rgba(56,189,248,0.15);
-color:white;
-cursor:pointer;
-transition:0.2s;
-margin:0;
-}
-
-.ft-item input:checked + label{
-background:var(--primary);
-color:#0f172a;
-border-color:var(--primary);
-box-shadow:0 0 15px rgba(56,189,248,0.35);
-transform:scale(1.03);
-}
-
-.code-row{
-display:flex;
-gap:8px;
-margin-top:10px;
-}
-
-.code-row select{
-flex:2;
-}
-
-.code-row input{
-flex:1;
-}
-
-.row-del{
-width:45px;
-border:none;
-border-radius:12px;
-background:var(--danger);
-color:white;
-font-size:18px;
-cursor:pointer;
-}
-
-.error-msg{
-display:none;
-background:rgba(239,68,68,0.15);
-color:#fca5a5;
-padding:12px;
-border-radius:12px;
-margin-top:10px;
-font-weight:700;
-text-align:center;
-}
-
-.counter-box{
-background:#0f172a;
-border:1px solid rgba(56,189,248,0.2);
-border-radius:18px;
-padding:20px;
-margin-top:20px;
-text-align:center;
-}
-
-.counter{
-font-size:28px;
-font-weight:800;
-color:var(--success);
-margin-top:10px;
-}
-
-#restzeit{
-margin-top:10px;
-font-size:15px;
-color:#94a3b8;
-}
-
-/* ============================
-FT HTML
-ESKİ FT BOX'U SİL
-BUNU KOY
-============================ */
-
-<div id="ftBox" style="display:none;">
-
-<label>🛠 Formträger wählen</label>
-
-<div class="ft-container">
-
-<div class="ft-item">
-<input type="checkbox" id="ft1" class="ft-check" value="FT1">
-<label for="ft1">FT1</label>
+<div id="loginScreen">
+    <div class="login-card">
+        <h2 style="color:var(--primary); margin-top:0;">APG LOGIN</h2>
+        <p style="font-size:12px; color:#94a3b8;">Nachname und Personalnummer eingeben</p>
+        <input type="text" id="userInp" placeholder="Nachname">
+        <input type="password" id="passInp" placeholder="Personalnummer" style="margin-top:10px;">
+        <button class="main-btn" onclick="checkLogin()">ANMELDEN</button>
+        <p id="loginError" style="color:red; font-size:12px; margin-top:10px; display:none;">⚠️ Zugangsdaten falsch!</p>
+    </div>
 </div>
 
-<div class="ft-item">
-<input type="checkbox" id="ft2" class="ft-check" value="FT2">
-<label for="ft2">FT2</label>
+<div class="card" id="mainApp">
+    <div class="header">
+        <h1>Adler Pelzer Group</h1>
+        <p id="currentUserDisplay" style="color:var(--success); font-size:12px; font-weight:bold;"></p>
+    </div>
+    <label>Schicht</label>
+    <div class="schicht-group">
+        <button class="schicht-btn" id="btnA" onclick="setSchicht('A')">A</button>
+        <button class="schicht-btn active" id="btnB" onclick="setSchicht('B')">B</button>
+        <button class="schicht-btn" id="btnC" onclick="setSchicht('C')">C</button>
+    </div>
+    <div id="workerDisplayContainer"></div>
+    <button class="add-btn" onclick="openWorkerOverlay()">+ Mitarbeiter hinzufügen</button>
+    <div class="grid" style="margin-top:20px;">
+        <div><label>Datum</label><input type="date" id="datum"></div>
+        <div><label>Anlage</label>
+            <select id="anlage" onchange="onAnlageChange(this.value)">
+                <option value="">Wählen...</option>
+                <optgroup label="PUR"><option value="PUR1">PUR 1</option><option value="PUR2">PUR 2</option><option value="PUR3">PUR 3</option><option value="PUR4">PUR 4</option><option value="PUR5">PUR 5</option><option value="PUR6">PUR 6</option><option value="PUR7">PUR 7</option><option value="PUR8">PUR 8</option><option value="PUR9">PUR 9</option></optgroup>
+                <optgroup label="Spritzguss"><option value="IM1">IM 1</option><option value="IM2">IM 2</option><option value="IM3">IM 3</option><option value="IM4">IM 4</option><option value="IM5">IM 5</option><option value="CIM1">CIM 1</option></optgroup>
+                <option value="COM">Compound</option>
+            </select>
+        </div>
+    </div>
+    <div id="ftBox" style="display:none;"><label>Formträger (FT)</label><div class="ft-grid"><button class="ft-btn" onclick="this.classList.toggle('active')">FT1</button><button class="ft-btn" onclick="this.classList.toggle('active')">FT2</button><button class="ft-btn" onclick="this.classList.toggle('active')">FT3</button><button class="ft-btn" onclick="this.classList.toggle('active')">FT4</button><button class="ft-btn" onclick="this.classList.toggle('active')">FT5</button><button class="ft-btn" onclick="this.classList.toggle('active')">FT6</button></div></div>
+    <div id="comTimeBox" style="display:none; margin-top:15px; text-align:center; background:rgba(56,189,248,0.1); padding:10px; border-radius:10px;"><span style="font-weight:bold; color:var(--primary);">Compound: <span id="comTotal">0</span> / 480 Min</span></div>
+    <div id="artikelContainer"></div>
+    <button class="add-btn" onclick="addArtikel()">+ Artikel hinzufügen</button>
+    <button id="mainSendBtn" class="main-btn" onclick="processReport()">🚀 SPEICHERN & SENDEN</button>
 </div>
 
-<div class="ft-item">
-<input type="checkbox" id="ft3" class="ft-check" value="FT3">
-<label for="ft3">FT3</label>
+<div id="workerOverlay">
+    <div class="overlay-content">
+        <h3 style="color:var(--primary);">Mitarbeiter wählen</h3>
+        <div id="workerList"></div>
+        <div style="margin-top:15px; border-top:1px solid #444; padding-top:10px;">
+            <input type="text" id="manualWorker" placeholder="Name manuell...">
+            <button class="add-btn" onclick="addManualWorker()">Hinzufügen</button>
+        </div>
+        <button class="main-btn" onclick="document.getElementById('workerOverlay').style.display='none'">Schließen</button>
+    </div>
 </div>
 
-<div class="ft-item">
-<input type="checkbox" id="ft4" class="ft-check" value="FT4">
-<label for="ft4">FT4</label>
-</div>
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbx55ShhJiujy6xj8lJZoDOoRh5wSpYpbPCbCNVoKnqR53gSUwsmKzSVv4ZXaihBQwwzVg/exec";
+const WHATSAPP_NR = "+4917623638794";
+const authDB = {"Keskin":"517","Aldirmaz":"577","Anderwald":"509","Bayrakli":"1377","Kilic":"1384","Maafi":"1273","Besche":"1472","Eickhoff":"1406","Toth":"1699","Gibba":"1367","Helf":"1483","Isbir":"1715","Jeyakumar":"1698","Kalisch":"1451","Kowarsch":"484","Nowak":"1390","Pähler":"1332","Patarcsity":"1700","Pulendran":"1498","Sahin":"1721","Savas":"1360","Schiavitelli":"1669","Uluyüz":"1450","Uzun":"1433","Kunert":"502","Karali":"533","Mikuczynski":"1212","Türkmen":"1213","Amrouch":"1268","Stania":"1368","Kantaroglu":"1382","Krancioch":"1405","Held":"1421","Berisha":"1534","Neji":"1536","Mulugeta":"1633","Udezue":"1686","Jansen":"1692","Aksoy":"1704","Yildirim":"1710","Brand":"1722","Louze":"1724","Blanquez":"1725","Diallo":"1726","Sener":"1731","Beher":"510","Rafo":"1277","Gertz":"1357","Schönborn":"1361","Fortes":"1381","Sakaguchi":"1391","Mercan":"1437","Krämer":"1449","Juretzka":"1473","Kumbara":"1474","Skupio":"1475","Skrago":"1484","Bah":"1684","Kaya":"1712","Jdea":"1701","Toure":"1713","Schneider":"1714","Tchaleu":"1723","Klomrit":"1070","Garcia":"339"};
+const workerData = {
+    "A": ["Kunert M.", "Karali O.", "Mikuczynski K.", "Türkmen E.", "Amrouch M.", "Stania D.", "Kantaroglu A.", "Krancioch A.", "Held D.", "Berisha I.", "Neji M.", "Mulugeta G.", "Udezue P.", "Jansen M.", "Aksoy O.", "Yildirim S.", "Brand N.", "Louze A.", "Blanquez Romero V.", "Diallo M.D.", "Sener E.", "Sonstige"],
+    "B": ["Keskin Mur.", "Aldirmaz P.", "Anderwald R.", "Bayrakli F.", "Kilic D.", "Maafi T.", "Besche T.", "Eickhoff P.", "Toth Renata", "Gibba n.", "Helf A.", "Isbir J.", "Jeyakumar S.", "Kalisch T.", "Kowarsch R.", "Nowak M.", "Pähler D.", "Patarcsity V.", "Pulendran K.", "Sahin E.", "Savas S.", "Schiavitelli C.", "Uluyüz B.", "Uzun S.", "Sonstige"],
+    "C": ["Beher T.", "Keskin Mustafa", "Kantaroglu Ö.", "Savas R.", "Rafo S.", "Gertz Kevin", "Gertz S.", "Schönborn Ch.", "Fortes Ch.", "Sakaguchi M.", "Mercan M.", "Krämer Ch.", "Juretzka T.", "Kumbara E.", "Skupio D.", "Skrago T.", "Bah A.", "Kaya A.", "Jdea A.", "Toure A.", "Schneider D.", "Tchaleu Bertrand", "Sonstige"]
+};
+const codeData = {
+    PUR: { 
+        aus: ["6-2-01 Temp niedrig", "6-2-02 Schaum haftet nicht", "6-2-03 Einlegef. Bauteil", "6-2-04 Einlegef. CIM", "6-2-05 Schussabbruch", "6-2-06 CIM n.voll", "6-2-07 Lippe gerissen", "6-2-08 CIM gerissen", "7-2-01 Nacharbeit Bauteil", "Sonstige"],
+        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umst.", "4-2-01 Ungepl. Inst. WZ", "4-2-02 Ungepl. Inst. Masch", "4-2-03 Poly/Iso Überdruck", "4-2-04 Mischkopf nio", "4-2-05 Fehler Lichtschr.", "4-2-06 Trennmittelpist.", "4-2-07 Formträger Prob.", "4-2-08 Reinigung WZ", "4-2-09 Not Aus", "5-2-01 Logistik Mangel", "5-2-02 Keine Teile IM/CIM", "5-2-04 Wartezeit Einrichter", "5-2-10 Poly/Iso leer", "Sonstige"]
+    },
+    Spritz: { 
+        aus: ["6-1-01 Anfahrschrott", "6-1-02 Mat-Umst.", "6-1-03 CIM n.voll", "6-1-04 CIM gerissen", "6-1-05 Überspritzung", "6-1-06 Einfallstellen", "6-1-07 Brandstellen", "6-1-08 Silberstreifen", "Sonstige"],
+        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umst.", "4-1-01 Ungepl. Inst. WZ", "4-1-02 Ungepl. Inst. Masch", "4-1-03 Mat-Förderung Prob.", "4-1-04 Probleme Dosier.", "4-1-05 Probleme Schließeinh.", "4-1-06 Teileentnahme Prob.", "4-1-07 Probleme WZ-Heizung", "4-1-08 Probleme Beflamm.", "5-1-01 Mat-Mangel", "5-1-03 Wartezeit Einrichter", "Sonstige"]
+    },
+    COM: { 
+        aus: ["6-3-01 Anfahrschrott", "6-3-02 Mat-Fehler", "Sonstige"],
+        stoer: ["3-01 WZ-Wechsel", "3-02 Mat-Umst.", "4-3-01 Messer schleifen", "4-3-02 Ungepl. Inst. Masch", "4-3-04 Silowechsel", "5-3-01 Mat-Mangel", "5-3-05 Feueralarm", "Sonstige"]
+    }
+};
 
-<div class="ft-item">
-<input type="checkbox" id="ft5" class="ft-check" value="FT5">
-<label for="ft5">FT5</label>
-</div>
-
-<div class="ft-item">
-<input type="checkbox" id="ft6" class="ft-check" value="FT6">
-<label for="ft6">FT6</label>
-</div>
-
-</div>
-
-</div>
+window.onload = () => { document.getElementById('datum').value = new Date().toISOString().split('T')[0]; };
+function checkLogin() {
+    const u = document.getElementById('userInp').value.trim(); const p = document.getElementById('passInp').value.trim();
+    if(authDB[u] === p) { loggedInUser = u + " (" + p + ")"; document.getElementById('loginScreen').style.display='none'; document.getElementById('mainApp').style.display='block'; document.getElementById('currentUserDisplay').innerText = "Angemeldet: " + loggedInUser; } 
+    else { document.getElementById('loginError').style.display='block'; }
+}
+function setSchicht(s) { currentSchicht = s; document.querySelectorAll('.schicht-btn').forEach(b => b.classList.remove('active')); document.getElementById('btn'+s).classList.add('active'); selectedStaff=[]; renderStaff(); }
+function openWorkerOverlay() { document.getElementById('workerList').innerHTML = workerData[currentSchicht].map(w => `<div class="worker-opt" onclick="addStaff('${w}')">${w}</div>`).join(""); document.getElementById('workerOverlay').style.display='flex'; }
+function addStaff(n) { if(n === "Sonstige") { /* Do nothing, use manual input */ } else { if(!selectedStaff.includes(n)) selectedStaff.push(n); document.getElementById('workerOverlay').style.display='none'; renderStaff(); } }
+function addManualWorker() { const v = document.getElementById('manualWorker').value; if(v) { selectedStaff.push("✍️ " + v); document.getElementById('manualWorker').value=""; document.getElementById('workerOverlay').style.display='none'; renderStaff(); } }
+function renderStaff() { document.getElementById('workerDisplayContainer').innerHTML = selectedStaff.map(s => `<div class="selected-worker"><span>${s}</span><span onclick="removeStaff('${s}')" style="color:red; cursor:pointer;">✕</span></div>`).join(""); liveCheck(); }
+function removeStaff(n) { selectedStaff = selectedStaff.filter(x => x !== n); renderStaff(); }
+function onAnlageChange(v) { document.getElementById('ftBox').style.display = v.startsWith("PUR") ? "block" : "none"; document.getElementById('comTimeBox').style.display = v === "COM" ? "block" : "none"; document.getElementById('artikelContainer').innerHTML = ""; liveCheck(); }
+function addArtikel() {
+    const id = Date.now(); const div = document.createElement('div'); div.className = "section-card artikel-row"; div.id = `art_${id}`;
+    div.innerHTML = `<button onclick="this.parentElement.remove(); liveCheck();" style="position:absolute; right:10px; top:10px; background:red; color:white; border:none; border-radius:5px;">✕</button>
+        <label>Artikel</label><input type="text" class="art-name">
+        ${document.getElementById('anlage').value==='COM' ? '<label>Dauer (Min)</label><input type="number" class="art-dauer" oninput="liveCheck()">' : ''}
+        <div class="grid" style="margin-top:10px;"><div><label>Gut</label><input type="number" class="art-gut"></div><div><label>Aus Gesamt</label><input type="number" class="art-aus-total" oninput="liveCheck()"></div></div>
+        <div class="status-badge" id="badge_${id}"></div><div id="rows_${id}"></div>
+        <div style="display:flex; gap:10px; margin-top:10px;"><button class="sub-btn" onclick="addRow('${id}','aus')">+ Aus-Grund</button><button class="sub-btn" onclick="addRow('${id}','stoer')">+ Störung</button></div>`;
+    document.getElementById('artikelContainer').appendChild(div);
+}
+function addRow(artId, type) {
+    const anl = document.getElementById('anlage').value; const cat = anl==='COM'?'COM':(anl.startsWith("PUR")?'PUR':'Spritz');
+    const div = document.createElement('div'); div.className="code-row";
+    div.innerHTML = `<div style="display:flex; gap:5px;"><select class="${type}-c" style="flex:3;" onchange="this.nextElementSibling.nextElementSibling.style.display=(this.value==='Sonstige'?'block':'none')">
+        ${codeData[cat][type].map(c => `<option value="${c}">${c}</option>`).join("")}</select><input type="number" class="${type}-v" style="flex:1;" oninput="liveCheck()">
+        <input type="text" class="sonstige-input" placeholder="Grund manuell..."><button onclick="this.parentElement.parentElement.remove(); liveCheck();" style="color:red; background:none; border:none;">✕</button></div>`;
+    document.getElementById(`rows_${artId}`).appendChild(div);
+}
+function liveCheck() {
+    let v = true; let cT = 0;
+    document.querySelectorAll('.artikel-row').forEach(row => {
+        const id = row.id.split('_')[1]; const t = parseInt(row.querySelector('.art-aus-total').value) || 0;
+        let s = 0; row.querySelectorAll('.aus-v').forEach(i => s += parseInt(i.value) || 0);
+        const b = document.getElementById(`badge_${id}`);
+        if(t > 0 && t !== s) { b.className="status-badge status-error"; b.innerText=`⚠️ Diff: ${s}/${t}`; v=false; }
+        else if(t > 0) { b.className="status-badge status-ok"; b.innerText=`✅ OK: ${s}/${t}`; } else { b.innerText=""; }
+        if(document.getElementById('anlage').value==='COM') cT += parseInt(row.querySelector('.art-dauer').value) || 0;
+    });
+    if(document.getElementById('anlage').value==='COM') { document.getElementById('comTotal').innerText = cT; if(cT !== 480) v = false; }
+    if(selectedStaff.length === 0 || !document.getElementById('anlage').value) v = false;
+    document.getElementById('mainSendBtn').disabled = !v;
+}
+async function processReport() {
+    const btn = document.getElementById('mainSendBtn'); btn.innerText = "Sende..."; btn.disabled = true;
+    const fts = Array.from(document.querySelectorAll('.ft-btn.active')).map(x => x.innerText);
+    let d = ""; document.querySelectorAll('.artikel-row').forEach(row => {
+        d += `━━━━━━━━━━\n📦 *Artikel:* ${row.querySelector('.art-name').value || "NA"}\n✅ Gut: ${row.querySelector('.art-gut').value || 0}\n⚠️ Aus: ${row.querySelector('.art-aus-total').value || 0}\n`;
+        row.querySelectorAll('.code-row').forEach(cr => {
+            const val = cr.querySelector('input[type="number"]').value; if(val > 0) {
+                let n = cr.querySelector('select').value; if(n === "Sonstige") n = "✍️ " + (cr.querySelector('.sonstige-input').value || "Sonstige");
+                d += `${cr.querySelector('select').classList.contains('aus-c') ? '⚠️' : '⚙️'} ${n}: ${val}\n`;
+            }
+        });
+    });
+    const rep = `📊 *APG REPORT*\n\n👷 *Personal:* ${selectedStaff.join(", ")}\n🏭 *Anlage:* ${document.getElementById('anlage').value}\n📅 *Datum:* ${document.getElementById('datum').value}\n⏱ *Schicht:* ${currentSchicht}\n${fts.length ? '🛠 *FT:* '+fts.join(", ") : ''}\n${d}\n👤 *Von:* ${loggedInUser}\n━━━━━━━━━━`;
+    try { await fetch(scriptURL, { method: "POST", mode: "no-cors", body: JSON.stringify({ report: rep }) });
+    window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(rep)}`;
+    } catch(e) { window.location.href = `whatsapp://send?phone=${WHATSAPP_NR}&text=${encodeURIComponent(rep)}`; }
+    setTimeout(() => { btn.innerText = "🚀 SPEICHERN & SENDEN"; btn.disabled = false; }, 2000);
+}
+</script>
+</body>
+</html>
